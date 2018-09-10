@@ -1,5 +1,6 @@
 package com.finalproject.FinalProject.controller;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 import org.springframework.http.HttpEntity;
@@ -30,11 +31,41 @@ public class CrimeController {
 		ResponseEntity<Crime[]> response = restTemplate.exchange(
 				"https://data.detroitmi.gov/resource/9i6z-cm98.json",
 				HttpMethod.GET, entity, Crime[].class);
-
+		for(int i = 0; i < listOfCrimes().size(); i++) {
+			System.out.println(listOfCrimes().get(i));
+		}
+		System.out.println(listOfCrimes());
+		
 		mv.addObject("test", response.getBody());
-		System.out.println(Arrays.toString(response.getBody()));
+		//System.out.println(Arrays.toString(response.getBody()));
 		
 		return mv;
 	}
+	
+	public ArrayList<Crime> listOfCrimes(){
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("Accept", MediaType.APPLICATION_JSON_VALUE); 
+		
+		HttpEntity<String> entity = new HttpEntity<String>("parameters", headers);
+
+		RestTemplate restTemplate = new RestTemplate();
+		ResponseEntity<Crime[]> response = restTemplate.exchange(
+				"https://data.detroitmi.gov/resource/9i6z-cm98.json",
+				HttpMethod.GET, entity, Crime[].class);
+		
+		
+		ArrayList<Crime> robberyList = new ArrayList<Crime>();
+		for(Crime c: response.getBody()) {
+			if(c.getOffenseCategory().equals("ROBBERY")) {
+				robberyList.add(c);
+			}
+		}
+		for(int i = 0; i < robberyList.size(); i++) {
+			System.out.println(robberyList.get(i));
+		}
+		return robberyList;
+		
+	}
+	
 
 }
