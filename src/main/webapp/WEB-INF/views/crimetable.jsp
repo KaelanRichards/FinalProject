@@ -17,8 +17,27 @@
  	
  	
  	<table border="1">
+ 	
+ 	<tr>
+	<th>Arrest Charge</th>
+	<th>Charge Description</th>
+	<th>Crime ID</th>
+	<th>Date</th>
+	<th>Neighborhood</th>
+	<th>Scout Car</th>
+	<th>Hour of Day</th>
+	<th>Offense Category</th>
+	<th>Precinct Number</th>
+	<th>Year</th>
+	<th>Longitude</th>
+	<th>Latitude</th>
+	</tr>
 <!-- this for each loop works just like an enhanced for loop in java -->
 <c:forEach var="print" items="${test}" >
+	
+	
+	
+	
 	<tr>
 	
 	<td>${print.arrestCharge}</td>
