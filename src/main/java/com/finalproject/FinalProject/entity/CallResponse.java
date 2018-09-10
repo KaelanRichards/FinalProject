@@ -1,7 +1,5 @@
 package com.finalproject.FinalProject.entity;
 
-import javax.persistence.Entity;
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 

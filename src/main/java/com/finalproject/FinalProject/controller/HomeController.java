@@ -55,23 +55,23 @@ public class HomeController {
 		System.out.println(Arrays.toString(response.getBody()));
 		return mv;
 	}
-	@RequestMapping("/response911")
-	public ModelAndView callResponse() {
-		ModelAndView mv = new ModelAndView("index");
-		
-		HttpHeaders headers = new HttpHeaders();
-		headers.add("Accept", MediaType.APPLICATION_JSON_VALUE); 
-		
-		HttpEntity<String> entity = new HttpEntity<String>("parameters", headers);
-
-		RestTemplate restTemplate = new RestTemplate();
-		ResponseEntity<CallResponse[]> response = restTemplate.exchange(
-				"https://data.detroitmi.gov/resource/Calls911.json",
-				HttpMethod.GET, entity, CallResponse[].class);
-
-		mv.addObject("test", response.getBody());
-		System.out.println(Arrays.toString(response.getBody()));
-		return mv;
-	}
+//	@RequestMapping("/response911")
+//	public ModelAndView callResponse() {
+//		ModelAndView mv = new ModelAndView("index");
+//		
+//		HttpHeaders headers = new HttpHeaders();
+//		headers.add("Accept", MediaType.APPLICATION_JSON_VALUE); 
+//		
+//		HttpEntity<String> entity = new HttpEntity<String>("parameters", headers);
+//
+//		RestTemplate restTemplate = new RestTemplate();
+//		ResponseEntity<CallResponse[]> response = restTemplate.exchange(
+//				"https://data.detroitmi.gov/resource/Calls911.json",
+//				HttpMethod.GET, entity, CallResponse[].class);
+//
+//		mv.addObject("test", response.getBody());
+//		System.out.println(Arrays.toString(response.getBody()));
+//		return mv;
+//	}
 
 }
