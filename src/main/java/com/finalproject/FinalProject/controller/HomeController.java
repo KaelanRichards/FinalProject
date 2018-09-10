@@ -1,7 +1,18 @@
 package com.finalproject.FinalProject.controller;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
+import org.apache.http.conn.ssl.NoopHostnameVerifier;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
+import org.aspectj.weaver.loadtime.definition.Definition;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.client.RestTemplate;
@@ -29,6 +40,24 @@ public class HomeController {
 		System.out.println(crime);
 		return new ModelAndView("results","mtest", crime);
 		
+	}
+	@RequestMapping("/def")
+	public ModelAndView definition() {
+		ModelAndView mv = new ModelAndView("index");
+		
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("Accept", MediaType.APPLICATION_JSON_VALUE); 
+		
+		HttpEntity<String> entity = new HttpEntity<String>("parameters", headers);
+
+		RestTemplate restTemplate = new RestTemplate();
+		ResponseEntity<Crime[]> response = restTemplate.exchange(
+				"https://data.detroitmi.gov/resource/9i6z-cm98.json",
+				HttpMethod.GET, entity, Crime[].class);
+
+		mv.addObject("test", response.getBody());
+		System.out.println(Arrays.toString(response.getBody()));
+		return mv;
 	}
 
 }

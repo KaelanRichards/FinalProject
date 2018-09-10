@@ -14,124 +14,85 @@ public class Crime {
 	@JsonProperty("arrest_charge")
 	private String arrestCharge;
 	@JsonProperty("block_id")
-	private Integer blockId;
+	private String blockId;
 	@JsonProperty("charge_description")
 	private String chargeDesc;
 	@JsonProperty("council_district")
-	private Integer councilDis;
+	private String councilDis;
 	@JsonProperty("crime_id")
-	private Integer crimeId;
+	private String crimeId;
 	@JsonProperty("incident_timestamp")
 	private String date;
 	@JsonProperty("neighborhood")
 	private String neighborhood;
 	@JsonProperty("scout_car_area")
-	private Integer scoutCar;
+	private String scoutCar;
 	
-	
-	//constructor
 	public Crime() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-
-
 	public String getAddress() {
 		return address;
 	}
-
-
 	public void setAddress(String address) {
 		this.address = address;
 	}
-
-
 	public String getArrestCharge() {
 		return arrestCharge;
 	}
-
-
 	public void setArrestCharge(String arrestCharge) {
 		this.arrestCharge = arrestCharge;
 	}
-
-
-	public Integer getBlockId() {
+	public String getBlockId() {
 		return blockId;
 	}
-
-
-	public void setBlockId(Integer blockId) {
+	public void setBlockId(String blockId) {
 		this.blockId = blockId;
 	}
-
-
 	public String getChargeDesc() {
 		return chargeDesc;
 	}
-
-
 	public void setChargeDesc(String chargeDesc) {
 		this.chargeDesc = chargeDesc;
 	}
-
-
-	public Integer getCouncilDis() {
+	public String getCouncilDis() {
 		return councilDis;
 	}
-
-
-	public void setCouncilDis(Integer councilDis) {
+	public void setCouncilDis(String councilDis) {
 		this.councilDis = councilDis;
 	}
-
-
-	public Integer getCrimeId() {
+	public String getCrimeId() {
 		return crimeId;
 	}
-
-
-	public void setCrimeId(Integer crimeId) {
+	public void setCrimeId(String crimeId) {
 		this.crimeId = crimeId;
 	}
-
-
 	public String getDate() {
 		return date;
 	}
-
-
 	public void setDate(String date) {
 		this.date = date;
 	}
-
-
 	public String getNeighborhood() {
 		return neighborhood;
 	}
-
-
 	public void setNeighborhood(String neighborhood) {
 		this.neighborhood = neighborhood;
 	}
-
-
-	public Integer getScoutCar() {
+	public String getScoutCar() {
 		return scoutCar;
 	}
-
-
-	public void setScoutCar(Integer scoutCar) {
+	public void setScoutCar(String scoutCar) {
 		this.scoutCar = scoutCar;
 	}
-
-
 	@Override
 	public String toString() {
-		return "address=" + address + ", arrestCharge=" + arrestCharge + ", blockId=" + blockId + ", chargeDesc="
+		return "Crime [address=" + address + ", arrestCharge=" + arrestCharge + ", blockId=" + blockId + ", chargeDesc="
 				+ chargeDesc + ", councilDis=" + councilDis + ", crimeId=" + crimeId + ", date=" + date
-				+ ", neighborhood=" + neighborhood + ", scoutCar=" + scoutCar ;
+				+ ", neighborhood=" + neighborhood + ", scoutCar=" + scoutCar + "]";
 	}
+	
 	
 	
 	
