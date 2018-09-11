@@ -18,7 +18,7 @@ import com.finalproject.FinalProject.entity.Crime;
 @Controller
 public class CrimeController {
 	
-	
+	// The mapping to our crimetable JSP
 	@RequestMapping("/crimetable")
 	public ModelAndView crimeTable() {
 		ModelAndView mv = new ModelAndView("crimetable");
@@ -31,10 +31,11 @@ public class CrimeController {
 		ResponseEntity<Crime[]> response = restTemplate.exchange(
 				"https://data.detroitmi.gov/resource/9i6z-cm98.json",
 				HttpMethod.GET, entity, Crime[].class);
-		for(int i = 0; i < listOfCrimes().size(); i++) {
-			System.out.println(listOfCrimes().get(i));
-		}
-		System.out.println(listOfSexualOffenses());
+		// Test to see if Crime list work
+//		for(int i = 0; i < listOfViolentCrimes().size(); i++) {
+//			System.out.println(listOfViolentCrimes().get(i));
+//		}
+		System.out.println(listOfTheftOffenses());
 		
 		mv.addObject("test", response.getBody());
 		//System.out.println(Arrays.toString(response.getBody()));
@@ -42,7 +43,8 @@ public class CrimeController {
 		return mv;
 	}
 	
-	public ArrayList<Crime> listOfCrimes(){
+	// Pulls Robbery, Assault, Homicide from dataset and insert into list
+	public ArrayList<Crime> listOfViolentCrimes(){
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("Accept", MediaType.APPLICATION_JSON_VALUE); 
 		
@@ -66,6 +68,8 @@ public class CrimeController {
 		return robberyList;
 		
 	}
+	
+	// pull Sex offenses and sexual assualt from api and add to list
 	public ArrayList<Crime> listOfSexualOffenses(){
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("Accept", MediaType.APPLICATION_JSON_VALUE); 
@@ -90,4 +94,29 @@ public class CrimeController {
 		return sOffenseList;
 	}
 
+	// Burglary, Larceny, Stolen Vehicles List
+	public ArrayList<Crime> listOfTheftOffenses(){
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("Accept", MediaType.APPLICATION_JSON_VALUE); 
+		
+		HttpEntity<String> entity = new HttpEntity<String>("parameters", headers);
+
+		RestTemplate restTemplate = new RestTemplate();
+		ResponseEntity<Crime[]> response = restTemplate.exchange(
+				"https://data.detroitmi.gov/resource/9i6z-cm98.json",
+				HttpMethod.GET, entity, Crime[].class);
+		
+		
+		ArrayList<Crime> theftList = new ArrayList<Crime>();
+		for(Crime c: response.getBody()) {
+			if(c.getOffenseCategory().contains("LARCENY") || c.getOffenseCategory().contains("BURGLARY")
+					|| c.getOffenseCategory().equalsIgnoreCase("STOLEN VEHICLE")){
+				theftList.add(c);
+			} 
+//			for(int i = 0; i < sOffenseList.size(); i++) {
+//			System.out.println(sOffenseList.get(i));
+//		}
+		}
+		return theftList;
+	}
 }
