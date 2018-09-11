@@ -9,12 +9,14 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.finalproject.FinalProject.entity.CallResponse;
 import com.finalproject.FinalProject.entity.Crime;
+import com.finalproject.FinalProject.entity.LoginUser;
 import com.finalproject.FinalProject.entity.Results;
 
 
@@ -22,10 +24,30 @@ import com.finalproject.FinalProject.entity.Results;
 @Controller
 public class HomeController {
 	
+	
+	
 	@RequestMapping("/")
 	public ModelAndView index() {
-		return new ModelAndView("index");
+		
+	
+return new ModelAndView("index");
 	}
+	
+	@PostMapping("/display")
+	public ModelAndView display(@RequestParam ("password") String password, @RequestParam ("username") String username) {
+		
+//		LoginUser user = new LoginUser ();
+		if(username.equals("java123") && password == "123456") {
+			return new ModelAndView("display", "login", "Welcome back User!");
+		
+			}
+return new ModelAndView("index", "login", "Wrong Username or Password!");
+	}
+	
+	
+	
+	
+	
 	
 	
 	@RequestMapping("/search")
