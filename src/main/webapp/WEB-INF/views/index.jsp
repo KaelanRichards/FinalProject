@@ -28,11 +28,11 @@
 </div>
 
 <label>Password:
-  <p><input name="password" id="password" type="password" onclick ='check();' /><span id='message'></span></p>
+  <p><input name="password" id="password" type="password" oninput ='check();' /><span id='message'></span></p>
 </label>
 <br>
 <label>Confirm password:
-  <p><input type="password" name="confirmPassword" id="confirmPassword"  onclick='check();'/>   </p>
+  <p><input type="password" name="confirmPassword" id="confirmPassword"  oninput='check();'/>   </p>
 
   </label> <br>
 
