@@ -210,5 +210,6 @@ public class CrimeController {
 				"https://data.detroitmi.gov/resource/9i6z-cm98.json?arrest_charge=22001", HttpMethod.GET, entity,
 				Crime[].class);
 		
+		
 	}
 }

@@ -28,7 +28,7 @@ public class ResponseController {
 
 		RestTemplate restTemplate = new RestTemplate();
 		ResponseEntity<CallResponse[]> response = restTemplate.exchange(
-				"https://data.detroitmi.gov/resource/Calls911.json",
+				"https://data.detroitmi.gov/resource/dvu3-6qvr.json?$where=totalresponsetime!=0",
 				HttpMethod.GET, entity, CallResponse[].class);
 
 		mv.addObject("response", response.getBody());
