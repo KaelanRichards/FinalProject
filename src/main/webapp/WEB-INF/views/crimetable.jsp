@@ -13,7 +13,10 @@
 <body>
 	<div class="container">
 		<h1>Hello Whirled...</h1>
-
+		
+		<c:forEach var="q" items="${crimeCounts}">
+			${q}<br>
+		</c:forEach>
 
 
 		<table border="1">
@@ -56,6 +59,8 @@
 				
 			</c:forEach>
 		</table>
+		
+		
 	
 	</div>
 </body>

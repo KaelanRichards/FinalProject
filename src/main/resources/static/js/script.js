@@ -14,10 +14,10 @@ var check = function() {
 
 function showPassword() {
 	var x = document.getElementById("confirmPassword");
-	if (x.type === "confirmPassword") {
+	if (x.type === "password") {
 		return x.type = "text";
 	} else {
-		return x.type = "confirmPassword";
+		return x.type = "password";
 	}
 	
 

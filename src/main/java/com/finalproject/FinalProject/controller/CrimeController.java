@@ -40,28 +40,28 @@ public class CrimeController {
 //	}
 
 
-	@RequestMapping("/crimetable")
-	public ModelAndView crimeTable() {
-		ModelAndView mv = new ModelAndView("crimetable");
-		HttpHeaders headers = new HttpHeaders();
-		headers.add("Accept", MediaType.APPLICATION_JSON_VALUE);
-
-		HttpEntity<String> entity = new HttpEntity<String>("parameters", headers);
-
-		RestTemplate restTemplate = new RestTemplate();
-		ResponseEntity<Crime[]> response = restTemplate.exchange("https://data.detroitmi.gov/resource/9i6z-cm98.json",
-				HttpMethod.GET, entity, Crime[].class);
-		// Test to see if Crime list work
-//		for(int i = 0; i < listOfViolentCrimes().size(); i++) {
-//			System.out.println(listOfViolentCrimes().get(i));
-//		}
-		System.out.println(listOfTheftOffenses());
-
-		mv.addObject("test", response.getBody());
-		// System.out.println(Arrays.toString(response.getBody()));
-
-		return mv;
-	}
+//	@RequestMapping("/crimetable")
+//	public ModelAndView crimeTable() {
+//		ModelAndView mv = new ModelAndView("crimetable");
+//		HttpHeaders headers = new HttpHeaders();
+//		headers.add("Accept", MediaType.APPLICATION_JSON_VALUE);
+//
+//		HttpEntity<String> entity = new HttpEntity<String>("parameters", headers);
+//
+//		RestTemplate restTemplate = new RestTemplate();
+//		ResponseEntity<Crime[]> response = restTemplate.exchange("https://data.detroitmi.gov/resource/9i6z-cm98.json",
+//				HttpMethod.GET, entity, Crime[].class);
+//		// Test to see if Crime list work
+////		for(int i = 0; i < listOfViolentCrimes().size(); i++) {
+////			System.out.println(listOfViolentCrimes().get(i));
+////		}
+//		System.out.println(listOfTheftOffenses());
+//
+//		mv.addObject("test", response.getBody());
+//		// System.out.println(Arrays.toString(response.getBody()));
+//
+//		return mv;
+//	}
 
 
 	// Pulls Robbery, Assault, Homicide from dataset and insert into list
@@ -145,31 +145,31 @@ public class CrimeController {
 		return theftList;
 	}
 
-	// @RequestMapping("/crimetable")
-	public void violentCrime() {
-		HttpHeaders headers = new HttpHeaders();
-		headers.add("Accept", MediaType.APPLICATION_JSON_VALUE);
+	 @RequestMapping("/crimetable")
+	public ModelAndView violentCrime() {
+//		HttpHeaders headers = new HttpHeaders();
+//		headers.add("Accept", MediaType.APPLICATION_JSON_VALUE);
+//
+//		HttpEntity<String> entity = new HttpEntity<String>("parameters", headers);
+//
+//		RestTemplate restTemplate = new RestTemplate();
+//
+//		ResponseEntity<Crime[]> aggraAssault = restTemplate.exchange(
+//				"https://data.detroitmi.gov/resource/9i6z-cm98.json?arrest_charge=13002", HttpMethod.GET, entity,
+//				Crime[].class);
+//
+//		ResponseEntity<Crime[]> assault = restTemplate.exchange(
+//				"https://data.detroitmi.gov/resource/9i6z-cm98.json?arrest_charge=13001", HttpMethod.GET, entity,
+//				Crime[].class);
+//
+//		ResponseEntity<Crime[]> robbery = restTemplate.exchange(
+//				"https://data.detroitmi.gov/resource/9i6z-cm98.json?arrest_charge=12000", HttpMethod.GET, entity,
+//				Crime[].class);
 
-		HttpEntity<String> entity = new HttpEntity<String>("parameters", headers);
-
-		RestTemplate restTemplate = new RestTemplate();
-
-		ResponseEntity<Crime[]> aggraAssault = restTemplate.exchange(
-				"https://data.detroitmi.gov/resource/9i6z-cm98.json?arrest_charge=13002", HttpMethod.GET, entity,
-				Crime[].class);
-
-		ResponseEntity<Crime[]> assault = restTemplate.exchange(
-				"https://data.detroitmi.gov/resource/9i6z-cm98.json?arrest_charge=13001", HttpMethod.GET, entity,
-				Crime[].class);
-
-		ResponseEntity<Crime[]> robbery = restTemplate.exchange(
-				"https://data.detroitmi.gov/resource/9i6z-cm98.json?arrest_charge=12000", HttpMethod.GET, entity,
-				Crime[].class);
-
-//		ModelAndView mv = new ModelAndView("crimetable");
-//		mv.addObject("aggravatedAssault", aggraAssault.getBody());
-
-		// return mv;
+		ModelAndView mv = new ModelAndView("crimetable");
+		mv.addObject("aggravatedAssault", crime2016());
+		mv.addObject("crimeCounts", countCrimesByCategory2016());
+		 return mv;
 	}
 
 	public void SexualOffenses() {
@@ -210,6 +210,134 @@ public class CrimeController {
 				"https://data.detroitmi.gov/resource/9i6z-cm98.json?arrest_charge=22001", HttpMethod.GET, entity,
 				Crime[].class);
 		
+		// initializing a list for theft crimes
+		ArrayList<Crime> theftList = new ArrayList<Crime>();
+		// adding stolen vehicles to our theft category list
+		for (Crime c : stolenVehicle.getBody()) {
+				theftList.add(c);
+		}
+		// adding larceny to our theft category list
+		for (Crime c : larceny.getBody()) {
+			theftList.add(c);
+		}
+		// adding burglary to our theft category list
+		for (Crime c : burglary.getBody()) {
+			theftList.add(c);
+		}
+		// test to see if we have the right data
+		for(int i = 0; i < theftList.size(); i++) {
+			System.out.println(theftList.get(i));
+		}
+		
+	}
+	
+
+	public static ArrayList<Crime> crime2016() {
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("Accept", MediaType.APPLICATION_JSON_VALUE);
+
+		HttpEntity<String> entity = new HttpEntity<String>("parameters", headers);
+
+		RestTemplate restTemplate = new RestTemplate();
+
+		ResponseEntity<Crime[]> twentySixteen = restTemplate.exchange(
+				"https://data.detroitmi.gov/resource/9i6z-cm98.json?year=2016", HttpMethod.GET, entity,
+				Crime[].class);
+		ArrayList<Crime> list2016 = new ArrayList<Crime>();
+		for (Crime c : twentySixteen.getBody()) {
+			if (c.getOffenseCategory().equals("LARCENY") 
+					|| c.getOffenseCategory().equals("BURGLARY")
+					|| c.getOffenseCategory().equals("STOLEN VEHICLE") 
+					|| c.getOffenseCategory().equals("SEXUAL ASSAULT") 
+					|| c.getOffenseCategory().equals("ROBBERY") 
+					|| c.getOffenseCategory().equals("ASSAULT")
+					|| c.getOffenseCategory().equals("AGGRAVATED ASSAULT")) {
+				list2016.add(c);
+			}
+		}
+		System.out.println(list2016.size());
+		
+		return list2016;
+	}
+	
+	
+	public static ArrayList<Crime> crime2018() {
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("Accept", MediaType.APPLICATION_JSON_VALUE);
+
+		HttpEntity<String> entity = new HttpEntity<String>("parameters", headers);
+
+		RestTemplate restTemplate = new RestTemplate();
+
+		ResponseEntity<Crime[]> twentyEighteen = restTemplate.exchange(
+				"https://data.detroitmi.gov/resource/9i6z-cm98.json?year=2018", HttpMethod.GET, entity,
+				Crime[].class);
+		ArrayList<Crime> list2018 = new ArrayList<Crime>();
+		
+		for (Crime c : twentyEighteen.getBody()) {
+			if (c.getOffenseCategory().equals("LARCENY") 
+					|| c.getOffenseCategory().equals("BURGLARY")
+					|| c.getOffenseCategory().equals("STOLEN VEHICLE") 
+					|| c.getOffenseCategory().equals("SEXUAL ASSAULT") 
+					|| c.getOffenseCategory().equals("ROBBERY") 
+					|| c.getOffenseCategory().equals("ASSAULT")
+					|| c.getOffenseCategory().equals("AGGRAVATED ASSAULT")) {
+				list2018.add(c);
+			}
+			
+		}
+		System.out.println(list2018.size());
+		
+		return list2018;
+	}
+	
+	public static int[] countCrimesByCategory2016() {
+		int vCount = 0;
+		int tCount = 0;
+		int sCount = 0;
+		
+		for (Crime c : crime2016()) {
+			if (c.getOffenseCategory().equals("LARCENY") 
+					|| c.getOffenseCategory().equals("BURGLARY")
+					|| c.getOffenseCategory().equals("STOLEN VEHICLE")) {
+				tCount++;
+			}else if (c.getOffenseCategory().equals("SEXUAL ASSAULT")) {
+				sCount++;
+			}else  {
+				vCount++;
+			}
+			
+		}
+		int[] counts2016 = {vCount, sCount, tCount, crime2016().size()};
+		System.out.println(vCount);
+		System.out.println(sCount);
+		System.out.println(tCount);
+		System.out.println(crime2016().size());
+		return counts2016;
+	}
+	public static int[] countCrimesByCategory2018() {
+		int vCount = 0;
+		int tCount = 0;
+		int sCount = 0;
+		
+		for (Crime c : crime2018()) {
+			if (c.getOffenseCategory().equals("LARCENY") 
+					|| c.getOffenseCategory().equals("BURGLARY")
+					|| c.getOffenseCategory().equals("STOLEN VEHICLE")) {
+				tCount++;
+			}else if (c.getOffenseCategory().equals("SEXUAL ASSAULT")) {
+				sCount++;
+			}else  {
+				vCount++;
+			}
+			
+		}
+		int[] counts2018 = {vCount, sCount, tCount, crime2016().size()};
+		System.out.println(vCount);
+		System.out.println(sCount);
+		System.out.println(tCount);
+		System.out.println(crime2018().size());
+		return counts2018;
 		
 	}
 }
