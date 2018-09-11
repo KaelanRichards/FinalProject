@@ -12,6 +12,15 @@ var check = function() {
 	  }
 	}
 
+function showPassword() {
+	var x = document.getElementById("password");
+	if (x.type === "password") {
+		return x.type = "text";
+	} else {
+		return x.type = "password";
+	}
+	
+
 function show() {
     var p = document.getElementById('pwd');
     p.setAttribute('type', 'text');

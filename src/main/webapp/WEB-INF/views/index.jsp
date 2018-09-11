@@ -1,8 +1,6 @@
  <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%> 
-    
-    <%-- <%@  page import="java.io.*,java.util.*" language="java" contentType="text/html;                      
-charset=ISO-8859-1" pageEncoding="ISO-8859-1"%> --%>
+   
 
 
 <!DOCTYPE html>
@@ -30,21 +28,23 @@ charset=ISO-8859-1" pageEncoding="ISO-8859-1"%> --%>
 </div>
 
 <label>Password:
-  <p><input name="password" id="password" type="PASSWORD" onclick ='check();' /></p>
+  <input name="password" id="password" type="password" onclick ='check();' />
 </label>
 <br>
 <label>Confirm password:
-  <p><input type="password" name="confirmPassword" id="confirmPassword"  onclick='check();'/>   <span id='message'></span></p>
+  <input type="password" name="confirmPassword" id="confirmPassword"  onclick='check();'/>   <span id='message'></span>
 
   </label>
 
 
-<input type="checkbox" onclick="myFunction()"  onchange = 'check_pass();'/>Show Password
+<input type="checkbox" onclick='showPassword()' onchange = 'check_pass();'/>Show Password
 
 <input type = "submit" value = "Login">
 </form>
 
 
 <script src = "js/script.js"></script>
+
+
 </body>
 </html>
