@@ -34,7 +34,7 @@ public class CrimeController {
 		for(int i = 0; i < listOfCrimes().size(); i++) {
 			System.out.println(listOfCrimes().get(i));
 		}
-		System.out.println(listOfCrimes());
+		System.out.println(listOfSexualOffenses());
 		
 		mv.addObject("test", response.getBody());
 		//System.out.println(Arrays.toString(response.getBody()));
@@ -60,12 +60,34 @@ public class CrimeController {
 				robberyList.add(c);
 			}
 		}
-		for(int i = 0; i < robberyList.size(); i++) {
+		/*for(int i = 0; i < robberyList.size(); i++) {
 			System.out.println(robberyList.get(i));
-		}
+		}*/
 		return robberyList;
 		
 	}
-	
+	public ArrayList<Crime> listOfSexualOffenses(){
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("Accept", MediaType.APPLICATION_JSON_VALUE); 
+		
+		HttpEntity<String> entity = new HttpEntity<String>("parameters", headers);
+
+		RestTemplate restTemplate = new RestTemplate();
+		ResponseEntity<Crime[]> response = restTemplate.exchange(
+				"https://data.detroitmi.gov/resource/9i6z-cm98.json",
+				HttpMethod.GET, entity, Crime[].class);
+		
+		
+		ArrayList<Crime> sOffenseList = new ArrayList<Crime>();
+		for(Crime c: response.getBody()) {
+			if(c.getOffenseCategory().contains("SEX")){
+				sOffenseList.add(c);
+			}
+			for(int i = 0; i < sOffenseList.size(); i++) {
+			System.out.println(sOffenseList.get(i));
+		}
+		}
+		return sOffenseList;
+	}
 
 }
