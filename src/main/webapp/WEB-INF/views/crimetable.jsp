@@ -34,7 +34,7 @@
 			</tr>
 		
 			<!-- this for each loop works just like an enhanced for loop in java -->
-			<c:forEach var="print" items="${test}">
+			<c:forEach var="print" items="${aggravatedAssault}">
 
 				
 					<tr>

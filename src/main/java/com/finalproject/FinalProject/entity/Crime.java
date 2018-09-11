@@ -27,7 +27,7 @@ public class Crime {
 	@JsonProperty("offense_category")
 	private String offenseCategory;
 	@JsonProperty("precinct")
-	private int precinct;
+	private String precinct;
 	@JsonProperty ("year")
 	private int year;
 	@JsonProperty ("longitude")
@@ -122,12 +122,12 @@ public class Crime {
 	}
 
 
-	public int getPrecinct() {
+	public String getPrecinct() {
 		return precinct;
 	}
 
 
-	public void setPrecinct(int precinct) {
+	public void setPrecinct(String precinct) {
 		this.precinct = precinct;
 	}
 
