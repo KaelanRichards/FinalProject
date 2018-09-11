@@ -16,6 +16,7 @@ import com.finalproject.FinalProject.entity.Crime;
 public class CrimeController {
 
 	// The mapping to our crimetable JSP
+<<<<<<< HEAD
 //	@RequestMapping("/crimetable")
 //	public ModelAndView crimeTable() {
 //		ModelAndView mv = new ModelAndView("crimetable");
@@ -36,6 +37,31 @@ public class CrimeController {
 //		return mv;
 //	}
 
+=======
+	@RequestMapping("/crimetable")
+	public ModelAndView crimeTable() {
+		ModelAndView mv = new ModelAndView("crimetable");
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("Accept", MediaType.APPLICATION_JSON_VALUE);
+
+		HttpEntity<String> entity = new HttpEntity<String>("parameters", headers);
+
+		RestTemplate restTemplate = new RestTemplate();
+		ResponseEntity<Crime[]> response = restTemplate.exchange("https://data.detroitmi.gov/resource/9i6z-cm98.json",
+				HttpMethod.GET, entity, Crime[].class);
+		// Test to see if Crime list work
+//		for(int i = 0; i < listOfViolentCrimes().size(); i++) {
+//			System.out.println(listOfViolentCrimes().get(i));
+//		}
+		System.out.println(listOfTheftOffenses());
+
+		mv.addObject("test", response.getBody());
+		// System.out.println(Arrays.toString(response.getBody()));
+
+		return mv;
+	}
+
+>>>>>>> 4c88e6e4d2b25bd520ce49382400dec86068942e
 	// Pulls Robbery, Assault, Homicide from dataset and insert into list
 	public ArrayList<Crime> listOfViolentCrimes() {
 		HttpHeaders headers = new HttpHeaders();
@@ -49,11 +75,23 @@ public class CrimeController {
 
 		ArrayList<Crime> robberyList = new ArrayList<Crime>();
 		for (Crime c : response.getBody()) {
+<<<<<<< HEAD
 			if (c.getOffenseCategory().equals("ROBBERY")) {
 				robberyList.add(c);
 			}
 		}
 
+=======
+			if (c.getOffenseCategory().equals("ROBBERY") || c.getOffenseCategory().equals("ASSAULT")
+					|| c.getOffenseCategory().equals("AGGRAVATED ASSAULT"))  {
+				robberyList.add(c);
+			}
+		}
+		/*
+		 * for(int i = 0; i < robberyList.size(); i++) {
+		 * System.out.println(robberyList.get(i)); }
+		 */
+>>>>>>> 4c88e6e4d2b25bd520ce49382400dec86068942e
 		return robberyList;
 
 	}

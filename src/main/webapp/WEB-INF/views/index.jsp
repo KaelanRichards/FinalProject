@@ -28,13 +28,13 @@
 </div>
 
 <label>Password:
-  <input name="password" id="password" type="password" onclick ='check();' />
+  <p><input name="password" id="password" type="password" onclick ='check();' /><span id='message'></span></p>
 </label>
 <br>
 <label>Confirm password:
-  <input type="password" name="confirmPassword" id="confirmPassword"  onclick='check();'/>   <span id='message'></span>
+  <p><input type="password" name="confirmPassword" id="confirmPassword"  onclick='check();'/>   </p>
 
-  </label>
+  </label> <br>
 
 
 <input type="checkbox" onclick='showPassword()' onchange = 'check_pass();'/>Show Password

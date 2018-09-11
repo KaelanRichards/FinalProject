@@ -37,7 +37,7 @@ return new ModelAndView("index");
 	public ModelAndView display(@RequestParam ("password") String password, @RequestParam ("username") String username) {
 		
 //		LoginUser user = new LoginUser ();
-		if(username.equals("java123") && password == "123456") {
+		if(username.equals("java123") && password.equals("123456")) {
 			return new ModelAndView("display", "login", "Welcome back User!");
 		
 			}

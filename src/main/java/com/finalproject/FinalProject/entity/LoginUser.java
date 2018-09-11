@@ -15,7 +15,7 @@ public class LoginUser {
 	
 	private int id;
 	private String username;
-	private int password;
+	private String password;
 	
 	
 	
@@ -26,7 +26,7 @@ public class LoginUser {
 
 
 
-	public LoginUser(String username, int password) {
+	public LoginUser(String username, String password) {
 		super();
 		this.username = username;
 		this.password = password;
@@ -35,7 +35,7 @@ public class LoginUser {
 
 
 
-	public LoginUser(int id, String username, int password) {
+	public LoginUser(int id, String username, String password) {
 		super();
 		this.id = id;
 		this.username = username;
@@ -68,13 +68,13 @@ public class LoginUser {
 
 
 
-	public int getPassword() {
+	public String getPassword() {
 		return password;
 	}
 
 
 
-	public void setPassword(int password) {
+	public void setPassword(String password) {
 		this.password = password;
 	}
 

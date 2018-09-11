@@ -13,11 +13,11 @@ var check = function() {
 	}
 
 function showPassword() {
-	var x = document.getElementById("password");
-	if (x.type === "password") {
+	var x = document.getElementById("confirmPassword");
+	if (x.type === "confirmPassword") {
 		return x.type = "text";
 	} else {
-		return x.type = "password";
+		return x.type = "confirmPassword";
 	}
 	
 
