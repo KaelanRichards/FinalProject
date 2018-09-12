@@ -390,18 +390,24 @@ public class CrimeController {
 	}
 	// we pass in a score weight (all weights should sum to 100) and to ints for crime comparison
 	// the return should be one score (of type int) for a particular crime category
-	public static int calculateCrimeScore(int scoreWeight, int crime2016, int crime2018) {
-		int score = 25;
-		System.out.println("**" + crime2016);
-		System.out.println("****" + crime2018);
+	public static double calculateCrimeScore(double scoreWeight, int crime2016, int crime2018) {
+		double score = 25;
+//		System.out.println("Score: " + score);
+//		System.out.println("scoreweight: " + scoreWeight);
+//		
+//		System.out.println("**" + crime2016);
+//		System.out.println("****" + crime2018);
 		// neighborhood gets full points if crime is zero
 		if (crime2018 == 0) {
 			score = scoreWeight;
+			System.out.println("1");
 			return score;
+			
 		} 
 		// neighborhood gets half points for no increase or decrease in crime
 		else if (crime2016 == crime2018) {
 			score = scoreWeight / 2;
+			System.out.println("2");
 			return score;
 		} 
 		// neighborhood gets more points for greater decrease in crime
@@ -409,12 +415,16 @@ public class CrimeController {
 			int decrease = calculateDecrease(crime2016, crime2018);
 			if (decrease >= 50) {
 				score += scoreWeight;
+				System.out.println("3");
 				return score;
 			} else if (decrease >= 25) {
-				score = scoreWeight * (3 / 4);
+				score = scoreWeight * .75;
+				System.out.println("4");
 				return score;
 			} else if (decrease >= 1) {
-				score = scoreWeight * (3 / 5);
+				score = scoreWeight * .6;
+				System.out.println("5");
+				System.out.println(score);
 				return score;
 			}
 		}
@@ -422,27 +432,34 @@ public class CrimeController {
 		else if (crime2016 < crime2018) {
 			int increase = calculateIncrease(crime2016, crime2018);
 			if (increase >= 50) {
+				System.out.println("6");
 				score = 0;
 				return score;
 			} else if (increase >= 25) {
-				score = scoreWeight * (1 / 4);
+				score = scoreWeight * .25;
+				System.out.println("7");
+				System.out.println(score);
 				return score;
 			} else if (increase >= 1) {
-				score = scoreWeight * (2 / 5);
+				score = scoreWeight * .4;
+				System.out.println("8");
+				System.out.println(score);
+				
 				return score;
 			}
 		}
+
 		return score;
 	}
 	
 	public static String sumScoreCategories(int[] crime2016, int[] crime2018) {
 		
-		int vScore = calculateCrimeScore(20, crime2016[0], crime2018[0]);
-		System.out.println("vScore = " + vScore);
-		int sScore = calculateCrimeScore(20, crime2016[1], crime2018[1]);
-		int tScore = calculateCrimeScore(20, crime2016[2], crime2018[2]);
-		int overallScore = calculateCrimeScore(40, crime2016[3], crime2018[3]);
-		int sumScores = vScore + sScore + tScore + overallScore;
+		double vScore = calculateCrimeScore(20, crime2016[0], crime2018[0]);
+		
+		double sScore = calculateCrimeScore(20, crime2016[1], crime2018[1]);
+		double tScore = calculateCrimeScore(20, crime2016[2], crime2018[2]);
+		double overallScore = calculateCrimeScore(40, crime2016[3], crime2018[3]);
+		double sumScores = vScore + sScore + tScore + overallScore;
 		String grade = "";
 		
 		if (sumScores > 89) {
@@ -456,12 +473,7 @@ public class CrimeController {
 		} else {
 			grade = "F";
 		}
-		System.out.println("vScore = " + vScore);
-		System.out.println("sScore = " + sScore);
-		System.out.println("tScore = " + tScore);
-		System.out.println("overallScore = " + overallScore);
-		System.out.println("sum = " + sumScores);
-		System.out.println(grade);
+		
 		
 		return grade;
 	}
