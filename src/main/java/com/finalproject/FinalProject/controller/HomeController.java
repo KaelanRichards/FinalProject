@@ -11,6 +11,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
@@ -35,9 +36,9 @@ public class HomeController {
 
 	
 	
-	@RequestMapping("/display")
+	@RequestMapping("/login")
 
-	public ModelAndView display(@RequestParam("username") String username,@RequestParam("password") String password) {
+	public ModelAndView login(@RequestParam("username") String username,@RequestParam("password") String password) {
 		Optional<LoginUser> optionalLoginUser = loginRepo.findByUsername(username);
 		if (optionalLoginUser.isPresent()) {
 			String truePassword = optionalLoginUser.get().getPassword();
@@ -61,6 +62,22 @@ public class HomeController {
 		return null;
 		
 	}
+	
+	@RequestMapping("/display") //url
+	public String registerPage() {
+		return "display"; //string methods in the controller class return the view 
+	}
+	
+	@PostMapping("/loginuser")
+	public ModelAndView add(LoginUser loginUser) {
+		loginRepo.save(loginUser);
+		return new ModelAndView("redirect:/");
+		
+	}
+      
+	
+	
+	
 
 	@RequestMapping("/search")
 	public ModelAndView results() {

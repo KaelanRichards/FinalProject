@@ -19,7 +19,7 @@
  ${login}
 <h1>Login Page</h1>
 
-<form action = "/display" method = "post">
+<form action = "/crimetable" method = "post">
 
 
 <div class="tab">User Name:
@@ -41,7 +41,9 @@
 
 <input type = "submit" value = "Login">
 </form>
+<br>
 
+<a href= "/display"><button>New User? Register here..</button></a>
 
 <script src = "js/script.js"></script>
 
