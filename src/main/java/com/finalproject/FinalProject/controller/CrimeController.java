@@ -164,15 +164,15 @@ public class CrimeController {
 //		ResponseEntity<Crime[]> robbery = restTemplate.exchange(
 //				"https://data.detroitmi.gov/resource/9i6z-cm98.json?arrest_charge=12000", HttpMethod.GET, entity,
 //				Crime[].class);
-		int [] countArr16= countCrimesByCategory2016(/*need two doubles for lat/long*/);
-		int [] countArr18= countCrimesByCategory2018(/*need two doubles for lat/long*/);
+		int [] countArr16= countCrimesByCategory2016(42.335972, -83.050057);
+		int [] countArr18= countCrimesByCategory2018(42.335972, -83.050057);
 		String finalScore = sumScoreCategories(countArr16, countArr18);
 		
 		ModelAndView mv = new ModelAndView("crimetable");
 		mv.addObject("finalScoreTest", finalScore);
-		mv.addObject("aggravatedAssault", crime2016());
-		mv.addObject("crimeCountsss", countCrimesByCategory2018());
-		mv.addObject("crimeCounts", countCrimesByCategory2016());
+		mv.addObject("aggravatedAssault", crimesNearAddress18(42.335972, -83.050057));
+		mv.addObject("crimeCountsss", countCrimesByCategory2018(42.335972, -83.050057));
+		mv.addObject("crimeCounts", countCrimesByCategory2016(42.335972, -83.050057));
 		return mv;
 	}
 
@@ -285,13 +285,13 @@ public class CrimeController {
 		return list2018;
 	}
 
-	public static int[] countCrimesByCategory2016(/*HERE*/) {
+	public static int[] countCrimesByCategory2016(double userLat, double userLong) {
 		int vCount = 0;
 		int tCount = 0;
 		int sCount = 0;
 		// TO-DO pass in user address lat/long values
-		// ArrayList<Crime> crimesInRange = crimesNearAddress16(/*AND HERE*/);
-		ArrayList<Crime> crimesInRange = crime2016();
+		 ArrayList<Crime> crimesInRange = crimesNearAddress16(userLat, userLong);
+		//ArrayList<Crime> crimesInRange = crime2016();
 		for (Crime c : crimesInRange) {
 			if (c.getOffenseCategory().equals("LARCENY") || c.getOffenseCategory().equals("BURGLARY")
 					|| c.getOffenseCategory().equals("STOLEN VEHICLE")) {
@@ -312,13 +312,13 @@ public class CrimeController {
 		return counts2016;
 	}
 
-	public static int[] countCrimesByCategory2018(/*HERE*/) {
+	public static int[] countCrimesByCategory2018(double userLat, double userLong) {
 		int vCount = 0;
 		int tCount = 0;
 		int sCount = 0;
 		// TO-DO pass in user address lat/long values
-		// ArrayList<Crime> crimesInRange = crimesNearAddress18(/*AND HERE*/);
-		ArrayList<Crime> crimesInRange = crime2018();
+		 ArrayList<Crime> crimesInRange = crimesNearAddress18(userLat, userLong);
+		//ArrayList<Crime> crimesInRange = crime2018();
 		for (Crime c : crimesInRange) {
 			if (c.getOffenseCategory().equals("LARCENY") || c.getOffenseCategory().equals("BURGLARY")
 					|| c.getOffenseCategory().equals("STOLEN VEHICLE")) {
