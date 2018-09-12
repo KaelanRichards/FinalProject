@@ -13,6 +13,7 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.finalproject.FinalProject.entity.Crime;
+import com.finalproject.FinalProject.util.UtilityClass;
 
 @Controller
 public class CrimeController {
@@ -248,7 +249,7 @@ public class CrimeController {
 			if (c.getOffenseCategory().equals("LARCENY") 
 					|| c.getOffenseCategory().equals("BURGLARY")
 					|| c.getOffenseCategory().equals("STOLEN VEHICLE") 
-					|| c.getOffenseCategory().equals("SEXUAL ASSAULT") 
+					|| c.getOffenseCategory().contains("SEX") 
 					|| c.getOffenseCategory().equals("ROBBERY") 
 					|| c.getOffenseCategory().equals("ASSAULT")
 					|| c.getOffenseCategory().equals("AGGRAVATED ASSAULT")) {
@@ -278,7 +279,7 @@ public class CrimeController {
 			if (c.getOffenseCategory().equals("LARCENY") 
 					|| c.getOffenseCategory().equals("BURGLARY")
 					|| c.getOffenseCategory().equals("STOLEN VEHICLE") 
-					|| c.getOffenseCategory().equals("SEXUAL ASSAULT") 
+					|| c.getOffenseCategory().contains("SEX") 
 					|| c.getOffenseCategory().equals("ROBBERY") 
 					|| c.getOffenseCategory().equals("ASSAULT")
 					|| c.getOffenseCategory().equals("AGGRAVATED ASSAULT")) {
@@ -295,49 +296,84 @@ public class CrimeController {
 		int vCount = 0;
 		int tCount = 0;
 		int sCount = 0;
-		
-		for (Crime c : crime2016()) {
+		//TO-DO pass in user address lat/long values
+		//ArrayList<Crime> crimesInRange = crimesNearAddress16(/*HERE*/);
+		ArrayList<Crime> crimesInRange = crime2016();
+		for (Crime c : crimesInRange) {
 			if (c.getOffenseCategory().equals("LARCENY") 
 					|| c.getOffenseCategory().equals("BURGLARY")
 					|| c.getOffenseCategory().equals("STOLEN VEHICLE")) {
 				tCount++;
-			}else if (c.getOffenseCategory().equals("SEXUAL ASSAULT")) {
+			}else if (c.getOffenseCategory().contains("SEX")) {
 				sCount++;
 			}else  {
 				vCount++;
 			}
 			
 		}
-		int[] counts2016 = {vCount, sCount, tCount, crime2016().size()};
+		int[] counts2016 = {vCount, sCount, tCount, crimesInRange.size()};
+		//sysout for testing
 		System.out.println(vCount);
 		System.out.println(sCount);
 		System.out.println(tCount);
-		System.out.println(crime2016().size());
+		System.out.println(crimesInRange.size());
 		return counts2016;
 	}
 	public static int[] countCrimesByCategory2018() {
 		int vCount = 0;
 		int tCount = 0;
 		int sCount = 0;
-		
-		for (Crime c : crime2018()) {
+		//TO-DO pass in user address lat/long values
+		//ArrayList<Crime> crimesInRange = crimesNearAddress18(/*HERE*/);
+		ArrayList<Crime> crimesInRange = crime2018();
+		for (Crime c : crimesInRange) {
 			if (c.getOffenseCategory().equals("LARCENY") 
 					|| c.getOffenseCategory().equals("BURGLARY")
 					|| c.getOffenseCategory().equals("STOLEN VEHICLE")) {
 				tCount++;
-			}else if (c.getOffenseCategory().equals("SEXUAL ASSAULT")) {
+			}else if (c.getOffenseCategory().contains("SEX")) {
 				sCount++;
 			}else  {
 				vCount++;
 			}
 			
 		}
-		int[] counts2018 = {vCount, sCount, tCount, crime2016().size()};
+		int[] counts2018 = {vCount, sCount, tCount, crimesInRange.size()};
+		//sysout for testing
 		System.out.println(vCount);
 		System.out.println(sCount);
 		System.out.println(tCount);
-		System.out.println(crime2018().size());
+		System.out.println(crimesInRange.size());
 		return counts2018;
 		
 	}
+	// for 2016 crimes in range
+	public static ArrayList<Crime> crimesNearAddress16(double userLat, double userLong){
+		ArrayList<Crime> crimesByYear = crime2016();
+		ArrayList<Crime> crimesInRange = new ArrayList<Crime>();
+		for (Crime c : crimesByYear) {
+			double distance = UtilityClass.distFrom(userLat, userLong, c.getLatitude(),c.getLongitude());
+			if(distance < 0.26) {
+				crimesInRange.add(c);
+			}
+		}
+		
+		return crimesInRange;
+		
+	}
+	// for 2018 crimes in range
+	public static ArrayList<Crime> crimesNearAddress18(double userLat, double userLong){
+		ArrayList<Crime> crimesByYear = crime2018();
+		ArrayList<Crime> crimesInRange = new ArrayList<Crime>();
+		for (Crime c : crimesByYear) {
+			double distance = UtilityClass.distFrom(userLat, userLong, c.getLatitude(),c.getLongitude());
+			if(distance < 0.26) {
+				crimesInRange.add(c);
+			}
+		}
+		
+		return crimesInRange;
+		
+	}
+	
 }
