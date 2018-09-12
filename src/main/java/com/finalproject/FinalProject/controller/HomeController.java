@@ -3,6 +3,7 @@ package com.finalproject.FinalProject.controller;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -18,59 +19,61 @@ import org.springframework.web.servlet.ModelAndView;
 import com.finalproject.FinalProject.entity.Crime;
 import com.finalproject.FinalProject.entity.LoginUser;
 import com.finalproject.FinalProject.entity.Results;
-
-
+import com.finalproject.FinalProject.repo.LoginRepository;
 
 @Controller
 public class HomeController {
-	
-	
-	
+
+	@Autowired
+	LoginRepository loginRepo;
+
 	@RequestMapping("/")
 	public ModelAndView index() {
-		
-	
-return new ModelAndView("index");
+
+		return new ModelAndView("index");
 	}
-	
-	@PostMapping("/display")
-	public ModelAndView display(@RequestParam ("password") String password, @RequestParam ("username") String username) {
+
+	@RequestMapping("/display")
+
+	public ModelAndView display(@RequestParam("password") String password, @RequestParam("username") String username) {
+		
+		if(username.equals(loginRepo.findByUsername(username)) ){
+			return new ModelAndView ("display", "login","Welcome back");
+			
+		}
 		
 //		LoginUser user = new LoginUser ();
-		if(username.equals("java123") && password.equals("123456")) {
-			return new ModelAndView("display", "login", "Welcome back User!");
-		
-			}
-return new ModelAndView("index", "login", "Wrong Username or Password!");
+		/*
+		 * if(username.equals("java123") && password.equals("123456")) { return new
+		 * ModelAndView("display", "login", "Welcome back User!");
+		 */
+
+		// }
+
+		return new ModelAndView("index", "login", "Wrong Username or Password!");
 	}
-	
-	
-	
-	
-	
-	
-	
+
 	@RequestMapping("/search")
-	public ModelAndView results(){
+	public ModelAndView results() {
 		RestTemplate restTemplate = new RestTemplate();
-		Results result = restTemplate.getForObject("https://data.detroitmi.gov/resource/9i6z-cm98.json"  , Results.class);
+		Results result = restTemplate.getForObject("https://data.detroitmi.gov/resource/9i6z-cm98.json", Results.class);
 		ArrayList<Crime> crime = result.getResults();
 		System.out.println(crime);
-		return new ModelAndView("results","mtest", crime);
-		
+		return new ModelAndView("results", "mtest", crime);
+
 	}
+
 	@RequestMapping("/def")
 	public ModelAndView definition() {
 		ModelAndView mv = new ModelAndView("index");
-		
+
 		HttpHeaders headers = new HttpHeaders();
-		headers.add("Accept", MediaType.APPLICATION_JSON_VALUE); 
-		
+		headers.add("Accept", MediaType.APPLICATION_JSON_VALUE);
+
 		HttpEntity<String> entity = new HttpEntity<String>("parameters", headers);
 
 		RestTemplate restTemplate = new RestTemplate();
-		ResponseEntity<Crime[]> response = restTemplate.exchange(
-				"https://data.detroitmi.gov/resource/9i6z-cm98.json",
+		ResponseEntity<Crime[]> response = restTemplate.exchange("https://data.detroitmi.gov/resource/9i6z-cm98.json",
 				HttpMethod.GET, entity, Crime[].class);
 
 		mv.addObject("test", response.getBody());
