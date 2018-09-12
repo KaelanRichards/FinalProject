@@ -370,6 +370,8 @@ public class CrimeController {
 
 	}
 
+	
+	
 	// Calculate the crime data decrease from 2016 to 2018
 	public static int calculateDecrease(int crime2016, int crime2018) {
 		double decrease = crime2016 - crime2018;
