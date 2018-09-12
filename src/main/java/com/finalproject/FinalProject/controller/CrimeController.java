@@ -164,9 +164,14 @@ public class CrimeController {
 //		ResponseEntity<Crime[]> robbery = restTemplate.exchange(
 //				"https://data.detroitmi.gov/resource/9i6z-cm98.json?arrest_charge=12000", HttpMethod.GET, entity,
 //				Crime[].class);
-
+		int [] countArr16= countCrimesByCategory2016(/*need two doubles for lat/long*/);
+		int [] countArr18= countCrimesByCategory2018(/*need two doubles for lat/long*/);
+		String finalScore = sumScoreCategories(countArr16, countArr18);
+		
 		ModelAndView mv = new ModelAndView("crimetable");
+		mv.addObject("finalScoreTest", finalScore);
 		mv.addObject("aggravatedAssault", crime2016());
+		mv.addObject("crimeCountsss", countCrimesByCategory2018());
 		mv.addObject("crimeCounts", countCrimesByCategory2016());
 		return mv;
 	}
@@ -280,12 +285,12 @@ public class CrimeController {
 		return list2018;
 	}
 
-	public static int[] countCrimesByCategory2016() {
+	public static int[] countCrimesByCategory2016(/*HERE*/) {
 		int vCount = 0;
 		int tCount = 0;
 		int sCount = 0;
 		// TO-DO pass in user address lat/long values
-		// ArrayList<Crime> crimesInRange = crimesNearAddress16(/*HERE*/);
+		// ArrayList<Crime> crimesInRange = crimesNearAddress16(/*AND HERE*/);
 		ArrayList<Crime> crimesInRange = crime2016();
 		for (Crime c : crimesInRange) {
 			if (c.getOffenseCategory().equals("LARCENY") || c.getOffenseCategory().equals("BURGLARY")
@@ -307,12 +312,12 @@ public class CrimeController {
 		return counts2016;
 	}
 
-	public static int[] countCrimesByCategory2018() {
+	public static int[] countCrimesByCategory2018(/*HERE*/) {
 		int vCount = 0;
 		int tCount = 0;
 		int sCount = 0;
 		// TO-DO pass in user address lat/long values
-		// ArrayList<Crime> crimesInRange = crimesNearAddress18(/*HERE*/);
+		// ArrayList<Crime> crimesInRange = crimesNearAddress18(/*AND HERE*/);
 		ArrayList<Crime> crimesInRange = crime2018();
 		for (Crime c : crimesInRange) {
 			if (c.getOffenseCategory().equals("LARCENY") || c.getOffenseCategory().equals("BURGLARY")
@@ -383,34 +388,82 @@ public class CrimeController {
 		double increasePercentage = increaseTotal * 100;
 		return (int) increasePercentage;
 	}
-
+	// we pass in a score weight (all weights should sum to 100) and to ints for crime comparison
+	// the return should be one score (of type int) for a particular crime category
 	public static int calculateCrimeScore(int scoreWeight, int crime2016, int crime2018) {
-		int score = 0;
+		int score = 25;
+		System.out.println("**" + crime2016);
+		System.out.println("****" + crime2018);
+		// neighborhood gets full points if crime is zero
 		if (crime2018 == 0) {
 			score = scoreWeight;
-		} else if (crime2016 == crime2018) {
+			return score;
+		} 
+		// neighborhood gets half points for no increase or decrease in crime
+		else if (crime2016 == crime2018) {
 			score = scoreWeight / 2;
-		} else if (crime2016 > crime2018) {
+			return score;
+		} 
+		// neighborhood gets more points for greater decrease in crime
+		else if (crime2016 > crime2018) {
 			int decrease = calculateDecrease(crime2016, crime2018);
 			if (decrease >= 50) {
 				score += scoreWeight;
+				return score;
 			} else if (decrease >= 25) {
 				score = scoreWeight * (3 / 4);
+				return score;
 			} else if (decrease >= 1) {
 				score = scoreWeight * (3 / 5);
+				return score;
 			}
-		} else if (crime2016 < crime2018) {
+		}
+		// neighborhood gets less points for greater increase in crime
+		else if (crime2016 < crime2018) {
 			int increase = calculateIncrease(crime2016, crime2018);
 			if (increase >= 50) {
 				score = 0;
+				return score;
 			} else if (increase >= 25) {
 				score = scoreWeight * (1 / 4);
+				return score;
 			} else if (increase >= 1) {
 				score = scoreWeight * (2 / 5);
+				return score;
 			}
 		}
 		return score;
 	}
 	
+	public static String sumScoreCategories(int[] crime2016, int[] crime2018) {
+		
+		int vScore = calculateCrimeScore(20, crime2016[0], crime2018[0]);
+		System.out.println("vScore = " + vScore);
+		int sScore = calculateCrimeScore(20, crime2016[1], crime2018[1]);
+		int tScore = calculateCrimeScore(20, crime2016[2], crime2018[2]);
+		int overallScore = calculateCrimeScore(40, crime2016[3], crime2018[3]);
+		int sumScores = vScore + sScore + tScore + overallScore;
+		String grade = "";
+		
+		if (sumScores > 89) {
+			grade = "A";
+		} else if (sumScores > 79) {
+			grade = "B";
+		} else if (sumScores > 69) {
+			grade = "C";
+		} else if (sumScores > 59) {
+			grade = "D";
+		} else {
+			grade = "F";
+		}
+		System.out.println("vScore = " + vScore);
+		System.out.println("sScore = " + sScore);
+		System.out.println("tScore = " + tScore);
+		System.out.println("overallScore = " + overallScore);
+		System.out.println("sum = " + sumScores);
+		System.out.println(grade);
+		
+		return grade;
+	}
 	
 }

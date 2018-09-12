@@ -17,7 +17,12 @@
 		<c:forEach var="q" items="${crimeCounts}">
 			${q}<br>
 		</c:forEach>
-
+		
+		<h3> ${finalScoreTest}</h3>
+		
+		<c:forEach var="q" items="${crimeCountsss}">
+			${q}<br>
+		</c:forEach>
 
 		<table border="1">
 
