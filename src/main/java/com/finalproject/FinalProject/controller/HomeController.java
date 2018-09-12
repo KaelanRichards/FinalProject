@@ -2,6 +2,7 @@ package com.finalproject.FinalProject.controller;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
@@ -10,7 +11,6 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
@@ -33,24 +33,33 @@ public class HomeController {
 		return new ModelAndView("index");
 	}
 
+	
+	
 	@RequestMapping("/display")
 
-	public ModelAndView display(@RequestParam("password") String password, @RequestParam("username") String username) {
-		
-		if(username.equals(loginRepo.findByUsername(username)) ){
-			return new ModelAndView ("display", "login","Welcome back");
+	public ModelAndView display(@RequestParam("username") String username,@RequestParam("password") String password) {
+		Optional<LoginUser> optionalLoginUser = loginRepo.findByUsername(username);
+		if (optionalLoginUser.isPresent()) {
+			String truePassword = optionalLoginUser.get().getPassword();
+			if(truePassword.equals(password)) {
+				return new ModelAndView ("display", "login","Welcome back");
+		}
 			
 		}
 		
-//		LoginUser user = new LoginUser ();
-		/*
-		 * if(username.equals("java123") && password.equals("123456")) { return new
-		 * ModelAndView("display", "login", "Welcome back User!");
-		 */
+		//comments: 
+		//using optional instead of list bc it is a class, so we can compare String to it later
+		//logic: to find the username then match it to the corresponding pw
+		//isPresent is used to see if username existed
+		//we get name by ".get()" and "getPassword" 
+		//if the pw in sql equals to userinput , then return !
+		
 
-		// }
-
+		else {
 		return new ModelAndView("index", "login", "Wrong Username or Password!");
+		}
+		return null;
+		
 	}
 
 	@RequestMapping("/search")
