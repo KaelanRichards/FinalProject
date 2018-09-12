@@ -1,6 +1,5 @@
 package com.finalproject.FinalProject.controller;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Optional;
 
@@ -19,7 +18,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.finalproject.FinalProject.entity.Crime;
 import com.finalproject.FinalProject.entity.LoginUser;
-import com.finalproject.FinalProject.entity.Results;
 import com.finalproject.FinalProject.repo.LoginRepository;
 
 @Controller
@@ -37,7 +35,6 @@ public class HomeController {
 	
 	
 	@RequestMapping("/login")
-
 	public ModelAndView login(@RequestParam("username") String username,@RequestParam("password") String password) {
 		Optional<LoginUser> optionalLoginUser = loginRepo.findByUsername(username);
 		if (optionalLoginUser.isPresent()) {
@@ -74,18 +71,12 @@ public class HomeController {
 		return new ModelAndView("redirect:/");
 		
 	}
-      
-	
-	
-	
+     
 
 	@RequestMapping("/search")
 	public ModelAndView results() {
-		RestTemplate restTemplate = new RestTemplate();
-		Results result = restTemplate.getForObject("https://data.detroitmi.gov/resource/9i6z-cm98.json", Results.class);
-		ArrayList<Crime> crime = result.getResults();
-		System.out.println(crime);
-		return new ModelAndView("results", "mtest", crime);
+		
+		return new ModelAndView("search");
 
 	}
 
