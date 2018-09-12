@@ -40,7 +40,6 @@ public class CrimeController {
 //		return mv;
 //	}
 
-
 //	@RequestMapping("/crimetable")
 //	public ModelAndView crimeTable() {
 //		ModelAndView mv = new ModelAndView("crimetable");
@@ -63,7 +62,6 @@ public class CrimeController {
 //
 //		return mv;
 //	}
-
 
 	// Pulls Robbery, Assault, Homicide from dataset and insert into list
 //	public ArrayList<Crime> listOfViolentCrimes() {
@@ -146,7 +144,7 @@ public class CrimeController {
 		return theftList;
 	}
 
-	 @RequestMapping("/crimetable")
+	@RequestMapping("/crimetable")
 	public ModelAndView violentCrime() {
 //		HttpHeaders headers = new HttpHeaders();
 //		headers.add("Accept", MediaType.APPLICATION_JSON_VALUE);
@@ -170,7 +168,7 @@ public class CrimeController {
 		ModelAndView mv = new ModelAndView("crimetable");
 		mv.addObject("aggravatedAssault", crime2016());
 		mv.addObject("crimeCounts", countCrimesByCategory2016());
-		 return mv;
+		return mv;
 	}
 
 	public void SexualOffenses() {
@@ -190,7 +188,7 @@ public class CrimeController {
 				Crime[].class);
 
 	}
-	
+
 	public void theftOffense() {
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("Accept", MediaType.APPLICATION_JSON_VALUE);
@@ -206,16 +204,16 @@ public class CrimeController {
 		ResponseEntity<Crime[]> larceny = restTemplate.exchange(
 				"https://data.detroitmi.gov/resource/9i6z-cm98.json?arrest_charge=23007", HttpMethod.GET, entity,
 				Crime[].class);
-		
+
 		ResponseEntity<Crime[]> burglary = restTemplate.exchange(
 				"https://data.detroitmi.gov/resource/9i6z-cm98.json?arrest_charge=22001", HttpMethod.GET, entity,
 				Crime[].class);
-		
+
 		// initializing a list for theft crimes
 		ArrayList<Crime> theftList = new ArrayList<Crime>();
 		// adding stolen vehicles to our theft category list
 		for (Crime c : stolenVehicle.getBody()) {
-				theftList.add(c);
+			theftList.add(c);
 		}
 		// adding larceny to our theft category list
 		for (Crime c : larceny.getBody()) {
@@ -226,12 +224,11 @@ public class CrimeController {
 			theftList.add(c);
 		}
 		// test to see if we have the right data
-		for(int i = 0; i < theftList.size(); i++) {
+		for (int i = 0; i < theftList.size(); i++) {
 			System.out.println(theftList.get(i));
 		}
-		
+
 	}
-	
 
 	public static ArrayList<Crime> crime2016() {
 		HttpHeaders headers = new HttpHeaders();
@@ -242,26 +239,21 @@ public class CrimeController {
 		RestTemplate restTemplate = new RestTemplate();
 
 		ResponseEntity<Crime[]> twentySixteen = restTemplate.exchange(
-				"https://data.detroitmi.gov/resource/9i6z-cm98.json?year=2016", HttpMethod.GET, entity,
-				Crime[].class);
+				"https://data.detroitmi.gov/resource/9i6z-cm98.json?year=2016", HttpMethod.GET, entity, Crime[].class);
 		ArrayList<Crime> list2016 = new ArrayList<Crime>();
 		for (Crime c : twentySixteen.getBody()) {
-			if (c.getOffenseCategory().equals("LARCENY") 
-					|| c.getOffenseCategory().equals("BURGLARY")
-					|| c.getOffenseCategory().equals("STOLEN VEHICLE") 
-					|| c.getOffenseCategory().contains("SEX") 
-					|| c.getOffenseCategory().equals("ROBBERY") 
-					|| c.getOffenseCategory().equals("ASSAULT")
+			if (c.getOffenseCategory().equals("LARCENY") || c.getOffenseCategory().equals("BURGLARY")
+					|| c.getOffenseCategory().equals("STOLEN VEHICLE") || c.getOffenseCategory().contains("SEX")
+					|| c.getOffenseCategory().equals("ROBBERY") || c.getOffenseCategory().equals("ASSAULT")
 					|| c.getOffenseCategory().equals("AGGRAVATED ASSAULT")) {
 				list2016.add(c);
 			}
 		}
 		System.out.println(list2016.size());
-		
+
 		return list2016;
 	}
-	
-	
+
 	public static ArrayList<Crime> crime2018() {
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("Accept", MediaType.APPLICATION_JSON_VALUE);
@@ -271,109 +263,154 @@ public class CrimeController {
 		RestTemplate restTemplate = new RestTemplate();
 
 		ResponseEntity<Crime[]> twentyEighteen = restTemplate.exchange(
-				"https://data.detroitmi.gov/resource/9i6z-cm98.json?year=2018", HttpMethod.GET, entity,
-				Crime[].class);
+				"https://data.detroitmi.gov/resource/9i6z-cm98.json?year=2018", HttpMethod.GET, entity, Crime[].class);
 		ArrayList<Crime> list2018 = new ArrayList<Crime>();
-		
+
 		for (Crime c : twentyEighteen.getBody()) {
-			if (c.getOffenseCategory().equals("LARCENY") 
-					|| c.getOffenseCategory().equals("BURGLARY")
-					|| c.getOffenseCategory().equals("STOLEN VEHICLE") 
-					|| c.getOffenseCategory().contains("SEX") 
-					|| c.getOffenseCategory().equals("ROBBERY") 
-					|| c.getOffenseCategory().equals("ASSAULT")
+			if (c.getOffenseCategory().equals("LARCENY") || c.getOffenseCategory().equals("BURGLARY")
+					|| c.getOffenseCategory().equals("STOLEN VEHICLE") || c.getOffenseCategory().contains("SEX")
+					|| c.getOffenseCategory().equals("ROBBERY") || c.getOffenseCategory().equals("ASSAULT")
 					|| c.getOffenseCategory().equals("AGGRAVATED ASSAULT")) {
 				list2018.add(c);
 			}
-			
+
 		}
 		System.out.println(list2018.size());
-		
+
 		return list2018;
 	}
-	
+
 	public static int[] countCrimesByCategory2016() {
 		int vCount = 0;
 		int tCount = 0;
 		int sCount = 0;
-		//TO-DO pass in user address lat/long values
-		//ArrayList<Crime> crimesInRange = crimesNearAddress16(/*HERE*/);
+		// TO-DO pass in user address lat/long values
+		// ArrayList<Crime> crimesInRange = crimesNearAddress16(/*HERE*/);
 		ArrayList<Crime> crimesInRange = crime2016();
 		for (Crime c : crimesInRange) {
-			if (c.getOffenseCategory().equals("LARCENY") 
-					|| c.getOffenseCategory().equals("BURGLARY")
+			if (c.getOffenseCategory().equals("LARCENY") || c.getOffenseCategory().equals("BURGLARY")
 					|| c.getOffenseCategory().equals("STOLEN VEHICLE")) {
 				tCount++;
-			}else if (c.getOffenseCategory().contains("SEX")) {
+			} else if (c.getOffenseCategory().contains("SEX")) {
 				sCount++;
-			}else  {
+			} else {
 				vCount++;
 			}
-			
+
 		}
-		int[] counts2016 = {vCount, sCount, tCount, crimesInRange.size()};
-		//sysout for testing
+		int[] counts2016 = { vCount, sCount, tCount, crimesInRange.size() };
+		// sysout for testing
 		System.out.println(vCount);
 		System.out.println(sCount);
 		System.out.println(tCount);
 		System.out.println(crimesInRange.size());
 		return counts2016;
 	}
+
 	public static int[] countCrimesByCategory2018() {
 		int vCount = 0;
 		int tCount = 0;
 		int sCount = 0;
-		//TO-DO pass in user address lat/long values
-		//ArrayList<Crime> crimesInRange = crimesNearAddress18(/*HERE*/);
+		// TO-DO pass in user address lat/long values
+		// ArrayList<Crime> crimesInRange = crimesNearAddress18(/*HERE*/);
 		ArrayList<Crime> crimesInRange = crime2018();
 		for (Crime c : crimesInRange) {
-			if (c.getOffenseCategory().equals("LARCENY") 
-					|| c.getOffenseCategory().equals("BURGLARY")
+			if (c.getOffenseCategory().equals("LARCENY") || c.getOffenseCategory().equals("BURGLARY")
 					|| c.getOffenseCategory().equals("STOLEN VEHICLE")) {
 				tCount++;
-			}else if (c.getOffenseCategory().contains("SEX")) {
+			} else if (c.getOffenseCategory().contains("SEX")) {
 				sCount++;
-			}else  {
+			} else {
 				vCount++;
 			}
-			
+
 		}
-		int[] counts2018 = {vCount, sCount, tCount, crimesInRange.size()};
-		//sysout for testing
+		int[] counts2018 = { vCount, sCount, tCount, crimesInRange.size() };
+		// sysout for testing
 		System.out.println(vCount);
 		System.out.println(sCount);
 		System.out.println(tCount);
 		System.out.println(crimesInRange.size());
 		return counts2018;
-		
+
 	}
+
 	// for 2016 crimes in range
-	public static ArrayList<Crime> crimesNearAddress16(double userLat, double userLong){
+	public static ArrayList<Crime> crimesNearAddress16(double userLat, double userLong) {
 		ArrayList<Crime> crimesByYear = crime2016();
 		ArrayList<Crime> crimesInRange = new ArrayList<Crime>();
 		for (Crime c : crimesByYear) {
-			double distance = UtilityClass.distFrom(userLat, userLong, c.getLatitude(),c.getLongitude());
-			if(distance < 0.26) {
+			double distance = UtilityClass.distFrom(userLat, userLong, c.getLatitude(), c.getLongitude());
+			if (distance < 0.26) {
 				crimesInRange.add(c);
 			}
 		}
-		
+
 		return crimesInRange;
-		
+
 	}
+
 	// for 2018 crimes in range
-	public static ArrayList<Crime> crimesNearAddress18(double userLat, double userLong){
+	public static ArrayList<Crime> crimesNearAddress18(double userLat, double userLong) {
 		ArrayList<Crime> crimesByYear = crime2018();
 		ArrayList<Crime> crimesInRange = new ArrayList<Crime>();
 		for (Crime c : crimesByYear) {
-			double distance = UtilityClass.distFrom(userLat, userLong, c.getLatitude(),c.getLongitude());
-			if(distance < 0.26) {
+			double distance = UtilityClass.distFrom(userLat, userLong, c.getLatitude(), c.getLongitude());
+			if (distance < 0.26) {
 				crimesInRange.add(c);
 			}
 		}
-		
+
 		return crimesInRange;
-		
+
 	}
+
+	// Calculate the crime data decrease from 2016 to 2018
+	public static int calculateDecrease(int crime2016, int crime2018) {
+		double decrease = crime2016 - crime2018;
+		double decreaseTotal = decrease / crime2016;
+		double decreasePercentage = decreaseTotal * 100;
+
+		return (int) decreasePercentage;
+
+	}
+
+	// Calculate the crime data increase from 2016 to 2018
+	public static int calculateIncrease(int crime2016, int crime2018) {
+
+		double increase = crime2018 - crime2016;
+		double increaseTotal = increase / crime2016;
+		double increasePercentage = increaseTotal * 100;
+		return (int) increasePercentage;
+	}
+
+	public static int calculateCrimeScore(int scoreWeight, int crime2016, int crime2018) {
+		int score = 0;
+		if (crime2018 == 0) {
+			score = scoreWeight;
+		} else if (crime2016 == crime2018) {
+			score = scoreWeight / 2;
+		} else if (crime2016 > crime2018) {
+			int decrease = calculateDecrease(crime2016, crime2018);
+			if (decrease >= 50) {
+				score += scoreWeight;
+			} else if (decrease >= 25) {
+				score = scoreWeight * (3 / 4);
+			} else if (decrease >= 1) {
+				score = scoreWeight * (3 / 5);
+			}
+		} else if (crime2016 < crime2018) {
+			int increase = calculateIncrease(crime2016, crime2018);
+			if (increase >= 50) {
+				score = 0;
+			} else if (increase >= 25) {
+				score = scoreWeight * (1 / 4);
+			} else if (increase >= 1) {
+				score = scoreWeight * (2 / 5);
+			}
+		}
+		return score;
+	}
+	
 	
 }
