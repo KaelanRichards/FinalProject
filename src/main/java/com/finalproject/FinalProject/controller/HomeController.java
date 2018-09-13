@@ -74,10 +74,16 @@ public class HomeController {
      
 
 	@RequestMapping("/search")
-	public ModelAndView results() {
+	public ModelAndView searchBar() {
 		
 		return new ModelAndView("search");
 
+	}
+	
+	@RequestMapping("/result")
+	public ModelAndView results(@RequestParam String address) {
+		
+		return new ModelAndView("results" );
 	}
 
 	@RequestMapping("/def")
