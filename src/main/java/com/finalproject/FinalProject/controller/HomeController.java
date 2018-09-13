@@ -1,5 +1,6 @@
 package com.finalproject.FinalProject.controller;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Optional;
 
@@ -17,7 +18,9 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.finalproject.FinalProject.entity.Crime;
+import com.finalproject.FinalProject.entity.GeoTest;
 import com.finalproject.FinalProject.entity.LoginUser;
+import com.finalproject.FinalProject.entity.ResultForGeo;
 import com.finalproject.FinalProject.repo.LoginRepository;
 
 @Controller
@@ -80,11 +83,11 @@ public class HomeController {
 
 	}
 	
-	@RequestMapping("/result")
-	public ModelAndView results(@RequestParam String address) {
-		
-		return new ModelAndView("results" );
-	}
+//	@RequestMapping("/result")
+//	public ModelAndView results(@RequestParam String address) {
+//		
+//		return new ModelAndView("results" );
+//	}
 
 	@RequestMapping("/def")
 	public ModelAndView definition() {
@@ -121,5 +124,29 @@ public class HomeController {
 //		System.out.println(Arrays.toString(response.getBody()));
 //		return mv;
 //	}
+	
+	
+	@RequestMapping("/result")
+	public ModelAndView Geo(@RequestParam("address")String address, @RequestParam("city") String city, @RequestParam("state") String state) {
+		RestTemplate restTemplate = new RestTemplate();
+		GeoTest result = restTemplate.getForObject("https://maps.googleapis.com/maps/api/geocode/json?address=1600AmphitheatreParkwayMountainViewCA&key=AIzaSyC4_ZSaexxdhNL2hP_MJ4t4vTRUVpigN1Y", GeoTest.class);
+		// real address : https://maps.googleapis.com/maps/api/geocode/json?address=1750WoodwardAveDetroitMI&key=AIzaSyC4_ZSaexxdhNL2hP_MJ4t4vTRUVpigN1Y
+		
+		
+//		ArrayList<ResultForGeo> resultForGeo = result.getResults();
+//		ResultForGeo resultOne =resultForGeo.get(0);
+//		Geometry geometry = resultOne.getGeometry();
+//		ArrayList<LocationGeo> locationGeo = geometry.getLocation();
+//		Double latitude = locationGeo.get(0).getLat();
+//		Double longitude = locationGeo.get(0).getLng();
+//		//return new ModelAndView("results","mtest", geotest);
+//		System.out.println("Latitude: " + latitude + " / Longitude: " + longitude);
+		ArrayList<ResultForGeo> resultForGeo  = result.getResults();
+		
+		Double lat = resultForGeo.get(0).getGeometry().getLocation().get(0).getLat();
+		Double lng = resultForGeo.get(0).getGeometry().getLocation().get(0).getLng();
+		System.out.println(lat + lng);
+		return new ModelAndView("results", "result", result.toString());
+	}
 
 }
