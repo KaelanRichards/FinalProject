@@ -9,6 +9,6 @@
 	href="https://stackpath.bootstrapcdn.com/bootswatch/4.1.3/minty/bootstrap.min.css" />
 </head>
 <body>
-
+${result}
 </body>
 </html>
