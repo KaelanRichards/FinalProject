@@ -1,6 +1,5 @@
 package com.finalproject.FinalProject.controller;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Optional;
 
@@ -19,7 +18,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.finalproject.FinalProject.entity.Crime;
 import com.finalproject.FinalProject.entity.LoginUser;
-import com.finalproject.FinalProject.entity.ResultForGeo;
 import com.finalproject.FinalProject.entity.geo.GeoJson;
 import com.finalproject.FinalProject.repo.LoginRepository;
 
@@ -35,54 +33,51 @@ public class HomeController {
 		return new ModelAndView("index");
 	}
 
-	
-	
 	@RequestMapping("/login")
-	public ModelAndView login(@RequestParam("username") String username,@RequestParam("password") String password) {
+	public ModelAndView login(@RequestParam("username") String username, @RequestParam("password") String password) {
 		Optional<LoginUser> optionalLoginUser = loginRepo.findByUsername(username);
 		if (optionalLoginUser.isPresent()) {
 			String truePassword = optionalLoginUser.get().getPassword();
-			if(truePassword.equals(password)) {
-				return new ModelAndView ("display", "login","Welcome back");
+			if (truePassword.equals(password)) {
+				return new ModelAndView("display", "login", "Welcome back");
+			}
+
 		}
-			
-		}
-		
-		//comments: 
-		//using optional instead of list bc it is a class, so we can compare String to it later
-		//logic: to find the username then match it to the corresponding pw
-		//isPresent is used to see if username existed
-		//we get name by ".get()" and "getPassword" 
-		//if the pw in sql equals to userinput , then return !
-		
+
+		// comments:
+		// using optional instead of list bc it is a class, so we can compare String to
+		// it later
+		// logic: to find the username then match it to the corresponding pw
+		// isPresent is used to see if username existed
+		// we get name by ".get()" and "getPassword"
+		// if the pw in sql equals to userinput , then return !
 
 		else {
-		return new ModelAndView("index", "login", "Wrong Username or Password!");
+			return new ModelAndView("index", "login", "Wrong Username or Password!");
 		}
 		return null;
-		
+
 	}
-	
-	@RequestMapping("/display") //url
+
+	@RequestMapping("/display") // url
 	public String registerPage() {
-		return "display"; //string methods in the controller class return the view 
+		return "display"; // string methods in the controller class return the view
 	}
-	
+
 	@PostMapping("/loginuser")
 	public ModelAndView add(LoginUser loginUser) {
 		loginRepo.save(loginUser);
 		return new ModelAndView("redirect:/");
-		
+
 	}
-     
 
 	@RequestMapping("/search")
 	public ModelAndView searchBar() {
-		
+
 		return new ModelAndView("search");
 
 	}
-	
+
 //	@RequestMapping("/result")
 //	public ModelAndView results(@RequestParam String address) {
 //		
@@ -124,15 +119,18 @@ public class HomeController {
 //		System.out.println(Arrays.toString(response.getBody()));
 //		return mv;
 //	}
-	
-	
+
 	@RequestMapping("/result")
-	public ModelAndView Geo(@RequestParam("address")String address, @RequestParam("city") String city, @RequestParam("state") String state) {
+	public ModelAndView Geo(@RequestParam("address") String address, @RequestParam("city") String city,
+			@RequestParam("state") String state) {
 		RestTemplate restTemplate = new RestTemplate();
-		GeoJson result = restTemplate.getForObject("https://maps.googleapis.com/maps/api/geocode/json?address=1600AmphitheatreParkwayMountainViewCA&key=AIzaSyC4_ZSaexxdhNL2hP_MJ4t4vTRUVpigN1Y", GeoJson.class);
-		// real address : https://maps.googleapis.com/maps/api/geocode/json?address=1750WoodwardAveDetroitMI&key=AIzaSyC4_ZSaexxdhNL2hP_MJ4t4vTRUVpigN1Y
+		GeoJson result = restTemplate.getForObject(
+				"https://maps.googleapis.com/maps/api/geocode/json?address=1600AmphitheatreParkwayMountainViewCA&key=AIzaSyC4_ZSaexxdhNL2hP_MJ4t4vTRUVpigN1Y",
+				GeoJson.class);
+		// real address :
+		// https://maps.googleapis.com/maps/api/geocode/json?address=1750WoodwardAveDetroitMI&key=AIzaSyC4_ZSaexxdhNL2hP_MJ4t4vTRUVpigN1Y
 		System.out.println(result);
-		
+
 //		ArrayList<ResultForGeo> resultForGeo = result.getResults();
 //		ResultForGeo resultOne =resultForGeo.get(0);
 //		Geometry geometry = resultOne.getGeometry();
@@ -141,12 +139,14 @@ public class HomeController {
 //		Double longitude = locationGeo.get(0).getLng();
 //		//return new ModelAndView("results","mtest", geotest);
 //		System.out.println("Latitude: " + latitude + " / Longitude: " + longitude);
-		//ArrayList<ResultForGeo> resultForGeo  = result.getResults();
-		
+		// ArrayList<ResultForGeo> resultForGeo = result.getResults();
+
 //		Double lat = resultForGeo.get(0).getGeometry().getLocation().get(0).getLat();
 //		Double lng = resultForGeo.get(0).getGeometry().getLocation().get(0).getLng();
 //		System.out.println(lat + lng);
-		return new ModelAndView("results", "result", result.toString());
+		Double latitude = result.getResults().get(0).getGeometry().getLocation().getLat();
+		Double longitude = result.getResults().get(0).getGeometry().getLocation().getLng();
+		return new ModelAndView("results", "result", latitude + " " + longitude);
 	}
 
 }
