@@ -3,13 +3,13 @@ package com.finalproject.FinalProject.entity.geo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Results {
+public class GeoResults {
 	private String formatted_address;
 	private String place_id;
 
 	private Geometry geometry;
 
-	public Results() {
+	public GeoResults() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -40,7 +40,7 @@ public class Results {
 
 	@Override
 	public String toString() {
-		return "Results [formatted_address=" + formatted_address + ", place_id=" + place_id + "geometry =" + geometry +"]";
+		return "GeoResults [formatted_address=" + formatted_address + ", place_id=" + place_id + "geometry =" + geometry +"]";
 	}
 
 }

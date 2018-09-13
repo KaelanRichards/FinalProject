@@ -8,14 +8,14 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 public class GeoJson {
 	
 	private String status;
-	private ArrayList<Results> results;
+	private ArrayList<GeoResults> geoResults;
 
-	public ArrayList<Results> getResults() {
-		return results;
+	public ArrayList<GeoResults> getResults() {
+		return geoResults;
 	}
 
-	public void setResults(ArrayList<Results> results) {
-		this.results = results;
+	public void setResults(ArrayList<GeoResults> results) {
+		this.geoResults = results;
 	}
 
 	public GeoJson() {
@@ -33,7 +33,7 @@ public class GeoJson {
 
 	@Override
 	public String toString() {
-		return "GeoJson [status=" + status + "results " + results;
+		return "GeoJson [status=" + status + "georesults " + geoResults;
 	}
 	
 	
