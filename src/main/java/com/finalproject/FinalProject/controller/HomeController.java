@@ -125,7 +125,7 @@ public class HomeController {
 			@RequestParam("state") String state) {
 		RestTemplate restTemplate = new RestTemplate();
 		GeoJson result = restTemplate.getForObject(
-				"https://maps.googleapis.com/maps/api/geocode/json?address=1600AmphitheatreParkwayMountainViewCA&key=AIzaSyC4_ZSaexxdhNL2hP_MJ4t4vTRUVpigN1Y",
+				"https://maps.googleapis.com/maps/api/geocode/json?address="+address + city + state+"&key=AIzaSyC4_ZSaexxdhNL2hP_MJ4t4vTRUVpigN1Y",
 				GeoJson.class);
 		// real address :
 		// https://maps.googleapis.com/maps/api/geocode/json?address=1750WoodwardAveDetroitMI&key=AIzaSyC4_ZSaexxdhNL2hP_MJ4t4vTRUVpigN1Y
