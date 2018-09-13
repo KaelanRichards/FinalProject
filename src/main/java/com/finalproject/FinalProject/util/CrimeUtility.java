@@ -145,10 +145,10 @@ public class CrimeUtility {
 	
 	public static int[] getCrimeTotals(String year, double userLat, double userLong) {
 		
-		ArrayList<Crime> theftList = CrimeUtility.theftOffense(year, userLat, userLong);
-		ArrayList<Crime> violentList = CrimeUtility.violentOffense(year, userLat, userLong);
-		ArrayList<Crime> sexList = CrimeUtility.sexOffense(year, userLat, userLong);
-		ArrayList<Crime> masterList = CrimeUtility.createMasterList(theftList, violentList, sexList);
+		ArrayList<Crime> theftList = theftOffense(year, userLat, userLong);
+		ArrayList<Crime> violentList = violentOffense(year, userLat, userLong);
+		ArrayList<Crime> sexList = sexOffense(year, userLat, userLong);
+		ArrayList<Crime> masterList = createMasterList(theftList, violentList, sexList);
 		int[] totals = {violentList.size(),sexList.size(), theftList.size(),masterList.size()};
 		
 		return totals;

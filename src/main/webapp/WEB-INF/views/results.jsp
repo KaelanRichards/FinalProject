@@ -12,5 +12,10 @@
 ${result}
 
 <h1>Your Crime Safety Rating Is </h1>
+<h1>${grade}</h1>
+<h1>2016 crime total: ${scores16}</h1>
+<h1>2017 crime total: ${scores17}</h1>
+<h1>2018 crime total: ${scores18}</h1>
+
 </body>
 </html>
