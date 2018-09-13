@@ -78,11 +78,7 @@ public class HomeController {
 
 	}
 
-//	@RequestMapping("/result")
-//	public ModelAndView results(@RequestParam String address) {
-//		
-//		return new ModelAndView("results" );
-//	}
+
 
 	@RequestMapping("/def")
 	public ModelAndView definition() {
@@ -120,6 +116,8 @@ public class HomeController {
 //		return mv;
 //	}
 
+	
+	//this is the GEOCODE API
 	@RequestMapping("/result")
 	public ModelAndView Geo(@RequestParam("address") String address, @RequestParam("city") String city,
 			@RequestParam("state") String state) {
@@ -131,22 +129,12 @@ public class HomeController {
 		// https://maps.googleapis.com/maps/api/geocode/json?address=1750WoodwardAveDetroitMI&key=AIzaSyC4_ZSaexxdhNL2hP_MJ4t4vTRUVpigN1Y
 		System.out.println(result);
 
-//		ArrayList<ResultForGeo> resultForGeo = result.getResults();
-//		ResultForGeo resultOne =resultForGeo.get(0);
-//		Geometry geometry = resultOne.getGeometry();
-//		ArrayList<LocationGeo> locationGeo = geometry.getLocation();
-//		Double latitude = locationGeo.get(0).getLat();
-//		Double longitude = locationGeo.get(0).getLng();
-//		//return new ModelAndView("results","mtest", geotest);
-//		System.out.println("Latitude: " + latitude + " / Longitude: " + longitude);
-		// ArrayList<ResultForGeo> resultForGeo = result.getResults();
 
-//		Double lat = resultForGeo.get(0).getGeometry().getLocation().get(0).getLat();
-//		Double lng = resultForGeo.get(0).getGeometry().getLocation().get(0).getLng();
-//		System.out.println(lat + lng);
 		Double latitude = result.getResults().get(0).getGeometry().getLocation().getLat();
 		Double longitude = result.getResults().get(0).getGeometry().getLocation().getLng();
 		return new ModelAndView("results", "result", latitude + " " + longitude);
+		
+		//ORDER IS : json -> results -> geometry -> location -> lat&lng
 	}
 
 }
