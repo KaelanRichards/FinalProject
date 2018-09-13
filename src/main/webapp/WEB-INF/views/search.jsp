@@ -38,13 +38,15 @@
                         <form action="/result" class="form-inline justify-content-center">
                             
                             <div class="form-group">
-                                <label class="sr-only">Email</label>
-                                <input name="number" type="text" class="form-control" placeholder="Street Number">
-                                <input name="street" type="text" class="form-control" placeholder="Street Name">
-                                <input name="city" type="text" class="form-control" placeholder="City">
-                                <input name="state" type="text" class="form-control" placeholder="State">
+                                
+                                
+                                <input name="address" type="text" class="form-control" placeholder="Street Address">
+                                <input name="city" type="text" class="form-control"  value="Detroit" readonly="readonly">
+                                <input name="state" type="text" class="form-control"  value="MI" readonly="readonly">
                             </div>
-                            <button type="submit" class="btn btn-primary" >Search!</button>
+                     		
+                            <button  type="submit" class="btn btn-primary" >Search!</button>
+                            
                         </form>
                     </div>
                     <br>
