@@ -13,13 +13,10 @@
 	<table>
 				<!-- this for each loop works just like an enhanced for loop in java -->
 			<c:forEach var="f" items="${listFavs}">
-
-				
 					<tr>
-
 						<td>${f.address}</td>
-						<td>${print.chargeDesc}</td>
-						<td>${print.crimeId}</td>
+						<td>Score</td>
+						<td>Delete</td>
 					</tr>
 			</c:forEach>
 	</table>

@@ -3,6 +3,8 @@ package com.finalproject.FinalProject.controller;
 import java.util.Arrays;
 import java.util.Optional;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -13,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -24,6 +27,7 @@ import com.finalproject.FinalProject.repo.LoginRepository;
 import com.finalproject.FinalProject.util.CrimeUtility;
 
 @Controller
+@SessionAttributes("user")
 public class HomeController {
 
 	@Autowired
@@ -38,11 +42,13 @@ public class HomeController {
 	}
 
 	@RequestMapping("/login")
-	public ModelAndView login(@RequestParam("username") String username, @RequestParam("password") String password) {
+	public ModelAndView login(@RequestParam("username") String username, @RequestParam("password") String password, HttpSession session) {
 		Optional<User> optionalUser = loginRepo.findByUsername(username);
 		if (optionalUser.isPresent()) {
 			String truePassword = optionalUser.get().getPassword();
 			if (truePassword.equals(password)) {
+				User user = optionalUser.get();
+				session.setAttribute("user", user);
 				return new ModelAndView("display", "login", "Welcome back");
 			}
 
@@ -155,8 +161,8 @@ public class HomeController {
 	}
 
 		@RequestMapping ("/favorites")
-		public ModelAndView favoriteList (@RequestParam("currentUser") User user) {
-			
+		public ModelAndView favoriteList (HttpSession session) {
+			User user = (User) session.getAttribute("user");
 			//need the "currentUser" to be passed in from previous page to populate our list
 			return new ModelAndView ("favorites", "listFavs", favRepo.findByUser(user));
 			
