@@ -8,7 +8,7 @@
 <head>
 
 <meta charset="UTF-8">
-<title>Spot DangerHood</title>
+<title>Crime-Spy (Detroit edition)</title> 
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootswatch/4.1.3/cerulean/bootstrap.min.css" />
 
