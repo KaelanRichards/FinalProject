@@ -143,6 +143,8 @@ public class CrimeUtility {
 		return masterList;
 	}
 	
+
+	
 	public static int[] getCrimeTotals(String year, double userLat, double userLong) {
 		
 		ArrayList<Crime> theftList = theftOffense(year, userLat, userLong);
