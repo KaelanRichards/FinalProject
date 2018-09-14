@@ -8,7 +8,7 @@
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootswatch/4.1.3/cerulean/bootstrap.min.css" />
 </head>
-<body>
+<body background = "http://www.designcities.net/wp-content/uploads/2016/01/Skyline-photo-copyright-Detroit-Creative-Corridor-Center-photo-by-Stephen-McGeee_kl.jpg">
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary" >
   <a class="navbar-brand" href="/search" >DETROIT</a>
