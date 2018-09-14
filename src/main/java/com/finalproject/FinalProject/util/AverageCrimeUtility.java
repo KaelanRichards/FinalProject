@@ -99,10 +99,10 @@ public class AverageCrimeUtility {
 		return totalCrimeNumber;
 	}
 	
-	public static int averageTotalCrimeList() {
+	public static double averageTotalCrimeList() {
 
-		int totalCrimeNumber = allCrimeList();
-		int average = totalCrimeNumber / 3;
+		double totalCrimeNumber = allCrimeList();
+		double average = totalCrimeNumber / 3;
 		return average;
 	}
 	public static int allLocalCrimeList(double userLat, double userLong) {
@@ -113,10 +113,63 @@ public class AverageCrimeUtility {
 		return total;
 		
 	}
-	public static int averageTotalLocalCrimeList(double userLat, double userLong) {
+	public static double averageTotalLocalCrimeList(double userLat, double userLong) {
 
-		int totalLocalCrimeNumber = allLocalCrimeList(userLat, userLong);
-		int average = totalLocalCrimeNumber / 3;
+		double totalLocalCrimeNumber = allLocalCrimeList(userLat, userLong);
+		double average = totalLocalCrimeNumber / 3;
 		return average;
 	}
+	
+	public static int calculateAvgDecrease(double avgTotal, double avgLocal) {
+		double decrease = avgTotal - avgLocal;
+		double decreaseTotal = decrease / avgTotal;
+		double decreasePercentage = decreaseTotal * 100;
+
+		return (int) decreasePercentage;
+
+	}
+	
+	public static int calculateAvgIncrease(double avgTotal, int avgLocal) {
+
+		double increase = avgLocal - avgTotal;
+		double increaseTotal = increase / avgTotal;
+		double increasePercentage = increaseTotal * 100;
+		return (int) increasePercentage;
+	}
+	
+	public static String calculateSafetyPercentage(int allTotal, int localTotal) {
+		
+		int percentage;
+		 if (allTotal >= localTotal ) {
+			int decrease = calculateAvgDecrease(allTotal, localTotal);
+			if (decrease >= 50) {
+				
+				return "very dangerous";
+			} else if (decrease >= 15) {
+				return "moderately dangerous";
+			} else if (decrease >= 1) {
+				
+				return "average";
+			}
+		}
+		// neighborhood gets less points for greater increase in crime
+		else if (allTotal <= localTotal) {
+			int increase = calculateAvgIncrease(allTotal, localTotal);
+			if (increase >= 50) {
+				
+				return "very safe";
+			} else if (increase >= 15) {
+				
+				return "safe";
+			} else if (increase >= 1) {
+				
+				
+				
+				return "average";
+			}
+		}
+
+		return "HELLO WHIRLED";
+	}
+
 }
