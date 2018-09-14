@@ -10,6 +10,7 @@
 	href="https://stackpath.bootstrapcdn.com/bootswatch/4.1.3/cerulean/bootstrap.min.css" />
 </head>
 <body>
+${user.username}
 	<table>
 				<!-- this for each loop works just like an enhanced for loop in java -->
 			<c:forEach var="f" items="${listFavs}">

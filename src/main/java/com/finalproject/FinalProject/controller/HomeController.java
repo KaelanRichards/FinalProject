@@ -26,12 +26,13 @@ import com.finalproject.FinalProject.repo.FavoriteRepo;
 import com.finalproject.FinalProject.repo.LoginRepository;
 import com.finalproject.FinalProject.util.CrimeUtility;
 
-@Controller
 @SessionAttributes("user")
+@Controller
 public class HomeController {
 
 	@Autowired
 	LoginRepository loginRepo;
+	
 	@Autowired
 	FavoriteRepo favRepo;
 
@@ -49,7 +50,7 @@ public class HomeController {
 			if (truePassword.equals(password)) {
 				User user = optionalUser.get();
 				session.setAttribute("user", user);
-				return new ModelAndView("display", "login", "Welcome back");
+				return new ModelAndView("crimetable", "login", "Welcome back, " + user.getFirstname() + "!");
 			}
 
 		}
@@ -164,6 +165,7 @@ public class HomeController {
 		public ModelAndView favoriteList (HttpSession session) {
 			User user = (User) session.getAttribute("user");
 			//need the "currentUser" to be passed in from previous page to populate our list
+			System.out.println(favRepo.findByUser(user));
 			return new ModelAndView ("favorites", "listFavs", favRepo.findByUser(user));
 			
 			

@@ -10,17 +10,17 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "favorites")
-
-	
 public class Favorite {
 	@Id 
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-
 	private Long favid;
 	private String address;
 	private String category;
-	@ManyToOne @JoinColumn (name="userid")
+	
+	@ManyToOne 
+	@JoinColumn (name="userid")
 	private User user;
+	
 	public Favorite() {
 		super();
 	

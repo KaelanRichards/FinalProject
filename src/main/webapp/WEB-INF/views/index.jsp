@@ -35,7 +35,7 @@
  ${login}
 <h1>Login Page</h1>
 
-<form action = "/crimetable" method = "post">
+<form action = "/login" method = "post">
 
 
 <div class="tab">User Name:

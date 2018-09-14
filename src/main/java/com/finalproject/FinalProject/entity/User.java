@@ -1,9 +1,13 @@
 package com.finalproject.FinalProject.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -19,9 +23,15 @@ public class User {
 	private String lastname;
 	private String phone;
 	private String confirmpassword;
+	// mappedBy refers to the user object we created in our favorites class (not the table)
+	@OneToMany (mappedBy = "user")
+	private List<Favorite> favorites = new ArrayList<>();
 	
 	
 	
+
+
+
 	public User() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -30,7 +40,7 @@ public class User {
 
 
 	public User(Long userid, String username, String password, String firstname, String lastname, String phone,
-			String confirmpassword) {
+			String confirmpassword, List<Favorite> favorites) {
 		super();
 		this.userid = userid;
 		this.username = username;
@@ -39,9 +49,10 @@ public class User {
 		this.lastname = lastname;
 		this.phone = phone;
 		this.confirmpassword = confirmpassword;
+		this.favorites = favorites;
 	}
 	public User( String username, String password, String firstname, String lastname, String phone,
-			String confirmpassword) {
+			String confirmpassword,List<Favorite> favorites) {
 		
 		this.username = username;
 		this.password = password;
@@ -49,20 +60,11 @@ public class User {
 		this.lastname = lastname;
 		this.phone = phone;
 		this.confirmpassword = confirmpassword;
+		this.favorites=favorites;
 	}
 
 
 
-
-	public Long getuserId() {
-		return userid;
-	}
-
-
-
-	public void setId(Long userid) {
-		this.userid = userid;
-	}
 
 
 
@@ -135,7 +137,28 @@ public class User {
 	public void setConfirmpassword(String confirmpassword) {
 		this.confirmpassword = confirmpassword;
 	}
+	
+	public Long getUserid() {
+		return userid;
+	}
 
+
+
+	public void setUserid(Long userid) {
+		this.userid = userid;
+	}
+
+
+
+	public List<Favorite> getFavorites() {
+		return favorites;
+	}
+
+
+
+	public void setFavorites(List<Favorite> favorites) {
+		this.favorites = favorites;
+	}
 
 
 	@Override
