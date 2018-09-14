@@ -19,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.finalproject.FinalProject.entity.Crime;
 import com.finalproject.FinalProject.entity.User;
 import com.finalproject.FinalProject.entity.geo.GeoJson;
+import com.finalproject.FinalProject.repo.FavoriteRepo;
 import com.finalproject.FinalProject.repo.LoginRepository;
 import com.finalproject.FinalProject.util.CrimeUtility;
 
@@ -27,6 +28,8 @@ public class HomeController {
 
 	@Autowired
 	LoginRepository loginRepo;
+	@Autowired
+	FavoriteRepo favRepo;
 
 	@RequestMapping("/")
 	public ModelAndView index() {
@@ -152,8 +155,10 @@ public class HomeController {
 	}
 
 		@RequestMapping ("/favorites")
-		public ModelAndView favoriteList () {
-			return new ModelAndView ("favorites");
+		public ModelAndView favoriteList (@RequestParam("currentUser") User user) {
+			
+			//need the "currentUser" to be passed in from previous page to populate our list
+			return new ModelAndView ("favorites", "listFavs", favRepo.findByUser(user));
 			
 			
 		}
