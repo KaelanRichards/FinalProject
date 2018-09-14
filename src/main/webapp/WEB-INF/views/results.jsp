@@ -34,5 +34,7 @@ ${result}
 <h1>2017 crime total: ${scores17}</h1>
 <h1>2018 crime total: ${scores18}</h1>
 
+${safetyString }
+
 </body>
 </html>

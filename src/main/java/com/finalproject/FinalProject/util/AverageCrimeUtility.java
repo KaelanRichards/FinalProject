@@ -144,9 +144,9 @@ public class AverageCrimeUtility {
 			int decrease = calculateAvgDecrease(allTotal, localTotal);
 			if (decrease >= 50) {
 				
-				return "very dangerous";
+				return "very safe";
 			} else if (decrease >= 15) {
-				return "moderately dangerous";
+				return "moderately safe";
 			} else if (decrease >= 1) {
 				
 				return "average";
@@ -157,10 +157,10 @@ public class AverageCrimeUtility {
 			int increase = calculateAvgIncrease(allTotal, localTotal);
 			if (increase >= 50) {
 				
-				return "very safe";
+				return "very dangerous";
 			} else if (increase >= 15) {
 				
-				return "safe";
+				return "dangerous";
 			} else if (increase >= 1) {
 				
 				
