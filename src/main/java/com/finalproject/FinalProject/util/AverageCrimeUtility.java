@@ -102,9 +102,13 @@ public class AverageCrimeUtility {
 	public static double averageTotalCrimeList() {
 
 		double totalCrimeNumber = allCrimeList();
-		double average = totalCrimeNumber / 3;
-		return average;
+		double average1 = totalCrimeNumber / 3;
+		double average2 = average1 /  715;
+		return average2;
 	}
+	// this is the avg in 0.25mi^2
+	//real number should be 7.3
+	
 	public static int allLocalCrimeList(double userLat, double userLong) {
 		int var16 = CrimeUtility.getCrimeTotals("2016", userLat, userLong)[3];
 		int var17 = CrimeUtility.getCrimeTotals("2017", userLat, userLong)[3];
