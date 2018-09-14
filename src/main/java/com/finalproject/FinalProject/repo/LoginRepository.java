@@ -6,11 +6,12 @@ import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.finalproject.FinalProject.entity.LoginUser;
 
-public interface LoginRepository extends JpaRepository<LoginUser, Long>{
-	Optional<LoginUser> findByUsername (String username);
-	Optional<LoginUser> findByPassword (String password);
+import com.finalproject.FinalProject.entity.User;
+
+public interface LoginRepository extends JpaRepository<User, Long>{
+	Optional<User> findByUsername (String username);
+	Optional<User> findByPassword (String password);
 
 	
 

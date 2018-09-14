@@ -17,7 +17,7 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.finalproject.FinalProject.entity.Crime;
-import com.finalproject.FinalProject.entity.LoginUser;
+import com.finalproject.FinalProject.entity.User;
 import com.finalproject.FinalProject.entity.geo.GeoJson;
 import com.finalproject.FinalProject.repo.LoginRepository;
 import com.finalproject.FinalProject.util.CrimeUtility;
@@ -36,9 +36,9 @@ public class HomeController {
 
 	@RequestMapping("/login")
 	public ModelAndView login(@RequestParam("username") String username, @RequestParam("password") String password) {
-		Optional<LoginUser> optionalLoginUser = loginRepo.findByUsername(username);
-		if (optionalLoginUser.isPresent()) {
-			String truePassword = optionalLoginUser.get().getPassword();
+		Optional<User> optionalUser = loginRepo.findByUsername(username);
+		if (optionalUser.isPresent()) {
+			String truePassword = optionalUser.get().getPassword();
 			if (truePassword.equals(password)) {
 				return new ModelAndView("display", "login", "Welcome back");
 			}
@@ -65,9 +65,9 @@ public class HomeController {
 		return "display"; // string methods in the controller class return the view
 	}
 
-	@PostMapping("/loginuser")
-	public ModelAndView add(LoginUser loginUser) {
-		loginRepo.save(loginUser);
+	@PostMapping("/User")
+	public ModelAndView add(User User) {
+		loginRepo.save(User);
 		return new ModelAndView("redirect:/");
 
 	}
@@ -151,4 +151,10 @@ public class HomeController {
 		//ORDER IS : json -> results -> geometry -> location -> lat&lng
 	}
 
+		@RequestMapping ("/favorites")
+		public ModelAndView favoriteList () {
+			return new ModelAndView ("favorites");
+			
+			
+		}
 }
