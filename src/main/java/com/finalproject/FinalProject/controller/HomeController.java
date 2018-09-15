@@ -12,6 +12,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -139,5 +140,12 @@ public class HomeController {
 			return new ModelAndView ("favorites", "listFavs", favRepo.findByUser(user));
 			
 			
+		}
+		@RequestMapping("/delete/{favid}")
+		public ModelAndView deleteFav(@PathVariable("favid") Long favid, HttpSession session) {
+				User user = (User) session.getAttribute("user");
+			
+			favRepo.deleteById(favid);
+			return new ModelAndView ("favorites", "listFavs", favRepo.findByUser(user));
 		}
 }
