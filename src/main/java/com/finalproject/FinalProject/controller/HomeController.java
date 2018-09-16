@@ -21,12 +21,10 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.finalproject.FinalProject.entity.Crime;
+import com.finalproject.FinalProject.entity.Favorite;
 import com.finalproject.FinalProject.entity.User;
-import com.finalproject.FinalProject.entity.geo.GeoJson;
 import com.finalproject.FinalProject.repo.FavoriteRepo;
 import com.finalproject.FinalProject.repo.LoginRepository;
-import com.finalproject.FinalProject.util.AverageCrimeUtility;
-import com.finalproject.FinalProject.util.CrimeUtility;
 
 @SessionAttributes("user")
 @Controller
@@ -148,4 +146,21 @@ public class HomeController {
 			favRepo.deleteById(favid);
 			return new ModelAndView ("favorites", "listFavs", favRepo.findByUser(user));
 		}
+		
+		@RequestMapping("/edit/{favid}")
+	    public ModelAndView showEditForm(@PathVariable("favid") long favid) {
+	        ModelAndView mv = new ModelAndView("favorites");
+	        //first is expressions language tag
+	        //second is value that the expressions language tag refers to.
+	        mv.addObject("title", "Edit Favorite List");
+	        mv.addObject("listFavs", favRepo.findById(favid).orElse(null));
+	        return mv;
+	    }
+	    
+	    @PostMapping("/edit/{favid}/")
+	    public ModelAndView submitEditForm(Favorite favorite, @PathVariable("favid") long favid) {
+	        favorite.setFavid(favid);
+	        favRepo.save(favorite);
+	        return new ModelAndView("redirect:/favorites");
+	    }
 }
