@@ -14,6 +14,7 @@ ${user.username}
 	<table>
 				<!-- this for each loop works just like an enhanced for loop in java -->
 			<c:forEach var="f" items="${listFavs}">
+			
 					<tr>
 						<td>${f.address}</td>
 						<td>Score</td>

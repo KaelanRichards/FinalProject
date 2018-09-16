@@ -149,12 +149,15 @@ public class HomeController {
 		
 		@RequestMapping("/edit/{favid}")
 	    public ModelAndView showEditForm(@PathVariable("favid") long favid) {
-	        ModelAndView mv = new ModelAndView("favorites");
-	        //first is expressions language tag
-	        //second is value that the expressions language tag refers to.
-	        mv.addObject("title", "Edit Favorite List");
-	        mv.addObject("listFavs", favRepo.findById(favid).orElse(null));
-	        return mv;
+			
+	        
+	      
+	       // mv.addObject("title", "Edit Favorite List");
+	       // mv.addObject("listFavs", favRepo.findById(favid).orElse(null));
+	        
+	        
+	        
+	        return new ModelAndView("favorites", "listFavs", favRepo.findById(favid));
 	    }
 	    
 	    @PostMapping("/edit/{favid}/")

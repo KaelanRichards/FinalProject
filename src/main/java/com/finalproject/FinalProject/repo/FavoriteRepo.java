@@ -10,5 +10,6 @@ import com.finalproject.FinalProject.entity.User;
 public interface FavoriteRepo extends JpaRepository <Favorite, Long> {
 	
 	List<Favorite> findByUser (User user);
+	//List<Favorite> findById (Favorite favid);
 
 }
