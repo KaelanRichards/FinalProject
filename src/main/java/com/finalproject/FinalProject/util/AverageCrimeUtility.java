@@ -89,6 +89,7 @@ public class AverageCrimeUtility {
 		for (Crime c : aggraAssault.getBody()) {
 			allCrimeList.add(c);
 		}
+		System.out.println(allCrimeList.size());
 		return allCrimeList.size();
 		
 	}
@@ -96,6 +97,7 @@ public class AverageCrimeUtility {
 	public static int allCrimeList() {
 		int totalCrimeNumber;
 		totalCrimeNumber = crimeListByYear("2016") + crimeListByYear("2017") + crimeListByYear("2018");
+		System.out.println(totalCrimeNumber);
 		return totalCrimeNumber;
 	}
 	
@@ -104,6 +106,7 @@ public class AverageCrimeUtility {
 		double totalCrimeNumber = allCrimeList();
 		double average1 = totalCrimeNumber / 3;
 		double average2 = average1 /  715;
+		System.out.println("Average1: " + average1 + " Average2: " + average2);
 		return average2;
 	}
 	// this is the avg in 0.25mi^2
@@ -114,6 +117,7 @@ public class AverageCrimeUtility {
 		int var17 = CrimeUtility.getCrimeTotals("2017", userLat, userLong)[3];
 		int var18 = CrimeUtility.getCrimeTotals("2018", userLat, userLong)[3];
 		int total = var16 + var17 + var18;
+		System.out.println("16: " + var16 + " 17: " + var17 + " 18: " + var18 + " total: " + total);
 		return total;
 		
 	}
