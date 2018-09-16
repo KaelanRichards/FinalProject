@@ -17,7 +17,9 @@ ${user.username}
 					<tr>
 						<td>${f.address}</td>
 						<td>Score</td>
+						<td><a href="/edit/${f.favid}">Edit</a></td>
 						<td><a href="/delete/${f.favid}">Delete</a></td>
+						
 					</tr>
 			</c:forEach>
 	</table>
