@@ -20,8 +20,6 @@ public class AverageCrimeUtility {
 		HttpEntity<String> entity = new HttpEntity<String>("parameters", headers);
 
 		RestTemplate restTemplate = new RestTemplate();
-		
-		ArrayList<Crime> allCrimeList = new ArrayList<Crime>();
 
 		ResponseEntity<Crime[]> stolenVehicle = restTemplate.exchange(
 				"https://data.detroitmi.gov/resource/9i6z-cm98.json?arrest_charge=24001&year=" + year, HttpMethod.GET, entity,
@@ -35,19 +33,6 @@ public class AverageCrimeUtility {
 				"https://data.detroitmi.gov/resource/9i6z-cm98.json?arrest_charge=22001&year=" + year, HttpMethod.GET, entity,
 				Crime[].class);
 
-		
-		// adding stolen vehicles to our theft category list
-		for (Crime c : stolenVehicle.getBody()) {
-			allCrimeList.add(c);
-		}
-		// adding larceny to our theft category list
-		for (Crime c : larceny.getBody()) {
-			allCrimeList.add(c);
-		}
-		// adding burglary to our theft category list
-		for (Crime c : burglary.getBody()) {
-			allCrimeList.add(c);
-		}
 		ResponseEntity<Crime[]> firstDegree = restTemplate.exchange(
 				"https://data.detroitmi.gov/resource/9i6z-cm98.json?arrest_charge=11001&year=" + year, HttpMethod.GET, entity,
 				Crime[].class);
@@ -56,15 +41,6 @@ public class AverageCrimeUtility {
 				"https://data.detroitmi.gov/resource/9i6z-cm98.json?arrest_charge=11007&year=" + year, HttpMethod.GET, entity,
 				Crime[].class);
 
-		
-		// adding First degree sex offenses to SA list
-		for (Crime c : firstDegree.getBody()) {
-			allCrimeList.add(c);
-		}
-		// adding second degree sex offense to SA list
-		for (Crime c : secondDegree.getBody()) {
-			allCrimeList.add(c);
-		}
 		ResponseEntity<Crime[]> aggraAssault = restTemplate.exchange(
 				"https://data.detroitmi.gov/resource/9i6z-cm98.json?arrest_charge=13002&year=" + year, HttpMethod.GET, entity,
 				Crime[].class);
@@ -77,20 +53,16 @@ public class AverageCrimeUtility {
 				"https://data.detroitmi.gov/resource/9i6z-cm98.json?arrest_charge=12000&year=" + year, HttpMethod.GET, entity,
 				Crime[].class);
 
+		int sizeAllCrime = assault.getBody().length 
+				+ robbery.getBody().length 
+				+ aggraAssault.getBody().length
+				+ firstDegree.getBody().length
+				+ secondDegree.getBody().length
+				+ burglary.getBody().length
+				+ larceny.getBody().length
+				+ stolenVehicle.getBody().length;
 		
-		// adding First degree sex offenses to SA list
-		for (Crime c : assault.getBody()) {
-			allCrimeList.add(c);
-		}
-		// adding second degree sex offense to SA list
-		for (Crime c : robbery.getBody()) {
-			allCrimeList.add(c);
-		}
-		for (Crime c : aggraAssault.getBody()) {
-			allCrimeList.add(c);
-		}
-		System.out.println(allCrimeList.size());
-		return allCrimeList.size();
+		return sizeAllCrime;
 		
 	}
 	
@@ -104,10 +76,10 @@ public class AverageCrimeUtility {
 	public static double averageTotalCrimeList() {
 
 		double totalCrimeNumber = allCrimeList();
-		double average1 = totalCrimeNumber / 3;
-		double average2 = average1 /  715;
-		System.out.println("Average1: " + average1 + " Average2: " + average2);
-		return average2;
+		double findDetroitAverage = totalCrimeNumber / 3;
+		double quarterMileRadiusAverage = findDetroitAverage /  715;
+		System.out.println("Average1: " + findDetroitAverage + " Average2: " + quarterMileRadiusAverage);
+		return quarterMileRadiusAverage;
 	}
 	// this is the avg in 0.25mi^2
 	//real number should be 7.3
