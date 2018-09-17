@@ -149,21 +149,33 @@ public class HomeController {
 		
 		@RequestMapping("/edit/{favid}")
 	    public ModelAndView showEditForm(@PathVariable("favid") long favid) {
-			
+			Optional<Favorite> optHouse = favRepo.findById(favid);
+			Favorite myHouse = optHouse.get();
+			String address = myHouse.getAddress() + " Detroit, MI";
 	        
 	      
 	       // mv.addObject("title", "Edit Favorite List");
 	       // mv.addObject("listFavs", favRepo.findById(favid).orElse(null));
 	        
+	        ModelAndView mv = new ModelAndView("favoriteform");
+	        mv.addObject("favoriteItem", myHouse);
+	        mv.addObject("favAddress", address);
 	        
-	        
-	        return new ModelAndView("favorites", "listFavs", favRepo.findById(favid));
+	        return mv;
 	    }
 	    
-	    @PostMapping("/edit/{favid}/")
-	    public ModelAndView submitEditForm(Favorite favorite, @PathVariable("favid") long favid) {
-	        favorite.setFavid(favid);
-	        favRepo.save(favorite);
+//	    @PostMapping("/edit/{favid}/")
+//	    public ModelAndView submitEditForm(Favorite favorite, @PathVariable("favid") long favid, @RequestParam ("category") String category) {
+//	    	favorite.setCategory(category);
+//	        favRepo.save(favorite);
+//	        return new ModelAndView("redirect:/favorites");
+//	    }
+		
+		@PostMapping("/edit")
+	    public ModelAndView submitEditForm(@RequestParam("id") long id, @RequestParam("category") String c ) {
+			Favorite fav = favRepo.findById(id).orElse(null);
+			fav.setCategory(c);
+	        favRepo.save(fav);
 	        return new ModelAndView("redirect:/favorites");
 	    }
 }
