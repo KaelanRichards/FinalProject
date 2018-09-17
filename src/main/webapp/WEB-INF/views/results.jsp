@@ -40,7 +40,7 @@ ${result}
 <form action = "/add_to_my_houses"><input type = "submit" value = "Add to Favorites"></form>
 ${safetyString }
 
-
+${gl}
 
 </body>
 </html>
