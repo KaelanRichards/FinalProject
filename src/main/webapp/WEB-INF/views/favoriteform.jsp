@@ -4,27 +4,34 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>My Places</title>
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootswatch/4.1.3/minty/bootstrap.min.css" />
 </head>
 <body>
-${listFavs }
-<form action="/favorites">
-            <div class="form-group">
+${favoriteItem }
+		<div class="form-group">
+		<form action="/favorites" method="post">
+            
                 <label >Address</label>
                 <!-- pre-populate the input value from the existing food (if any) -->
                 <input class="form-control" id="address" name="address"
-                    value="${f.address}" required minLength="2" autocomplete="off">
+                    value="${favAddress}" required minLength="2" autocomplete="off" readonly = "readonly">
                      <label >Category</label>
                 <!-- pre-populate the input value from the existing food (if any) -->
-                <input class="form-control" id="category" name="category"
-                    value="${f.category}" required minLength="2" autocomplete="off">
-            </div>
+                <select name="category">
+                	<option  value="">(None)</option>
+                	<option  value="Home">Home</option>
+                	<option  value="Business">Business</option>
+                	<option  value="Restaurant">Restaurant</option>
+                	<option  value="Other">Other</option>
+                </select>
+            
             <button type="submit" class="btn btn-primary">Submit</button>
             <a href="/" class="btn btn-link">Cancel</a>
+            
         </form>
-        
+        </div>
 
 </body>
 </html>

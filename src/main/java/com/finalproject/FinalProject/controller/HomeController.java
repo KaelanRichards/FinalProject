@@ -157,7 +157,7 @@ public class HomeController {
 	       // mv.addObject("title", "Edit Favorite List");
 	       // mv.addObject("listFavs", favRepo.findById(favid).orElse(null));
 	        
-	        ModelAndView mv = new ModelAndView("favorites");
+	        ModelAndView mv = new ModelAndView("favoriteform");
 	        mv.addObject("favoriteItem", myHouse);
 	        mv.addObject("favAddress", address);
 	        
@@ -165,8 +165,8 @@ public class HomeController {
 	    }
 	    
 	    @PostMapping("/edit/{favid}/")
-	    public ModelAndView submitEditForm(Favorite favorite, @PathVariable("favid") long favid) {
-	        favorite.setFavid(favid);
+	    public ModelAndView submitEditForm(Favorite favorite, @PathVariable("favid") long favid, @RequestParam ("category") String category) {
+	    	favorite.setCategory(category);
 	        favRepo.save(favorite);
 	        return new ModelAndView("redirect:/favorites");
 	    }
