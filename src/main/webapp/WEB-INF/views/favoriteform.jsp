@@ -10,7 +10,7 @@
 </head>
 <body>
 ${listFavs }
-<form action="favorites">
+<form action="/favorites">
             <div class="form-group">
                 <label >Address</label>
                 <!-- pre-populate the input value from the existing food (if any) -->
@@ -24,6 +24,7 @@ ${listFavs }
             <button type="submit" class="btn btn-primary">Submit</button>
             <a href="/" class="btn btn-link">Cancel</a>
         </form>
+        
 
 </body>
 </html>
