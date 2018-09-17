@@ -148,9 +148,9 @@ public class HomeController {
 		}
 		
 		@RequestMapping("/edit/{favid}")
-	    public ModelAndView showEditForm(@PathVariable("favid") long favid ) {
-			Optional<Favorite> house = favRepo.findById(favid);
-			Favorite myHouse = house.get();
+	    public ModelAndView showEditForm(@PathVariable("favid") long favid) {
+			Optional<Favorite> optHouse = favRepo.findById(favid);
+			Favorite myHouse = optHouse.get();
 			String address = myHouse.getAddress() + " Detroit, MI";
 	        
 	      
@@ -164,10 +164,18 @@ public class HomeController {
 	        return mv;
 	    }
 	    
-	    @PostMapping("/edit/{favid}/")
-	    public ModelAndView submitEditForm(Favorite favorite, @PathVariable("favid") long favid, @RequestParam ("category") String category) {
-	    	favorite.setCategory(category);
-	        favRepo.save(favorite);
+//	    @PostMapping("/edit/{favid}/")
+//	    public ModelAndView submitEditForm(Favorite favorite, @PathVariable("favid") long favid, @RequestParam ("category") String category) {
+//	    	favorite.setCategory(category);
+//	        favRepo.save(favorite);
+//	        return new ModelAndView("redirect:/favorites");
+//	    }
+		
+		@PostMapping("/edit")
+	    public ModelAndView submitEditForm(@RequestParam("id") long id, @RequestParam("category") String c ) {
+			Favorite fav = favRepo.findById(id).orElse(null);
+			fav.setCategory(c);
+	        favRepo.save(fav);
 	        return new ModelAndView("redirect:/favorites");
 	    }
 }

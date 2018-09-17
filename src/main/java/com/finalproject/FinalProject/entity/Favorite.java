@@ -38,6 +38,16 @@ public class Favorite {
 		this.category = category;
 		this.user = user;
 	}
+	
+	public Favorite(String category) {
+		this.category = category;
+	}
+	
+	public Favorite(String address, User user) {
+		this.address = address;
+		this.user = user;
+	}
+	
 	public Long getFavid() {
 		return favid;
 	}
