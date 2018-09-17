@@ -61,18 +61,18 @@ public class CrimeController {
 		Double latitude = result.getResults().get(0).getGeometry().getLocation().getLat();
 		Double longitude = result.getResults().get(0).getGeometry().getLocation().getLng();
 		
-		int[] totals2016 = CrimeUtility.getCrimeTotals("2016", latitude, longitude);
-		int[] totals2017 = CrimeUtility.getCrimeTotals("2017", latitude, longitude);
-		int[] totals2018 = CrimeUtility.getCrimeTotals("2018", latitude, longitude);
-		String finalScore = CrimeUtility.sumScoreCategories(totals2016, totals2018);
+//		int[] totals2016 = CrimeUtility.getCrimeTotals("2016", latitude, longitude);
+//		int[] totals2017 = CrimeUtility.getCrimeTotals("2017", latitude, longitude);
+//		int[] totals2018 = CrimeUtility.getCrimeTotals("2018", latitude, longitude);
+//		String finalScore = CrimeUtility.sumScoreCategories(totals2016, totals2018);
 		
 		ModelAndView mv = new ModelAndView("results");
 		
-		mv.addObject("result", latitude + " " + longitude);
-		mv.addObject("grade", finalScore);
-		mv.addObject("scores16", Arrays.toString(totals2016));
-		mv.addObject("scores17", Arrays.toString(totals2017));
-		mv.addObject("scores18", Arrays.toString(totals2018));
+//		mv.addObject("result", latitude + " " + longitude);
+//		mv.addObject("grade", finalScore);
+//		mv.addObject("scores16", Arrays.toString(totals2016));
+//		mv.addObject("scores17", Arrays.toString(totals2017));
+//		mv.addObject("scores18", Arrays.toString(totals2018));
 		
 		
 		int localAverage = (int) AverageCrimeUtility.averageTotalLocalCrimeList(latitude, longitude);
@@ -80,7 +80,7 @@ public class CrimeController {
 		String percentage = AverageCrimeUtility.calculateSafetyPercentage(allAverage, localAverage);
 		
 		mv.addObject("safetyString", percentage);
-		System.out.println(localAverage +" " + allAverage);
+		System.out.println( allAverage);
 		
 		return mv;
 		
