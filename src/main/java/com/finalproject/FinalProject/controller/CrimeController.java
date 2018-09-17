@@ -68,7 +68,7 @@ public class CrimeController {
 		
 		ModelAndView mv = new ModelAndView("results");
 		
-//		mv.addObject("result", latitude + " " + longitude);
+		mv.addObject("result", latitude + " " + longitude);
 //		mv.addObject("grade", finalScore);
 //		mv.addObject("scores16", Arrays.toString(totals2016));
 //		mv.addObject("scores17", Arrays.toString(totals2017));
@@ -80,7 +80,7 @@ public class CrimeController {
 		String percentage = AverageCrimeUtility.calculateSafetyPercentage(allAverage, localAverage);
 		
 		mv.addObject("safetyString", percentage);
-		System.out.println( allAverage);
+		System.out.println( "all: " + allAverage + " local: " + localAverage);
 		
 		return mv;
 		
