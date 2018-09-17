@@ -26,7 +26,7 @@ import com.finalproject.FinalProject.entity.User;
 import com.finalproject.FinalProject.repo.FavoriteRepo;
 import com.finalproject.FinalProject.repo.LoginRepository;
 
-@SessionAttributes("user")
+@SessionAttributes({"user"/*, "address"*/})
 @Controller
 public class HomeController {
 
@@ -178,4 +178,19 @@ public class HomeController {
 	        favRepo.save(fav);
 	        return new ModelAndView("redirect:/favorites");
 	    }
+		
+		
+		
+		@RequestMapping("/add_to_my_houses")
+	    public ModelAndView addNewFav(Favorite f, HttpSession session) {
+				User user = (User) session.getAttribute("user");
+				String address = (String) session.getAttribute("address");
+				f.setAddress(address);
+				f.setUser(user);
+				favRepo.save(f);
+				session.setAttribute("address", null);
+				return new ModelAndView("redirect:/favorites");
+
+	    }
+		
 }

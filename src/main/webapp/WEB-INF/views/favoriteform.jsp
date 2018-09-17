@@ -6,7 +6,7 @@
 <meta charset="ISO-8859-1">
 <title>My Places</title>
 <link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootswatch/4.1.3/minty/bootstrap.min.css" />
+	href="https://stackpath.bootstrapcdn.com/bootswatch/4.1.3/cerulean/bootstrap.min.css" />
 </head>
 <body>
 ${favoriteItem }<br><br>

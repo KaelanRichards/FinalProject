@@ -37,7 +37,7 @@ ${result}
 <h1>2018 crime total: ${scores18}</h1>
 
 
-<form action = "edit/{favid}"><input type = "submit" value = "Add to favorites"></form>
+<form action = "/add_to_my_houses"><input type = "submit" value = "Add to Favorites"></form>
 ${safetyString }
 
 

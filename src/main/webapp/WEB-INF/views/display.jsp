@@ -35,7 +35,7 @@ ${login}
 
 <h3>Please fill the form to register!</h3>
 
-<form name ="regForm" action="/loginuser" method="post">
+<form name ="regForm" action="/User" method="post">
 
 <!-- One "tab" for each step in the form: -->
 <div class="form-group">First Name:
