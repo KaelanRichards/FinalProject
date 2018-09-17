@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -15,6 +16,7 @@ import com.finalproject.FinalProject.util.AverageCrimeUtility;
 import com.finalproject.FinalProject.util.CrimeUtility;
 
 @Controller
+@SessionAttributes({"user", "address"})
 public class CrimeController {
 
 	

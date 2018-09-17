@@ -26,7 +26,7 @@ import com.finalproject.FinalProject.entity.User;
 import com.finalproject.FinalProject.repo.FavoriteRepo;
 import com.finalproject.FinalProject.repo.LoginRepository;
 
-@SessionAttributes({"user"/*, "address"*/})
+@SessionAttributes({"user", "address"})
 @Controller
 public class HomeController {
 
