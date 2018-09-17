@@ -1,24 +1,18 @@
 package com.finalproject.FinalProject.controller;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.finalproject.FinalProject.entity.Crime;
 import com.finalproject.FinalProject.entity.geo.GeoJson;
 import com.finalproject.FinalProject.util.AverageCrimeUtility;
 import com.finalproject.FinalProject.util.CrimeUtility;
-import com.finalproject.FinalProject.util.UtilityClass;
 
 @Controller
 public class CrimeController {
@@ -49,7 +43,8 @@ public class CrimeController {
 	//this is the GEOCODE API
 	@RequestMapping("/result")
 	public ModelAndView Geo(@RequestParam("address") String address, @RequestParam("city") String city,
-			@RequestParam("state") String state) {
+			@RequestParam("state") String state, HttpSession session) {
+		session.setAttribute("address", address);
 		RestTemplate restTemplate = new RestTemplate();
 		GeoJson result = restTemplate.getForObject(
 				"https://maps.googleapis.com/maps/api/geocode/json?address=" + address + city + state + "&key=AIzaSyC4_ZSaexxdhNL2hP_MJ4t4vTRUVpigN1Y",
@@ -68,7 +63,7 @@ public class CrimeController {
 		
 		ModelAndView mv = new ModelAndView("results");
 		
-		mv.addObject("result", latitude + " " + longitude);
+//		mv.addObject("result", latitude + " " + longitude);
 //		mv.addObject("grade", finalScore);
 //		mv.addObject("scores16", Arrays.toString(totals2016));
 //		mv.addObject("scores17", Arrays.toString(totals2017));
@@ -80,7 +75,7 @@ public class CrimeController {
 		String percentage = AverageCrimeUtility.calculateSafetyPercentage(allAverage, localAverage);
 		
 		mv.addObject("safetyString", percentage);
-		System.out.println( "all: " + allAverage + " local: " + localAverage);
+		System.out.println( allAverage);
 		
 		return mv;
 		
