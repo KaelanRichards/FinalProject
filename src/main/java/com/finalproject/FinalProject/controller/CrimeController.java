@@ -1,6 +1,7 @@
 package com.finalproject.FinalProject.controller;
 
 import java.util.Arrays;
+import java.util.SortedSet;
 
 import javax.servlet.http.HttpSession;
 
@@ -15,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.finalproject.FinalProject.entity.geo.GeoJson;
 import com.finalproject.FinalProject.util.AverageCrimeUtility;
 import com.finalproject.FinalProject.util.CrimeUtility;
+import com.finalproject.FinalProject.util.UtilityClass;
 
 @Controller
 @SessionAttributes({"user", "address"})
@@ -74,11 +76,12 @@ public class CrimeController {
 //		mv.addObject("scores17", Arrays.toString(totals2017));
 //		mv.addObject("scores18", Arrays.toString(totals2018));
 		
+		SortedSet<java.util.Map.Entry<String, Double>> precincts = UtilityClass.precinctsNearAddress(latitude, longitude);
 		
 		int localAverage = (int) AverageCrimeUtility.averageTotalLocalCrimeList(latitude, longitude);
 		int allAverage = (int) AverageCrimeUtility.averageTotalCrimeList();
 		String percentage = AverageCrimeUtility.calculateSafetyPercentage(allAverage, localAverage);
-		
+		mv.addObject("yourPrecinct", precincts.first());
 		mv.addObject("safetyString", percentage);
 		System.out.println( allAverage);
 		

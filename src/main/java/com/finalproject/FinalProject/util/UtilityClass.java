@@ -32,6 +32,7 @@ public class UtilityClass {
             }
         );
         sortedEntries.addAll(map.entrySet());
+        System.out.println("The closest precinct: " + sortedEntries.first());
         return sortedEntries;
     }
 	public static SortedSet<java.util.Map.Entry<String, Double>> precinctsNearAddress(double userLat, double userLong) {

@@ -31,13 +31,19 @@ ${result}
 
 
 <h1>Your Crime Safety Rating Is </h1>
-<h1>${grade}</h1>
-<h1>2016 crime total: ${scores16}</h1>
-<h1>2017 crime total: ${scores17}</h1>
-<h1>2018 crime total: ${scores18}</h1>
+<h1>${safetyString }</h1>
+<h6>__________________________________________________________________________</h6>
+<h4>Larceny:         ${scores16}</h4>
+<h4>Stolen Vehicles: ${scores17}</h4>
+<h4>Burglaries:      ${scores18}</h4>
+<h4>Sexual Assaults: ${scores17}</h4>
+<h4>Robberies:       ${scores18}</h4>
+<h4>Assaults:        ${scores17}</h4>
+<h4>Aggr. Assaults:  ${scores18}</h4>
+<h6>__________________________________________________________________________</h6>
+<h5>Your Closest Precinct: ${yourPrecinct}</h5>
 
-
-<form action = "/add_to_my_houses"><input type = "submit" value = "Add to Favorites"></form>
+<form action = "/add_to_my_houses"><input type = "submit" value="Add to Favorites"></form>
 ${safetyString }
 
 ${gl}
