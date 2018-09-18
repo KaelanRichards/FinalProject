@@ -1,23 +1,22 @@
 package com.finalproject.FinalProject.entity.greenlight;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.finalproject.FinalProject.entity.geo.Location;
 
 @JsonIgnoreProperties(ignoreUnknown=true)
 public class GreenLightJson {
 	
-	private Location location;
+	private GreenLocation location;
 
 	public GreenLightJson() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Location getLocation() {
+	public GreenLocation getLocation() {
 		return location;
 	}
 
-	public void setLocation(Location location) {
+	public void setLocation(GreenLocation location) {
 		this.location = location;
 	}
 

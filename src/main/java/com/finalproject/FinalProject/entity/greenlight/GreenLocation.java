@@ -6,18 +6,18 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class GreenLocation {
-	private ArrayList<Coordinates> coordinates;
+	private ArrayList<String> coordinates;
 
 	public GreenLocation() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public ArrayList<Coordinates> getCoordinates() {
+	public ArrayList<String> getCoordinates() {
 		return coordinates;
 	}
 
-	public void setCoordinates(ArrayList<Coordinates> coordinates) {
+	public void setCoordinates(ArrayList<String> coordinates) {
 		this.coordinates = coordinates;
 	}
 
