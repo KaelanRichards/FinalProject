@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -42,7 +43,20 @@ ${result}
 <h4>Aggr. Assaults:  ${scores18}</h4>
 <h6>__________________________________________________________________________</h6>
 <h5>Your Closest Precinct: ${yourPrecinct}</h5>
-
+<h6>__________________________________________________________________________</h6>
+<h5>Project GreenLight Participants Near You</h5>
+<table>
+	<tr>
+		<th>Business</th>
+		<th>Address</th>
+	</tr>
+	<c:forEach var="g" items="${GLlist}">
+		<tr>
+			<td>${g.businessName}</td>
+			<td>${g.address}</td>
+		</tr>
+	</c:forEach>
+</table>
 <form action = "/add_to_my_houses"><input type = "submit" value="Add to Favorites"></form>
 ${safetyString }
 

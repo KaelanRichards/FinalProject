@@ -22,7 +22,7 @@ import com.finalproject.FinalProject.util.UtilityClass;
 @Controller
 public class GreenLightController {
 
-	@RequestMapping("/result")
+	@RequestMapping("/test")
 	public ModelAndView GreenLight(@RequestParam("address") String address, @RequestParam("city") String city,
 			@RequestParam("state") String state, HttpSession session) {
 
@@ -67,20 +67,5 @@ public class GreenLightController {
 
 	}
 
-	@RequestMapping("random")
-	public ModelAndView randomTest() {
-
-		HttpHeaders headers = new HttpHeaders();
-		headers.add("Accept", MediaType.APPLICATION_JSON_VALUE);
-
-		HttpEntity<String> entity = new HttpEntity<String>("parameters", headers);
-		
-		RestTemplate restTemplate = new RestTemplate();
-		
-		ResponseEntity<GreenLightJson[]> GLresult = restTemplate.exchange(
-				"https://data.detroitmi.gov/resource/xgha-35ji.json", HttpMethod.GET, entity, GreenLightJson[].class);
-		
-		return new ModelAndView("random", "random", GLresult.getBody()[1].getLocation().getCoordinates().get(0));
-	}
 
 }
