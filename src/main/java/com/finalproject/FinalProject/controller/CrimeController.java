@@ -4,6 +4,7 @@ import java.util.Arrays;
 
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -19,6 +20,8 @@ import com.finalproject.FinalProject.util.CrimeUtility;
 @SessionAttributes({"user", "address"})
 public class CrimeController {
 
+	@Value("${geocode.key}")
+	String geocodeKey;
 	
 	@RequestMapping("/crimetable")
 	public ModelAndView crimeDataTest() {
@@ -49,7 +52,7 @@ public class CrimeController {
 		session.setAttribute("address", address);
 		RestTemplate restTemplate = new RestTemplate();
 		GeoJson result = restTemplate.getForObject(
-				"https://maps.googleapis.com/maps/api/geocode/json?address=" + address + city + state + "&key=AIzaSyC4_ZSaexxdhNL2hP_MJ4t4vTRUVpigN1Y",
+				"https://maps.googleapis.com/maps/api/geocode/json?address=" + address + city + state + "&key="+ geocodeKey,
 				GeoJson.class);
 		// real address :
 		// https://maps.googleapis.com/maps/api/geocode/json?address=1750WoodwardAveDetroitMI&key=AIzaSyC4_ZSaexxdhNL2hP_MJ4t4vTRUVpigN1Y
