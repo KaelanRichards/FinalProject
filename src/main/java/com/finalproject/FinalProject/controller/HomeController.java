@@ -136,7 +136,7 @@ public class HomeController {
 				return new ModelAndView("search", "message", "You're not logged in. How could you possibly add a favorite?");
 			}
 			//need the "currentUser" to be passed in from previous page to populate our list
-			System.out.println(favRepo.findByUser(user));
+		
 			return new ModelAndView ("favorites", "listFavs", favRepo.findByUser(user));
 			
 			

@@ -32,7 +32,7 @@ public class UtilityClass {
             }
         );
         sortedEntries.addAll(map.entrySet());
-        System.out.println("The closest precinct: " + sortedEntries.first());
+        
         return sortedEntries;
     }
 	public static SortedSet<java.util.Map.Entry<String, Double>> precinctsNearAddress(double userLat, double userLong) {
@@ -51,12 +51,9 @@ public class UtilityClass {
 		nonSortedMap.put("10th", distFrom(userLat, userLong, 42.37656481638395, -83.13855852239692));
 		nonSortedMap.put("11th", distFrom(userLat, userLong, 42.42555354379842, -83.05131414200324));
 		nonSortedMap.put("12th", distFrom(userLat, userLong, 42.43150785858086, -83.11865185570083));
-		
-		
-
-		for (java.util.Map.Entry<String, Double> entry  : entriesSortedByValues(nonSortedMap)) {
-		    System.out.println(entry.getKey()+":"+entry.getValue());
-		}
+//		for (java.util.Map.Entry<String, Double> entry  : entriesSortedByValues(nonSortedMap)) {
+//		    System.out.println(entry.getKey()+":"+entry.getValue());
+//		}
 		
 		return entriesSortedByValues(nonSortedMap);
 	}

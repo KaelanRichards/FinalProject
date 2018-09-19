@@ -32,6 +32,7 @@ public class CrimeController {
 	@RequestMapping("/result")
 	public ModelAndView Geo(@RequestParam("address") String address, @RequestParam("city") String city,
 			@RequestParam("state") String state) {
+		
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("Accept", MediaType.APPLICATION_JSON_VALUE);
 
@@ -80,10 +81,11 @@ public class CrimeController {
 		String percentage = CrimeUtility.calculateSafetyPercentage(allAverage, localAverage);
 		String[] precinctInfo = returnPrecinctInformation(precinctName);
 		
+		// pulling data from the user input location
 		mv.addObject("latitude", latitude);
 		mv.addObject("longitude", longitude);
-		mv.addObject("googleAPIKey", geocodeKey);
 		
+		// pulling data from API to pass in specific crime stats to JSP through EL
 		mv.addObject("stolenVehicle", CrimeUtility.localCrimeOffense(24001, "2018", latitude, longitude).size());
 		mv.addObject("larceny", CrimeUtility.localCrimeOffense(23007, "2018", latitude, longitude).size());
 		mv.addObject("burglary", CrimeUtility.localCrimeOffense(22001, "2018", latitude, longitude).size());
@@ -93,11 +95,15 @@ public class CrimeController {
 		mv.addObject("sexualAssault", CrimeUtility.localCrimeOffense(11001, "2018", latitude, longitude).size() + CrimeUtility.localCrimeOffense(11003, "2018", latitude, longitude).size()
 				+ CrimeUtility.localCrimeOffense(11002, "2018", latitude, longitude).size() + CrimeUtility.localCrimeOffense(11004, "2018", latitude, longitude).size());
 	
-		
+		// pull precinct information from method and display on results page
 		mv.addObject("precinctInfo", precinctInfo);
 		mv.addObject("yourPrecinct", yourPrecinctDistance);
 		mv.addObject("yourPrecinctName", precinctName);
+		
+		// creating EL for 
 		mv.addObject("GLlist", glInRange);
+		
+		
 		mv.addObject("safetyString", percentage);
 		mv.addObject("address", address);
 		System.out.println(allAverage);

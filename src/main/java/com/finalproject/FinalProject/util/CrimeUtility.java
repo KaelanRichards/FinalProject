@@ -39,9 +39,8 @@ public class CrimeUtility {
 		ResponseEntity<Crime[]> crime = restTemplate.exchange(
 				"https://data.detroitmi.gov/resource/9i6z-cm98.json?arrest_charge=" + chargeNumber + "&year=" + year,
 				HttpMethod.GET, entity, Crime[].class);
-		// initializing a list for theft crimes
+	
 		ArrayList<Crime> localCrimeList = new ArrayList<Crime>();
-		// adding stolen vehicles to our theft category list
 		for (Crime c : crime.getBody()) {
 			localCrimeList.add(c);
 		}
