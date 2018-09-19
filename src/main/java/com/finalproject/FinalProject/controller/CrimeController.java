@@ -30,23 +30,6 @@ public class CrimeController {
 	@Value("${geocode.key}")
 	String geocodeKey;
 
-//	@RequestMapping("/crimetable")
-//	public ModelAndView crimeDataTest() {
-//
-//		int[] totals2016 = CrimeUtility.getCrimeTotals("2016", 42.335972, -83.050057);
-//		int[] totals2017 = CrimeUtility.getCrimeTotals("2017", 42.335972, -83.050057);
-//		int[] totals2018 = CrimeUtility.getCrimeTotals("2018", 42.335972, -83.050057);
-//		String finalScore = CrimeUtility.sumScoreCategories(totals2016, totals2018);
-//		System.out.println(Arrays.toString(totals2016));
-//		System.out.println(Arrays.toString(totals2017));
-//		System.out.println(Arrays.toString(totals2018));
-//
-//		ModelAndView mv = new ModelAndView("crimetable");
-//		mv.addObject("finalScoreTest", finalScore);
-//
-//		return mv;
-//	}
-
 	// this is the GEOCODE API
 	@RequestMapping("/result")
 	public ModelAndView Geo(@RequestParam("address") String address, @RequestParam("city") String city,
@@ -62,8 +45,7 @@ public class CrimeController {
 		GeoJson result = restTemplate.getForObject("https://maps.googleapis.com/maps/api/geocode/json?address="
 				+ address + city + state + "&key=" + geocodeKey, GeoJson.class);
 		// real address :
-		// https://maps.googleapis.com/maps/api/geocode/json?address=1750WoodwardAveDetroitMI&key=AIzaSyC4_ZSaexxdhNL2hP_MJ4t4vTRUVpigN1Y
-		System.out.println(result);
+		// https://maps.googleapis.com/maps/api/geocode/json?address=1750WoodwardAveDetroitMI&key=AIzaSyC4_ZSaexxdhNL2hP_MJ4t4vTRUVpigN1
 
 		Double latitude = result.getResults().get(0).getGeometry().getLocation().getLat();
 		Double longitude = result.getResults().get(0).getGeometry().getLocation().getLng();
@@ -105,6 +87,7 @@ public class CrimeController {
 		
 		mv.addObject("latitude", latitude);
 		mv.addObject("longitude", longitude);
+		mv.addObject("googleAPIKey", geocodeKey);
 		
 		mv.addObject("stolenVehicle", CrimeUtility.localCrimeOffense(24001, "2018", latitude, longitude).size());
 		mv.addObject("larceny", CrimeUtility.localCrimeOffense(23007, "2018", latitude, longitude).size());
