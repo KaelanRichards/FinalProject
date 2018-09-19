@@ -61,7 +61,7 @@ public class HomeController {
 				// setting http session attribute to our user object
 				// this tracks the user's login as long as our session lasts
 				session.setAttribute("user", user);
-				return new ModelAndView("crimetable", "login", "Welcome back, " + user.getFirstname() + "!");
+				return new ModelAndView("search", "login", " Welcome back, " + user.getFirstname() + "!");
 			}
 
 		}

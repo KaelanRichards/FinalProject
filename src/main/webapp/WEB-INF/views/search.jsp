@@ -16,6 +16,8 @@
     <span class="navbar-toggler-icon"></span>
   </button>
 
+
+
   <div class="collapse navbar-collapse" id="navbarColor01">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
@@ -35,7 +37,7 @@
     </ul>
   </div>
 </nav>
-
+<h1 class ="row text-white">${login}</h1>
 <section id="cover">
     <div id="cover-caption" >
         <div id="container" class="container">
