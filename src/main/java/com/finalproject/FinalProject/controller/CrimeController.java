@@ -109,7 +109,8 @@ public class CrimeController {
 		mv.addObject("aggravatedAssault", CrimeUtility.localCrimeOffense(13002, "2018", latitude, longitude).size());
 		mv.addObject("assault", CrimeUtility.localCrimeOffense(13001, "2018", latitude, longitude).size());
 		mv.addObject("robbery", CrimeUtility.localCrimeOffense(1200, "2018", latitude, longitude).size());
-		mv.addObject("sexualAssault", CrimeUtility.localCrimeOffense(11001, "2018", latitude, longitude).size() + CrimeUtility.localCrimeOffense(11007, "2018", latitude, longitude).size());
+		mv.addObject("sexualAssault", CrimeUtility.localCrimeOffense(11001, "2018", latitude, longitude).size() + CrimeUtility.localCrimeOffense(11003, "2018", latitude, longitude).size()
+				+ CrimeUtility.localCrimeOffense(11002, "2018", latitude, longitude).size() + CrimeUtility.localCrimeOffense(11004, "2018", latitude, longitude).size());
 	
 		
 		mv.addObject("precinctInfo", precinctInfo);
