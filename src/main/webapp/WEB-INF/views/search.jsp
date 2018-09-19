@@ -37,10 +37,11 @@
     </ul>
   </div>
 </nav>
-<h1 class ="row text-white">${message}${login}</h1>
+
 <section id="cover">
     <div id="cover-caption" >
         <div id="container" class="container">
+        <h1 class ="row text-white">${message}${login}</h1>
             <div class="row text-white">
                 <div class="col-sm-10 offset-sm-1 text-center">
                     <h1  class="display-3 text-info" style = "padding-top: 112px">Explore Detroit</h1>
