@@ -80,10 +80,8 @@ public class HomeController {
 		}
 		// invalidate clears the current user session and starts a new one.
 		session.invalidate();
-		// A flash message will only show on the very next page. Then it will go away.
-		// It is useful with redirects since you can't add attributes to the mav.
-		redir.addFlashAttribute("message", "Logged out.");
-		return new ModelAndView("redirect:/");
+	
+		return new ModelAndView("search", "message", "Logged out.");
 	}
 	
 
