@@ -67,7 +67,7 @@ public class CrimeController {
 
 		Double latitude = result.getResults().get(0).getGeometry().getLocation().getLat();
 		Double longitude = result.getResults().get(0).getGeometry().getLocation().getLng();
-
+		
 
 		ResponseEntity<GreenLightJson[]> GLresult = restTemplate.exchange(
 				"https://data.detroitmi.gov/resource/xgha-35ji.json", HttpMethod.GET, entity, GreenLightJson[].class);
@@ -102,6 +102,9 @@ public class CrimeController {
 		int allAverage = (int) AverageCrimeUtility.averageTotalCrimeList();
 		String percentage = AverageCrimeUtility.calculateSafetyPercentage(allAverage, localAverage);
 		String[] precinctInfo = returnPrecinctInformation(precinctName);
+		
+		mv.addObject("latitude", latitude);
+		mv.addObject("longitude", longitude);
 		
 		mv.addObject("stolenVehicle", CrimeUtility.localCrimeOffense(24001, "2018", latitude, longitude).size());
 		mv.addObject("larceny", CrimeUtility.localCrimeOffense(23007, "2018", latitude, longitude).size());
