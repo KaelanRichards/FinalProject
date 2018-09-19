@@ -1,6 +1,8 @@
 /**
  * 
  */
+
+//this is the javascript validation for our login page 
 var check = function() {
 	  if (document.getElementById('password').value ==
 	    document.getElementById('confirmPassword').value) {
