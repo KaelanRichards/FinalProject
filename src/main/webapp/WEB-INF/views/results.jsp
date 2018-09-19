@@ -51,8 +51,11 @@ tr:nth-child(even) {
       	<a class="nav-link" href="/resources">Resources</a>
       </li>
       <li class="nav-item">
+<<<<<<< HEAD
       <!-- need to redirect to search page after invalidating the http session
       request mapping to logout controller method and then use redirect for the modelandview jsp page? -->
+=======
+>>>>>>> a2d5002f0a73a76c1018a8bd6b7a38d224a098d0
       	<a class="nav-link" href="/logout">Log Out</a>
       </li>
     </ul>
