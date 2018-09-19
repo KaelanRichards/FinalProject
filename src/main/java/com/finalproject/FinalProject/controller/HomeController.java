@@ -75,9 +75,11 @@ public class HomeController {
 	
 	@RequestMapping("/logout")
 	public ModelAndView logout(HttpSession session, RedirectAttributes redir) {
+		if(session.getAttribute("user") == null) {
+			return new ModelAndView("search", "message", "You're not logged in. How could you possibly log out?");
+		}
 		// invalidate clears the current user session and starts a new one.
 		session.invalidate();
-		
 		// A flash message will only show on the very next page. Then it will go away.
 		// It is useful with redirects since you can't add attributes to the mav.
 		redir.addFlashAttribute("message", "Logged out.");
@@ -132,6 +134,9 @@ public class HomeController {
 		@RequestMapping ("/favorites")
 		public ModelAndView favoriteList (HttpSession session) {
 			User user = (User) session.getAttribute("user");
+			if(user == null) {
+				return new ModelAndView("search", "message", "You're not logged in. How could you possibly add a favorite?");
+			}
 			//need the "currentUser" to be passed in from previous page to populate our list
 			System.out.println(favRepo.findByUser(user));
 			return new ModelAndView ("favorites", "listFavs", favRepo.findByUser(user));
