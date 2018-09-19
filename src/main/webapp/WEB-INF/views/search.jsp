@@ -43,7 +43,7 @@
         <div id="container" class="container">
             <div class="row text-white">
                 <div class="col-sm-10 offset-sm-1 text-center">
-                    <h1  class="display-3 text-info" style = "padding-top: 112px" font-color: green>Explore Detroit</h1>
+                    <h1  class="display-3 text-info" style = "padding-top: 112px">Explore Detroit</h1>
                     <div class="info-form">
                         <form action="/result" class="form-inline justify-content-center">
                             
