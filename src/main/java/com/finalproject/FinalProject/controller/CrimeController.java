@@ -52,7 +52,6 @@ public class CrimeController {
 
 		ArrayList<GreenLightJson> result3 = new ArrayList<GreenLightJson>();
 		for (GreenLightJson c : GLresult.getBody()) {
-			// System.out.println(c);
 			result3.add(c);
 		}
 
@@ -106,7 +105,7 @@ public class CrimeController {
 		
 		mv.addObject("safetyString", percentage);
 		mv.addObject("address", address);
-		System.out.println(allAverage);
+		
 
 		return mv;
 
