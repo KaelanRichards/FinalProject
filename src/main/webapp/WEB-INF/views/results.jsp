@@ -31,6 +31,14 @@ td, th {
 tr:nth-child(even) {
     background-color: #dddddd;
 }
+
+#map {
+  min-width: 500px;
+  width: 50%;
+  min-height: 300px;
+  height: 80%;
+  border: 1px solid pink;
+}
     </style>
 </head>
 <body>
@@ -73,9 +81,13 @@ tr:nth-child(even) {
 	</form>
 	</div>
 	<div class="container">
+
 	<h6>__________________________________________________________________________________________________________________________________________________________</h6>
-	<h3>Crime Details</h3>
+	<h3 align="left">Crime Details</h3>
 	<h6>__________________________________________________________________________________________________________________________________________________________</h6>
+	<div class="row">
+	<div class="col-lg-6">
+	
 	<p>Larceny: ${larceny}</p>
 	<p>Stolen Vehicles: ${stolenVehicle}</p>
 	<p>Burglaries: ${burglary}</p>
@@ -83,6 +95,12 @@ tr:nth-child(even) {
 	<p>Robberies: ${robbery}</p>
 	<p>Assaults: ${assault}</p>
 	<p>Aggr. Assaults: ${aggravatedAssault}</p>
+	</div>
+	<div class="col-lg-6">
+	    <!--The div element for the map -->
+    <div id="map"  >
+	</div>
+	</div>
 	</div>
 	<div class="container">
 	<h6>__________________________________________________________________________________________________________________________________________________________</h6>
@@ -117,9 +135,8 @@ tr:nth-child(even) {
 	
 	${gl}
 	
-    <!--The div element for the map -->
-    <div id="map" class="container">
-    <h3>Your pinned location</h3>
+
+    
     </div>
     <br>
 	<script>
@@ -140,6 +157,12 @@ tr:nth-child(even) {
 				position : userLocation,
 				map : map
 			});
+			
+		  // listen for the window resize event & trigger Google Maps to update too
+		  $(window).resize(function() {
+		    // (the 'map' here is the result of the created 'var map = ...' above)
+		    google.maps.event.trigger(map, "resize");
+		  });
 		}
 	</script>
 	<!--Load the API from the specified URL
