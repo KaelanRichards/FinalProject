@@ -49,7 +49,8 @@ public class CrimeUtility {
 		localCrimeList = crimesNearAddress(localCrimeList, userLat, userLong);
 		return localCrimeList;
 	}
-	public static ArrayList<Crime> sexOffense(String year, double userLat, double userLong) {
+
+	public static int crimeListFromAPI(){
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("Accept", MediaType.APPLICATION_JSON_VALUE);
 
@@ -57,195 +58,196 @@ public class CrimeUtility {
 
 		RestTemplate restTemplate = new RestTemplate();
 
+		ResponseEntity<Crime[]> stolenVehicle = restTemplate.exchange(
+				"https://data.detroitmi.gov/resource/9i6z-cm98.json?arrest_charge=24001", HttpMethod.GET, entity,
+				Crime[].class);
+
+		ResponseEntity<Crime[]> larceny = restTemplate.exchange(
+				"https://data.detroitmi.gov/resource/9i6z-cm98.json?arrest_charge=23007", HttpMethod.GET, entity,
+				Crime[].class);
+
+		ResponseEntity<Crime[]> burglary = restTemplate.exchange(
+				"https://data.detroitmi.gov/resource/9i6z-cm98.json?arrest_charge=22001", HttpMethod.GET, entity,
+				Crime[].class);
+
 		ResponseEntity<Crime[]> firstDegree = restTemplate.exchange(
-				"https://data.detroitmi.gov/resource/9i6z-cm98.json?arrest_charge=11001&year=" + year, HttpMethod.GET, entity,
+				"https://data.detroitmi.gov/resource/9i6z-cm98.json?arrest_charge=11001", HttpMethod.GET, entity,
 				Crime[].class);
 
 		ResponseEntity<Crime[]> secondDegree = restTemplate.exchange(
-				"https://data.detroitmi.gov/resource/9i6z-cm98.json?arrest_charge=11007&year=" + year, HttpMethod.GET, entity,
+				"https://data.detroitmi.gov/resource/9i6z-cm98.json?arrest_charge=11007", HttpMethod.GET, entity,
 				Crime[].class);
 
-		// initializing a list for theft crimes
-		ArrayList<Crime> sexualAssaultList = new ArrayList<Crime>();
-		// adding First degree sex offenses to SA list
-		for (Crime c : firstDegree.getBody()) {
-			sexualAssaultList.add(c);
-		}
-		// adding second degree sex offense to SA list
-		for (Crime c : secondDegree.getBody()) {
-			sexualAssaultList.add(c);
-		}
-		sexualAssaultList = crimesNearAddress(sexualAssaultList, userLat, userLong);
-		return sexualAssaultList;
+		ResponseEntity<Crime[]> aggraAssault = restTemplate.exchange(
+				"https://data.detroitmi.gov/resource/9i6z-cm98.json?arrest_charge=13002", HttpMethod.GET, entity,
+				Crime[].class);
+
+		ResponseEntity<Crime[]> assault = restTemplate.exchange(
+				"https://data.detroitmi.gov/resource/9i6z-cm98.json?arrest_charge=13001", HttpMethod.GET, entity,
+				Crime[].class);
+
+		ResponseEntity<Crime[]> robbery = restTemplate.exchange(
+				"https://data.detroitmi.gov/resource/9i6z-cm98.json?arrest_charge=12000", HttpMethod.GET, entity,
+				Crime[].class);
+	
+
+		int sizeAllCrime = assault.getBody().length 
+				+ robbery.getBody().length 
+				+ aggraAssault.getBody().length
+				+ firstDegree.getBody().length
+				+ secondDegree.getBody().length
+				+ burglary.getBody().length
+				+ larceny.getBody().length
+				+ stolenVehicle.getBody().length;
+		
+		return sizeAllCrime;
+		
 	}
-	public static ArrayList<Crime> violentOffense(String year, double userLat, double userLong) {
+	
+	public static double averageTotalCrimeList() {
+
+		double totalCrimeNumber = crimeListFromAPI();
+		double findDetroitAverage = totalCrimeNumber;
+		double quarterMileRadiusAverage = findDetroitAverage /  715;
+		System.out.println("Average1: " + findDetroitAverage + " Average2: " + quarterMileRadiusAverage);
+		return quarterMileRadiusAverage;
+	}
+	// this is the avg in 0.25mi^2
+	//real number should be 7.3
+	public static int crimeLocalList(double userLat, double userLong){
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("Accept", MediaType.APPLICATION_JSON_VALUE);
 
 		HttpEntity<String> entity = new HttpEntity<String>("parameters", headers);
 
 		RestTemplate restTemplate = new RestTemplate();
+		ArrayList<Crime> localList = new ArrayList<>();
+
+		ResponseEntity<Crime[]> stolenVehicle = restTemplate.exchange(
+				"https://data.detroitmi.gov/resource/9i6z-cm98.json?arrest_charge=24001", HttpMethod.GET, entity,
+				Crime[].class);
+
+		ResponseEntity<Crime[]> larceny = restTemplate.exchange(
+				"https://data.detroitmi.gov/resource/9i6z-cm98.json?arrest_charge=23007", HttpMethod.GET, entity,
+				Crime[].class);
+
+		ResponseEntity<Crime[]> burglary = restTemplate.exchange(
+				"https://data.detroitmi.gov/resource/9i6z-cm98.json?arrest_charge=22001", HttpMethod.GET, entity,
+				Crime[].class);
+
+		ResponseEntity<Crime[]> firstDegree = restTemplate.exchange(
+				"https://data.detroitmi.gov/resource/9i6z-cm98.json?arrest_charge=11001", HttpMethod.GET, entity,
+				Crime[].class);
+
+		ResponseEntity<Crime[]> secondDegree = restTemplate.exchange(
+				"https://data.detroitmi.gov/resource/9i6z-cm98.json?arrest_charge=11007", HttpMethod.GET, entity,
+				Crime[].class);
 
 		ResponseEntity<Crime[]> aggraAssault = restTemplate.exchange(
-				"https://data.detroitmi.gov/resource/9i6z-cm98.json?arrest_charge=13002&year=" + year, HttpMethod.GET, entity,
+				"https://data.detroitmi.gov/resource/9i6z-cm98.json?arrest_charge=13002", HttpMethod.GET, entity,
 				Crime[].class);
 
 		ResponseEntity<Crime[]> assault = restTemplate.exchange(
-				"https://data.detroitmi.gov/resource/9i6z-cm98.json?arrest_charge=13001&year=" + year, HttpMethod.GET, entity,
+				"https://data.detroitmi.gov/resource/9i6z-cm98.json?arrest_charge=13001", HttpMethod.GET, entity,
 				Crime[].class);
 
 		ResponseEntity<Crime[]> robbery = restTemplate.exchange(
-				"https://data.detroitmi.gov/resource/9i6z-cm98.json?arrest_charge=12000&year=" + year, HttpMethod.GET, entity,
+				"https://data.detroitmi.gov/resource/9i6z-cm98.json?arrest_charge=12000", HttpMethod.GET, entity,
 				Crime[].class);
-
-		// initializing a list for theft crimes
-		ArrayList<Crime> violentList = new ArrayList<Crime>();
-		// adding First degree sex offenses to SA list
 		for (Crime c : assault.getBody()) {
-			violentList.add(c);
+			localList.add(c);
 		}
 		// adding second degree sex offense to SA list
 		for (Crime c : robbery.getBody()) {
-			violentList.add(c);
+			localList.add(c);
 		}
 		for (Crime c : aggraAssault.getBody()) {
-			violentList.add(c);
+			localList.add(c);
 		}
-		
-		violentList = crimesNearAddress(violentList, userLat, userLong);
-		return violentList;
+		for (Crime c : firstDegree.getBody()) {
+			localList.add(c);
+		}
+		// adding second degree sex offense to SA list
+		for (Crime c : secondDegree.getBody()) {
+			localList.add(c);
+		}
+		for (Crime c : stolenVehicle.getBody()) {
+			localList.add(c);
+		}
+		// adding larceny to our theft category list
+		for (Crime c : larceny.getBody()) {
+			localList.add(c);
+		}
+		// adding burglary to our theft category list
+		for (Crime c : burglary.getBody()) {
+			localList.add(c);
+		}
+		localList = crimesNearAddress(localList, userLat, userLong);
+		return localList.size();
 	}
-	
-	public static ArrayList<Crime> createMasterList(ArrayList<Crime> theftList, ArrayList<Crime> violentList, ArrayList<Crime> sexList){
-		
-		ArrayList<Crime> masterList = new ArrayList<Crime>();
-		masterList.addAll(theftList);
-		masterList.addAll(violentList);
-		masterList.addAll(sexList);
-		
-		return masterList;
-	}
-	
 
-	// Might not need this method
-//	public static int[] getCrimeTotals(String year, double userLat, double userLong) {
-//		
-//		ArrayList<Crime> theftList = theftOffense(year, userLat, userLong);
-//		ArrayList<Crime> violentList = violentOffense(year, userLat, userLong);
-//		ArrayList<Crime> sexList = sexOffense(year, userLat, userLong);
-//		ArrayList<Crime> masterList = createMasterList(theftList, violentList, sexList);
-//		int[] totals = {violentList.size(),sexList.size(), theftList.size(),masterList.size()};
-//		
-//		return totals;
-//	}
+	public static double averageTotalLocalCrimeList(double userLat, double userLong) {
+
+		double totalLocalCrimeNumber = crimeLocalList(userLat, userLong);
+		double average = totalLocalCrimeNumber / 3;
+		return average;
+	}
 	
-	// Calculate the crime data decrease from 2016 to 2018
-	public static int calculateDecrease(int crime2016, int crime2018) {
-		double decrease = crime2016 - crime2018;
-		double decreaseTotal = decrease / crime2016;
+	public static int calculateAvgDecrease(double avgTotal, double avgLocal) {
+		double decrease = avgTotal - avgLocal;
+		double decreaseTotal = decrease / avgTotal;
 		double decreasePercentage = decreaseTotal * 100;
 
 		return (int) decreasePercentage;
 
 	}
+	
+	public static int calculateAvgIncrease(double avgTotal, int avgLocal) {
 
-	// Calculate the crime data increase from 2016 to 2018
-	public static int calculateIncrease(int crime2016, int crime2018) {
-
-		double increase = crime2018 - crime2016;
-		double increaseTotal = increase / crime2016;
+		double increase = avgLocal - avgTotal;
+		double increaseTotal = increase / avgTotal;
 		double increasePercentage = increaseTotal * 100;
 		return (int) increasePercentage;
 	}
-	// we pass in a score weight (all weights should sum to 100) and to ints for crime comparison
-	// the return should be one score (of type int) for a particular crime category
-	public static double calculateCrimeScore(double scoreWeight, int crime2016, int crime2018) {
-		double score = 25;
-//		System.out.println("Score: " + score);
-//		System.out.println("scoreweight: " + scoreWeight);
-//		
-//		System.out.println("**" + crime2016);
-//		System.out.println("****" + crime2018);
-		// neighborhood gets full points if crime is zero
-		if (crime2018 == 0) {
-			score = scoreWeight;
-			System.out.println("1");
-			return score;
-			
-		} 
-		// neighborhood gets half points for no increase or decrease in crime
-		else if (crime2016 == crime2018) {
-			score = scoreWeight / 2;
-			System.out.println("2");
-			return score;
-		} 
-		// neighborhood gets more points for greater decrease in crime
-		else if (crime2016 > crime2018) {
-			int decrease = calculateDecrease(crime2016, crime2018);
+	
+	public static String calculateSafetyPercentage(int allTotal, int localTotal) {
+		
+		 if (allTotal >= localTotal) {
+			 return "Average";
+		 }
+		 
+		 else if(allTotal >= localTotal ) {
+			int decrease = calculateAvgDecrease(allTotal, localTotal);
 			if (decrease >= 50) {
-				score += scoreWeight;
-				System.out.println("3");
-				return score;
-			} else if (decrease >= 25) {
-				score = scoreWeight * .75;
-				System.out.println("4");
-				return score;
+				
+				return "very safe";
+			} else if (decrease >= 15) {
+				return "moderately safe";
 			} else if (decrease >= 1) {
-				score = scoreWeight * .6;
-				System.out.println("5");
-				System.out.println(score);
-				return score;
+				
+				return "average";
 			}
 		}
 		// neighborhood gets less points for greater increase in crime
-		else if (crime2016 < crime2018) {
-			int increase = calculateIncrease(crime2016, crime2018);
+		else if (allTotal <= localTotal) {
+			int increase = calculateAvgIncrease(allTotal, localTotal);
 			if (increase >= 50) {
-				System.out.println("6");
-				score = 0;
-				return score;
-			} else if (increase >= 25) {
-				score = scoreWeight * .25;
-				System.out.println("7");
-				System.out.println(score);
-				return score;
-			} else if (increase >= 1) {
-				score = scoreWeight * .4;
-				System.out.println("8");
-				System.out.println(score);
 				
-				return score;
+				return "very dangerous";
+			} else if (increase >= 15) {
+				
+				return "dangerous";
+			} else if (increase >= 1) {
+				
+				
+				
+				return "average";
 			}
 		}
-
-		return score;
+		 System.out.println("all total: " + allTotal + "localTotal: " + localTotal);
+		return "HELLO WHIRLED";
 	}
 	
-	public static String sumScoreCategories(int[] crime2016, int[] crime2018) {
-		
-		double vScore = calculateCrimeScore(20, crime2016[0], crime2018[0]);
-		
-		double sScore = calculateCrimeScore(20, crime2016[1], crime2018[1]);
-		double tScore = calculateCrimeScore(20, crime2016[2], crime2018[2]);
-		double overallScore = calculateCrimeScore(40, crime2016[3], crime2018[3]);
-		double sumScores = vScore + sScore + tScore + overallScore;
-		String grade = "";
-		
-		if (sumScores > 89) {
-			grade = "A";
-		} else if (sumScores > 79) {
-			grade = "B";
-		} else if (sumScores > 69) {
-			grade = "C";
-		} else if (sumScores > 59) {
-			grade = "D";
-		} else {
-			grade = "F";
-		}
-		
-		
-		return grade;
-	}
 
 
 }

@@ -1,7 +1,6 @@
 package com.finalproject.FinalProject.controller;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.SortedSet;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -19,7 +18,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.finalproject.FinalProject.entity.geo.GeoJson;
 import com.finalproject.FinalProject.entity.greenlight.GreenLightJson;
-import com.finalproject.FinalProject.util.AverageCrimeUtility;
 import com.finalproject.FinalProject.util.CrimeUtility;
 import com.finalproject.FinalProject.util.UtilityClass;
 
@@ -33,19 +31,16 @@ public class CrimeController {
 	// this is the GEOCODE API
 	@RequestMapping("/result")
 	public ModelAndView Geo(@RequestParam("address") String address, @RequestParam("city") String city,
-			@RequestParam("state") String state) { // HttpSession session
+			@RequestParam("state") String state) {
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("Accept", MediaType.APPLICATION_JSON_VALUE);
 
 		HttpEntity<String> entity = new HttpEntity<String>("parameters", headers);
 
-		// session.setAttribute("address", address);
 		RestTemplate restTemplate = new RestTemplate();
 
 		GeoJson result = restTemplate.getForObject("https://maps.googleapis.com/maps/api/geocode/json?address="
 				+ address + city + state + "&key=" + geocodeKey, GeoJson.class);
-		// real address :
-		// https://maps.googleapis.com/maps/api/geocode/json?address=1750WoodwardAveDetroitMI&key=AIzaSyC4_ZSaexxdhNL2hP_MJ4t4vTRUVpigN1
 
 		Double latitude = result.getResults().get(0).getGeometry().getLocation().getLat();
 		Double longitude = result.getResults().get(0).getGeometry().getLocation().getLng();
@@ -80,9 +75,9 @@ public class CrimeController {
 		double precinctDistance = precincts.first().getValue();
 		String precinctName = precincts.first().getKey();
 		String yourPrecinctDistance = String.format("%.2f", precinctDistance) + " miles away";
-		int localAverage = (int) AverageCrimeUtility.averageTotalLocalCrimeList(latitude, longitude);
-		int allAverage = (int) AverageCrimeUtility.averageTotalCrimeList();
-		String percentage = AverageCrimeUtility.calculateSafetyPercentage(allAverage, localAverage);
+		int localAverage = (int) CrimeUtility.averageTotalLocalCrimeList(latitude, longitude);
+		int allAverage = (int) CrimeUtility.averageTotalCrimeList();
+		String percentage = CrimeUtility.calculateSafetyPercentage(allAverage, localAverage);
 		String[] precinctInfo = returnPrecinctInformation(precinctName);
 		
 		mv.addObject("latitude", latitude);
