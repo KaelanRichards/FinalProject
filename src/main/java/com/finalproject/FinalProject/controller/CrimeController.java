@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.SortedSet;
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -32,24 +30,22 @@ public class CrimeController {
 	@Value("${geocode.key}")
 	String geocodeKey;
 
-	@RequestMapping("/crimetable")
-	public ModelAndView crimeDataTest() {
-
-		int[] totals2016 = CrimeUtility.getCrimeTotals("2016", 42.335972, -83.050057);
-		int[] totals2017 = CrimeUtility.getCrimeTotals("2017", 42.335972, -83.050057);
-		int[] totals2018 = CrimeUtility.getCrimeTotals("2018", 42.335972, -83.050057);
-		String finalScore = CrimeUtility.sumScoreCategories(totals2016, totals2018);
-		System.out.println(Arrays.toString(totals2016));
-		System.out.println(Arrays.toString(totals2017));
-		System.out.println(Arrays.toString(totals2018));
-
-		ModelAndView mv = new ModelAndView("crimetable");
-		mv.addObject("finalScoreTest", finalScore);
-		// mv.addObject("aggravatedAssault", masterList16);
-//		mv.addObject("crimeCountsss", countCrimesByCategory2018(42.335972, -83.050057));
-//		mv.addObject("crimeCounts", countCrimesByCategory2016(42.335972, -83.050057));
-		return mv;
-	}
+//	@RequestMapping("/crimetable")
+//	public ModelAndView crimeDataTest() {
+//
+//		int[] totals2016 = CrimeUtility.getCrimeTotals("2016", 42.335972, -83.050057);
+//		int[] totals2017 = CrimeUtility.getCrimeTotals("2017", 42.335972, -83.050057);
+//		int[] totals2018 = CrimeUtility.getCrimeTotals("2018", 42.335972, -83.050057);
+//		String finalScore = CrimeUtility.sumScoreCategories(totals2016, totals2018);
+//		System.out.println(Arrays.toString(totals2016));
+//		System.out.println(Arrays.toString(totals2017));
+//		System.out.println(Arrays.toString(totals2018));
+//
+//		ModelAndView mv = new ModelAndView("crimetable");
+//		mv.addObject("finalScoreTest", finalScore);
+//
+//		return mv;
+//	}
 
 	// this is the GEOCODE API
 	@RequestMapping("/result")
@@ -72,10 +68,6 @@ public class CrimeController {
 		Double latitude = result.getResults().get(0).getGeometry().getLocation().getLat();
 		Double longitude = result.getResults().get(0).getGeometry().getLocation().getLng();
 
-//		int[] totals2016 = CrimeUtility.getCrimeTotals("2016", latitude, longitude);
-//		int[] totals2017 = CrimeUtility.getCrimeTotals("2017", latitude, longitude);
-//		int[] totals2018 = CrimeUtility.getCrimeTotals("2018", latitude, longitude);
-//		String finalScore = CrimeUtility.sumScoreCategories(totals2016, totals2018);
 
 		ResponseEntity<GreenLightJson[]> GLresult = restTemplate.exchange(
 				"https://data.detroitmi.gov/resource/xgha-35ji.json", HttpMethod.GET, entity, GreenLightJson[].class);
@@ -100,11 +92,6 @@ public class CrimeController {
 
 		ModelAndView mv = new ModelAndView("results");
 
-//		mv.addObject("result", latitude + " " + longitude);
-//		mv.addObject("grade", finalScore);
-//		mv.addObject("scores16", Arrays.toString(totals2016));
-//		mv.addObject("scores17", Arrays.toString(totals2017));
-//		mv.addObject("scores18", Arrays.toString(totals2018));
 
 		SortedSet<java.util.Map.Entry<String, Double>> precincts = UtilityClass.precinctsNearAddress(latitude,
 				longitude);
@@ -115,6 +102,16 @@ public class CrimeController {
 		int allAverage = (int) AverageCrimeUtility.averageTotalCrimeList();
 		String percentage = AverageCrimeUtility.calculateSafetyPercentage(allAverage, localAverage);
 		String[] precinctInfo = returnPrecinctInformation(precinctName);
+		
+		mv.addObject("stolenVehicle", CrimeUtility.localCrimeOffense(24001, "2018", latitude, longitude).size());
+		mv.addObject("larceny", CrimeUtility.localCrimeOffense(23007, "2018", latitude, longitude).size());
+		mv.addObject("burglary", CrimeUtility.localCrimeOffense(22001, "2018", latitude, longitude).size());
+		mv.addObject("aggravatedAssault", CrimeUtility.localCrimeOffense(13002, "2018", latitude, longitude).size());
+		mv.addObject("assault", CrimeUtility.localCrimeOffense(13001, "2018", latitude, longitude).size());
+		mv.addObject("robbery", CrimeUtility.localCrimeOffense(1200, "2018", latitude, longitude).size());
+		mv.addObject("sexualAssault", CrimeUtility.localCrimeOffense(11001, "2018", latitude, longitude).size() + CrimeUtility.localCrimeOffense(11003, "2018", latitude, longitude).size()
+				+ CrimeUtility.localCrimeOffense(11002, "2018", latitude, longitude).size() + CrimeUtility.localCrimeOffense(11004, "2018", latitude, longitude).size());
+	
 		
 		mv.addObject("precinctInfo", precinctInfo);
 		mv.addObject("yourPrecinct", yourPrecinctDistance);
@@ -194,7 +191,7 @@ public class CrimeController {
 			return (info);
 
 		case "12th":
-			info[0] = "12nd Police Station";
+			info[0] = "12th Police Station";
 			info[1] = "1441 W. Seven Mile Road Detroit MI 48203";
 			info[2] = "Commander Thomas (313) 596-1200 Officer Nathaniel Womack (313)618-1071, Officer Michael Crowder (313)573-7654, Officer Tania Anding (313)618-0767, & Officer Shannon Bullock (313)618-0787";
 			return (info);

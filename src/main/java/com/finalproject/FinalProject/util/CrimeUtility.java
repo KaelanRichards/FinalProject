@@ -28,43 +28,26 @@ public class CrimeUtility {
 
 	}
 	
-	public static ArrayList<Crime> theftOffense(String year, double userLat, double userLong) {
+	public static ArrayList<Crime> localCrimeOffense(int chargeNumber, String year, double userLat, double userLong) {
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("Accept", MediaType.APPLICATION_JSON_VALUE);
 
 		HttpEntity<String> entity = new HttpEntity<String>("parameters", headers);
 
 		RestTemplate restTemplate = new RestTemplate();
-
-		ResponseEntity<Crime[]> stolenVehicle = restTemplate.exchange(
-				"https://data.detroitmi.gov/resource/9i6z-cm98.json?arrest_charge=24001&year=" + year, HttpMethod.GET, entity,
-				Crime[].class);
-
-		ResponseEntity<Crime[]> larceny = restTemplate.exchange(
-				"https://data.detroitmi.gov/resource/9i6z-cm98.json?arrest_charge=23007&year=" + year, HttpMethod.GET, entity,
-				Crime[].class);
-
-		ResponseEntity<Crime[]> burglary = restTemplate.exchange(
-				"https://data.detroitmi.gov/resource/9i6z-cm98.json?arrest_charge=22001&year=" + year, HttpMethod.GET, entity,
-				Crime[].class);
-
-		// initializing a list for theft crimes
-		ArrayList<Crime> theftList = new ArrayList<Crime>();
-		// adding stolen vehicles to our theft category list
-		for (Crime c : stolenVehicle.getBody()) {
-			theftList.add(c);
-		}
-		// adding larceny to our theft category list
-		for (Crime c : larceny.getBody()) {
-			theftList.add(c);
-		}
-		// adding burglary to our theft category list
-		for (Crime c : burglary.getBody()) {
-			theftList.add(c);
-		}
 		
-		theftList = crimesNearAddress(theftList, userLat, userLong);
-		return theftList;
+		ResponseEntity<Crime[]> crime = restTemplate.exchange(
+				"https://data.detroitmi.gov/resource/9i6z-cm98.json?arrest_charge=" + chargeNumber + "&year=" + year,
+				HttpMethod.GET, entity, Crime[].class);
+		// initializing a list for theft crimes
+		ArrayList<Crime> localCrimeList = new ArrayList<Crime>();
+		// adding stolen vehicles to our theft category list
+		for (Crime c : crime.getBody()) {
+			localCrimeList.add(c);
+		}
+	
+		localCrimeList = crimesNearAddress(localCrimeList, userLat, userLong);
+		return localCrimeList;
 	}
 	public static ArrayList<Crime> sexOffense(String year, double userLat, double userLong) {
 		HttpHeaders headers = new HttpHeaders();
@@ -144,17 +127,17 @@ public class CrimeUtility {
 	}
 	
 
-	
-	public static int[] getCrimeTotals(String year, double userLat, double userLong) {
-		
-		ArrayList<Crime> theftList = theftOffense(year, userLat, userLong);
-		ArrayList<Crime> violentList = violentOffense(year, userLat, userLong);
-		ArrayList<Crime> sexList = sexOffense(year, userLat, userLong);
-		ArrayList<Crime> masterList = createMasterList(theftList, violentList, sexList);
-		int[] totals = {violentList.size(),sexList.size(), theftList.size(),masterList.size()};
-		
-		return totals;
-	}
+	// Might not need this method
+//	public static int[] getCrimeTotals(String year, double userLat, double userLong) {
+//		
+//		ArrayList<Crime> theftList = theftOffense(year, userLat, userLong);
+//		ArrayList<Crime> violentList = violentOffense(year, userLat, userLong);
+//		ArrayList<Crime> sexList = sexOffense(year, userLat, userLong);
+//		ArrayList<Crime> masterList = createMasterList(theftList, violentList, sexList);
+//		int[] totals = {violentList.size(),sexList.size(), theftList.size(),masterList.size()};
+//		
+//		return totals;
+//	}
 	
 	// Calculate the crime data decrease from 2016 to 2018
 	public static int calculateDecrease(int crime2016, int crime2018) {

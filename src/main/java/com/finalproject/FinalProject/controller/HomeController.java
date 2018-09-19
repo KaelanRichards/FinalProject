@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.finalproject.FinalProject.entity.Crime;
 import com.finalproject.FinalProject.entity.Favorite;
@@ -37,42 +38,52 @@ public class HomeController {
 	FavoriteRepo favRepo;
 
 	@RequestMapping("/")
-	public ModelAndView index() {
+	public ModelAndView homePage() {
 
-		return new ModelAndView("index");
+		return new ModelAndView("search");
+	}
+	
+	@RequestMapping("/index")
+	public String index() {
+		return "index";
 	}
 	
 	
 	@RequestMapping("/login")
 	public ModelAndView login(@RequestParam("username") String username, @RequestParam("password") String password, HttpSession session) {
 		Optional<User> optionalUser = loginRepo.findByUsername(username);
+		//optional instead of list bc it's a class and can be compared to String later		
 		if (optionalUser.isPresent()) {
 			String truePassword = optionalUser.get().getPassword();
+			// isPresent is used to see if username existed, use ".get()" and "getPassword"
 			if (truePassword.equals(password)) {
 				// create user object using the optional "get" method
 				User user = optionalUser.get();
 				// setting http session attribute to our user object
 				// this tracks the user's login as long as our session lasts
 				session.setAttribute("user", user);
-				return new ModelAndView("crimetable", "login", "Welcome back, " + user.getFirstname() + "!");
+				return new ModelAndView("search", "login", " Welcome back, " + user.getFirstname() + "!");
 			}
 
 		}
-
-		// comments:
-		// using optional instead of list bc it is a class, so we can compare String to
-		// it later
-		// logic: to find the username then match it to the corresponding pw
-		// isPresent is used to see if username existed
-		// we get name by ".get()" and "getPassword"
-		// if the pw in sql equals to userinput , then return !
-
 		else {
 			return new ModelAndView("index", "login", "Wrong Username or Password!");
 		}
 		return null;
 
 	}
+	
+	@RequestMapping("/logout")
+	public ModelAndView logout(HttpSession session, RedirectAttributes redir) {
+		// invalidate clears the current user session and starts a new one.
+		session.invalidate();
+		
+		// A flash message will only show on the very next page. Then it will go away.
+		// It is useful with redirects since you can't add attributes to the mav.
+		redir.addFlashAttribute("message", "Logged out.");
+		return new ModelAndView("redirect:/");
+	}
+	
 
 	@RequestMapping("/display") // url
 	public String registerPage() {
@@ -89,8 +100,13 @@ public class HomeController {
 	@RequestMapping("/search")
 	public ModelAndView searchBar() {
 
-		return new ModelAndView("search");
+		return new ModelAndView("results");
 
+	}
+	
+	@RequestMapping("/resources")
+	public ModelAndView resources() {
+		return new ModelAndView("resources");
 	}
 
 
@@ -112,27 +128,6 @@ public class HomeController {
 		System.out.println(Arrays.toString(response.getBody()));
 		return mv;
 	}
-//	@RequestMapping("/response911")
-//	public ModelAndView callResponse() {
-//		ModelAndView mv = new ModelAndView("index");
-//		
-//		HttpHeaders headers = new HttpHeaders();
-//		headers.add("Accept", MediaType.APPLICATION_JSON_VALUE); 
-//		
-//		HttpEntity<String> entity = new HttpEntity<String>("parameters", headers);
-//
-//		RestTemplate restTemplate = new RestTemplate();
-//		ResponseEntity<CallResponse[]> response = restTemplate.exchange(
-//				"https://data.detroitmi.gov/resource/Calls911.json",
-//				HttpMethod.GET, entity, CallResponse[].class);
-//
-//		mv.addObject("test", response.getBody());
-//		System.out.println(Arrays.toString(response.getBody()));
-//		return mv;
-//	}
-
-	
-
 	
 		@RequestMapping ("/favorites")
 		public ModelAndView favoriteList (HttpSession session) {
@@ -157,23 +152,12 @@ public class HomeController {
 			Favorite myHouse = optHouse.get();
 			String address = myHouse.getAddress() + " Detroit, MI";
 	        
-	      
-	       // mv.addObject("title", "Edit Favorite List");
-	       // mv.addObject("listFavs", favRepo.findById(favid).orElse(null));
-	        
 	        ModelAndView mv = new ModelAndView("favoriteform");
 	        mv.addObject("favoriteItem", myHouse);
 	        mv.addObject("favAddress", address);
 	        
 	        return mv;
 	    }
-	    
-//	    @PostMapping("/edit/{favid}/")
-//	    public ModelAndView submitEditForm(Favorite favorite, @PathVariable("favid") long favid, @RequestParam ("category") String category) {
-//	    	favorite.setCategory(category);
-//	        favRepo.save(favorite);
-//	        return new ModelAndView("redirect:/favorites");
-//	    }
 		
 		@PostMapping("/edit")
 	    public ModelAndView submitEditForm(@RequestParam("id") long id, @RequestParam("category") String c ) {
