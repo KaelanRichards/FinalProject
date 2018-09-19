@@ -43,8 +43,12 @@ ${result}
 <h4>Aggr. Assaults:  ${scores18}</h4>
 <h6>__________________________________________________________________________</h6>
 <h5>Your Closest Precinct: ${yourPrecinct}</h5>
+<h5>Department: ${precinctInfo[0] }</h5>
+<h5>Address: ${precinctInfo[1] }</h5>
+<h5>Contact Information: ${precinctInfo[2] }</h5>
 <h6>__________________________________________________________________________</h6>
 <h5>Project GreenLight Participants Near You</h5>
+
 <table>
 	<tr>
 		<th>Business</th>
@@ -57,7 +61,8 @@ ${result}
 		</tr>
 	</c:forEach>
 </table>
-<form action = "/add_to_my_houses"><input type = "submit" value="Add to Favorites"></form>
+<form action = "/add_to_my_houses/${address }">
+<input type = "submit" value="Add to Favorites"></form>
 ${safetyString }
 
 ${gl}
