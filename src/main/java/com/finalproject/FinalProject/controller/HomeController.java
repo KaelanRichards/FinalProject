@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.finalproject.FinalProject.entity.Crime;
 import com.finalproject.FinalProject.entity.Favorite;
@@ -71,6 +72,18 @@ public class HomeController {
 		return null;
 
 	}
+	
+	@RequestMapping("/logout")
+	public ModelAndView logout(HttpSession session, RedirectAttributes redir) {
+		// invalidate clears the current user session and starts a new one.
+		session.invalidate();
+		
+		// A flash message will only show on the very next page. Then it will go away.
+		// It is useful with redirects since you can't add attributes to the mav.
+		redir.addFlashAttribute("message", "Logged out.");
+		return new ModelAndView("redirect:/search");
+	}
+	
 
 	@RequestMapping("/display") // url
 	public String registerPage() {
