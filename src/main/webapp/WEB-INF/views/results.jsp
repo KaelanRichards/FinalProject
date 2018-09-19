@@ -51,16 +51,17 @@ tr:nth-child(even) {
       	<a class="nav-link" href="/resources">Resources</a>
       </li>
       <li class="nav-item">
-<<<<<<< HEAD
+
       <!-- need to redirect to search page after invalidating the http session
       request mapping to logout controller method and then use redirect for the modelandview jsp page? -->
-=======
->>>>>>> a2d5002f0a73a76c1018a8bd6b7a38d224a098d0
+
       	<a class="nav-link" href="/logout">Log Out</a>
       </li>
     </ul>
   </div>
 </nav>
+<br>
+<br>
 	${result}
 
 
@@ -74,6 +75,7 @@ tr:nth-child(even) {
 	<div class="container">
 	<h6>__________________________________________________________________________________________________________________________________________________________</h6>
 	<h3>Crime Details</h3>
+	<h6>__________________________________________________________________________________________________________________________________________________________</h6>
 	<p>Larceny: ${larceny}</p>
 	<p>Stolen Vehicles: ${stolenVehicle}</p>
 	<p>Burglaries: ${burglary}</p>
@@ -85,6 +87,7 @@ tr:nth-child(even) {
 	<div class="container">
 	<h6>__________________________________________________________________________________________________________________________________________________________</h6>
 	<h3>Police Department information</h3>
+	<h6>__________________________________________________________________________________________________________________________________________________________</h6>
 	<h5>Your Closest Precinct: ${yourPrecinct}</h5>
 	<h5>Department:</h5>
 	<p>${precinctInfo[0] }</p>
@@ -93,7 +96,8 @@ tr:nth-child(even) {
 	<h5>Contact Information:</h5>
 	<p>${precinctInfo[2] }</p>
 	<h6>__________________________________________________________________________________________________________________________________________________________</h6>
-	<h1>Project GreenLight Participants Near You</h1>
+	<h3>Project GreenLight Participants Near You</h3>
+	<h6>__________________________________________________________________________________________________________________________________________________________</h6>
 	</div>
 	<div class="container">
 	<table>
@@ -109,6 +113,7 @@ tr:nth-child(even) {
 		</c:forEach>
 	</table>
 	</div>
+	<br>
 	
 	${gl}
 	
@@ -116,6 +121,7 @@ tr:nth-child(even) {
     <div id="map" class="container">
     <h3>Your pinned location</h3>
     </div>
+    <br>
 	<script>
 		// Initialize and add the map
 		function initMap() {
