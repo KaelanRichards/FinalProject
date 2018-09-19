@@ -43,6 +43,7 @@ ${result}
 <p>Assaults:        ${assault}</p>
 <p>Aggr. Assaults:  ${aggravatedAssault}</p>
 <h6>__________________________________________________________________________</h6>
+<h3>Police Department information</h3>
 <h5>Your Closest Precinct: ${yourPrecinct}</h5>
 <h5>Department:</h5> <p>${precinctInfo[0] }</p>
 <h5>Address: </h5> <p>${precinctInfo[1] }</p>
