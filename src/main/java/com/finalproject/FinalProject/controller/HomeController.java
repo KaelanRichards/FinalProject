@@ -103,6 +103,11 @@ public class HomeController {
 		return new ModelAndView("results");
 
 	}
+	
+	@RequestMapping("/resources")
+	public ModelAndView resources() {
+		return new ModelAndView("resources");
+	}
 
 
 
