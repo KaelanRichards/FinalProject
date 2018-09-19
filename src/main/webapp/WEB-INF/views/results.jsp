@@ -34,9 +34,7 @@
       	<a class="nav-link" href="/resources">Resources</a>
       </li>
       <li class="nav-item">
-      <!-- need to redirect to search page after invalidating the http session
-      request mapping to logout controller method and then use redirect for the modelandview jsp page? -->
-      	<a class="nav-link" href="/search/logout">Log Out</a>
+      	<a class="nav-link" href="/logout">Log Out</a>
       </li>
     </ul>
   </div>
