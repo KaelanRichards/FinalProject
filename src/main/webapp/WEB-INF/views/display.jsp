@@ -80,24 +80,6 @@ ${login}
 
 <input type = "submit" value = "Register">
 </form>
-<%-- <c:forEach var="a" items="${login }" >
-	<tr>
-	
-	
-	
-	 <td>${a.username}</td> 
-	 <td>${a.password}</td>
-	 <td>${a.firstname}</td>
-	 <td>${a.lastname}</td>
-	 <td>${a.phone}</td>
-	 <td>${a.confirmpassword}</td>
-	 
-	 <a href = "/add/${a.id}/${a.username}/${a.password}/${a.firstname}/${a.lastname}/${a.phone}/${a.confirmpassword}/"><button>Registerrrr</button></a>
-	<!-- </tr> -->
-	</c:forEach>
-
-
-</form> --%>
 
 </body>
 </html>
