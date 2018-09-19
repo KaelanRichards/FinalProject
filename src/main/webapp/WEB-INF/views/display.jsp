@@ -39,7 +39,7 @@
     </ul>
   </div>
 </nav>
-
+<div class="container">
 ${login}
 
 
@@ -80,6 +80,6 @@ ${login}
 
 <input type = "submit" value = "Register">
 </form>
-
+</div>
 </body>
 </html>

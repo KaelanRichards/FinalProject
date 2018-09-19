@@ -42,6 +42,7 @@
     </ul>
   </div>
 </nav>
+<div class="container">
  ${login}
 <h1>Login Page</h1>
 
@@ -70,7 +71,7 @@
 <br>
 
 <a href= "/display"><button>New User? Register here..</button></a>
-
+</div>
 <script src = "js/script.js"></script>
 
 
