@@ -42,9 +42,9 @@
 <div class="container">
 ${login}
 
-
+<br>
 <h3>Please fill the form to register!</h3>
-
+<br>
 <form name ="regForm" action="/User" method="post">
 
 <!-- One "tab" for each step in the form: -->
@@ -78,7 +78,7 @@ ${login}
   </div>
 
 
-<input type = "submit" value = "Register">
+<input class="btn btn-primary" type = "submit" value = "Register">
 </form>
 </div>
 </body>

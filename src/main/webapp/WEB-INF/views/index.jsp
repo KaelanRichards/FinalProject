@@ -42,10 +42,11 @@
     </ul>
   </div>
 </nav>
+<br>
 <div class="container">
  ${login}
 <h1>Login Page</h1>
-
+<br>
 <form action = "/login" method = "post">
 
 
@@ -66,11 +67,11 @@
 
 <input type="checkbox" onclick='showPassword()' onchange = 'check_pass();'/>Show Password
 
-<input type = "submit" value = "Login">
+<input class="btn btn-primary" type = "submit" value = "Login">
 </form>
 <br>
 
-<a href= "/display"><button>New User? Register here..</button></a>
+<a href= "/display"><button class="btn btn-primary">New? Register here...</button></a>
 </div>
 <script src = "js/script.js"></script>
 
