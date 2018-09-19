@@ -14,6 +14,23 @@
         height: 400px;  /* The height is 400 pixels */
         width: 100%;  /* The width is the width of the web page */
        }
+       
+       
+       table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #dddddd;
+}
     </style>
 </head>
 <body>
@@ -36,7 +53,7 @@
       <li class="nav-item">
       <!-- need to redirect to search page after invalidating the http session
       request mapping to logout controller method and then use redirect for the modelandview jsp page? -->
-      	<a class="nav-link" href="/search/logout">Log Out</a>
+      	<a class="nav-link" href="/logout">Log Out</a>
       </li>
     </ul>
   </div>
@@ -45,14 +62,14 @@
 
 
 	<div class="container">
-	<h1>Your Crime Safety Rating Is</h1>
-	<h1>>>>${safetyString }<<<</h1>
+	<h1><center>Your Crime Safety Rating Is</center></h1>
+	<h1><center><font color = "red">>>>${safetyString }<<<</h1></center></font>
 	<form action="/add_to_my_houses/${address }">
-		<input class="btn btn-warning" type="submit" value="Add to Favorites">
+		<center><input class="btn btn-warning" type="submit" value="Add to Favorites"></center>
 	</form>
 	</div>
 	<div class="container">
-	<h6>__________________________________________________________________________</h6>
+	<h6>__________________________________________________________________________________________________________________________________________________________</h6>
 	<h3>Crime Details</h3>
 	<p>Larceny: ${larceny}</p>
 	<p>Stolen Vehicles: ${stolenVehicle}</p>
@@ -63,7 +80,7 @@
 	<p>Aggr. Assaults: ${aggravatedAssault}</p>
 	</div>
 	<div class="container">
-	<h6>__________________________________________________________________________</h6>
+	<h6>__________________________________________________________________________________________________________________________________________________________</h6>
 	<h3>Police Department information</h3>
 	<h5>Your Closest Precinct: ${yourPrecinct}</h5>
 	<h5>Department:</h5>
@@ -72,7 +89,7 @@
 	<p>${precinctInfo[1] }</p>
 	<h5>Contact Information:</h5>
 	<p>${precinctInfo[2] }</p>
-	<h6>__________________________________________________________________________</h6>
+	<h6>__________________________________________________________________________________________________________________________________________________________</h6>
 	<h1>Project GreenLight Participants Near You</h1>
 	</div>
 	<div class="container">
