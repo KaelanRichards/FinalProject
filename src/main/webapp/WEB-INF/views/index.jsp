@@ -74,7 +74,7 @@
 
 <a href= "/display"><button class="btn btn-primary">New? Register here...</button></a>
 </div>
-<script src = "js/script.js"></script>
+	<script src="js/script.js"></script>
 
 
 </body>
