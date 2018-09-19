@@ -26,7 +26,7 @@ import com.finalproject.FinalProject.entity.User;
 import com.finalproject.FinalProject.repo.FavoriteRepo;
 import com.finalproject.FinalProject.repo.LoginRepository;
 
-@SessionAttributes({"user", "address"})
+@SessionAttributes("user")
 @Controller
 public class HomeController {
 
@@ -41,14 +41,18 @@ public class HomeController {
 
 		return new ModelAndView("index");
 	}
-
+	
+	
 	@RequestMapping("/login")
 	public ModelAndView login(@RequestParam("username") String username, @RequestParam("password") String password, HttpSession session) {
 		Optional<User> optionalUser = loginRepo.findByUsername(username);
 		if (optionalUser.isPresent()) {
 			String truePassword = optionalUser.get().getPassword();
 			if (truePassword.equals(password)) {
+				// create user object using the optional "get" method
 				User user = optionalUser.get();
+				// setting http session attribute to our user object
+				// this tracks the user's login as long as our session lasts
 				session.setAttribute("user", user);
 				return new ModelAndView("crimetable", "login", "Welcome back, " + user.getFirstname() + "!");
 			}
@@ -181,14 +185,14 @@ public class HomeController {
 		
 		
 		
-		@RequestMapping("/add_to_my_houses")
-	    public ModelAndView addNewFav(Favorite f, HttpSession session) {
+		@RequestMapping("/add_to_my_houses/{address}")
+	    public ModelAndView addNewFav(Favorite f, HttpSession session, @PathVariable("address") String address) {
 				User user = (User) session.getAttribute("user");
-				String address = (String) session.getAttribute("address");
+				//String address = (String) session.getAttribute("address");
 				f.setAddress(address);
 				f.setUser(user);
 				favRepo.save(f);
-				session.setAttribute("address", null);
+				//session.setAttribute("address", null);
 				return new ModelAndView("redirect:/favorites");
 
 	    }
