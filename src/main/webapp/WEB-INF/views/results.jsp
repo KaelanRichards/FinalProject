@@ -32,22 +32,23 @@ ${result}
 
 
 <h1>Your Crime Safety Rating Is </h1>
-<h1>${safetyString }</h1>
+<h1>>>>${safetyString }<<<</h1>
 <h6>__________________________________________________________________________</h6>
-<h4>Larceny:         ${scores16}</h4>
-<h4>Stolen Vehicles: ${scores17}</h4>
-<h4>Burglaries:      ${scores18}</h4>
-<h4>Sexual Assaults: ${scores17}</h4>
-<h4>Robberies:       ${scores18}</h4>
-<h4>Assaults:        ${scores17}</h4>
-<h4>Aggr. Assaults:  ${scores18}</h4>
+<h3>Crime Details</h3>
+<p>Larceny:         ${larceny}</p>
+<p>Stolen Vehicles: ${stolenVehicle}</p>
+<p>Burglaries:      ${burglary}</p>
+<p>Sexual Assaults: ${sexualAssault}</p>
+<p>Robberies:       ${robbery}</p>
+<p>Assaults:        ${assault}</p>
+<p>Aggr. Assaults:  ${aggravatedAssault}</p>
 <h6>__________________________________________________________________________</h6>
 <h5>Your Closest Precinct: ${yourPrecinct}</h5>
-<h5>Department: ${precinctInfo[0] }</h5>
-<h5>Address: ${precinctInfo[1] }</h5>
-<h5>Contact Information: ${precinctInfo[2] }</h5>
+<h5>Department:</h5> <p>${precinctInfo[0] }</p>
+<h5>Address: </h5> <p>${precinctInfo[1] }</p>
+<h5>Contact Information:</h5> <p>${precinctInfo[2] }</p>
 <h6>__________________________________________________________________________</h6>
-<h5>Project GreenLight Participants Near You</h5>
+<h1>Project GreenLight Participants Near You</h1>
 
 <table>
 	<tr>
@@ -63,7 +64,6 @@ ${result}
 </table>
 <form action = "/add_to_my_houses/${address }">
 <input type = "submit" value="Add to Favorites"></form>
-${safetyString }
 
 ${gl}
 
