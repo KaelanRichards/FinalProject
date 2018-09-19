@@ -250,7 +250,11 @@ public class AverageCrimeUtility {
 	public static String calculateSafetyPercentage(int allTotal, int localTotal) {
 		
 		int percentage;
-		 if (allTotal >= localTotal ) {
+		 if (allTotal >= localTotal) {
+			 return "Average";
+		 }
+		 
+		 else if(allTotal >= localTotal ) {
 			int decrease = calculateAvgDecrease(allTotal, localTotal);
 			if (decrease >= 50) {
 				
@@ -278,7 +282,7 @@ public class AverageCrimeUtility {
 				return "average";
 			}
 		}
-
+		 System.out.println("all total: " + allTotal + "localTotal: " + localTotal);
 		return "HELLO WHIRLED";
 	}
 // team crime spot dangerhood spy the safer detroit rocks
