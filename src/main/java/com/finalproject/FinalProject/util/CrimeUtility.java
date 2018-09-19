@@ -108,7 +108,6 @@ public class CrimeUtility {
 		double totalCrimeNumber = crimeListFromAPI();
 		double findDetroitAverage = totalCrimeNumber;
 		double quarterMileRadiusAverage = findDetroitAverage /  715;
-		System.out.println("Average1: " + findDetroitAverage + " Average2: " + quarterMileRadiusAverage);
 		return quarterMileRadiusAverage;
 	}
 	// this is the avg in 0.25mi^2
@@ -243,7 +242,6 @@ public class CrimeUtility {
 				return "average";
 			}
 		}
-		 System.out.println("all total: " + allTotal + "localTotal: " + localTotal);
 		return "HELLO WHIRLED";
 	}
 	

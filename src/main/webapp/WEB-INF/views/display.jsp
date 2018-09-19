@@ -37,6 +37,7 @@
       	<a class="nav-link" href="/logout">Log Out</a>
       </li>
     </ul>
+     <img align = "right" src = "images/test1.jpg" width="40" height="40">
   </div>
 </nav>
 <div class="container">
