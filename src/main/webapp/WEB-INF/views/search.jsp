@@ -12,6 +12,7 @@
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark" >
   <a class="navbar-brand" href="/" >DETROIT</a>
+ 
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -32,9 +33,13 @@
       <li class="nav-item">
       <!-- need to redirect to search page after invalidating the http session
       request mapping to logout controller method and then use redirect for the modelandview jsp page? -->
-      	<a class="nav-link" href="/logout">Log Out</a>
+      	
       </li>
+     
     </ul>
+     <a class="nav-link" href="/logout" align = "right">Log Out</a>
+      
+      <img align = "right" src = "images/test1.jpg" width="40" height="40">
   </div>
 </nav>
 
@@ -44,7 +49,9 @@
         <h1 class ="row text-white">${message}${login}</h1>
             <div class="row text-white">
                 <div class="col-sm-10 offset-sm-1 text-center">
-                    <h1  class="display-3 text-info" style = "padding-top: 112px">Explore Detroit</h1>
+                <img src = "images/IMG_6740.PNG" width="200" height="200">
+              
+                    <h1  class="display-2 text-info" style = "padding-top: 1px">Explore Detroit</h1>
                     <div class="info-form">
                         <form action="/result" class="form-inline justify-content-center">
                             
