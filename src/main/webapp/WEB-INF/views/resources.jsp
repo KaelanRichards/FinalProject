@@ -28,25 +28,25 @@
 
 
 
-<a href="https://www.expertise.com/mi/detroit/home-security-systems">Protect Your Home</a>
+<a href="https://www.expertise.com/mi/detroit/home-security-systems"  target="_blank"><h3>Protect Your Home</h3></a>
 
 
-<a href="https://kungfudetroit.com/">Protect yourself</a>
-
-
-
-
-<a href="http://www.icrimewatch.net/index.php?AgencyID=55242&disc=">Michigan Sex Offender registry</a>
+<a href="https://kungfudetroit.com/"  target="_blank"><h3>Protect yourself</h3></a>
 
 
 
 
-
-<a href="https://www.p3tips.com/tipform.aspx?ID=430">Submit a Tip</a>
-
+<a href="http://www.icrimewatch.net/index.php?AgencyID=55242&disc="  target="_blank"><h3>Michigan Sex Offender registry</h3></a>
 
 
-<a href="https://www.michigan.gov/msp/0,4643,7-123-1878_1591_3503_4654-10929--,00.html">Apply for CPL</a>
+
+
+
+<a href="https://www.p3tips.com/tipform.aspx?ID=430"  target="_blank"><h3>Submit a Tip</h3></a>
+
+
+
+<a href="https://www.michigan.gov/msp/0,4643,7-123-1878_1591_3503_4654-10929--,00.html"  target="_blank"><h3>Apply for CPL</h3></a>
 
 
 
