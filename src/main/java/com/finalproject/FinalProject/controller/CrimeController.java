@@ -72,13 +72,10 @@ public class CrimeController {
 
 		SortedSet<java.util.Map.Entry<String, Double>> precincts = UtilityClass.precinctsNearAddress(latitude,
 				longitude);
-		double precinctDistance = precincts.first().getValue();
-		String precinctName = precincts.first().getKey();
-		String yourPrecinctDistance = String.format("%.2f", precinctDistance) + " miles away";
+	
 		int localAverage = (int) CrimeUtility.averageTotalLocalCrimeList(latitude, longitude);
 		int allAverage = (int) CrimeUtility.averageTotalCrimeList();
 		String percentage = CrimeUtility.calculateSafetyPercentage(allAverage, localAverage);
-		String[] precinctInfo = returnPrecinctInformation(precinctName);
 		
 		// pulling data from the user input location
 		mv.addObject("latitude", latitude);
@@ -95,6 +92,10 @@ public class CrimeController {
 				+ CrimeUtility.localCrimeOffense(11002, "2018", latitude, longitude).size() + CrimeUtility.localCrimeOffense(11004, "2018", latitude, longitude).size());
 	
 		// pull precinct information from method and display on results page
+		double precinctDistance = precincts.first().getValue();
+		String precinctName = precincts.first().getKey();
+		String yourPrecinctDistance = String.format("%.2f", precinctDistance) + " miles away";
+		String[] precinctInfo = returnPrecinctInformation(precinctName);
 		mv.addObject("precinctInfo", precinctInfo);
 		mv.addObject("yourPrecinct", yourPrecinctDistance);
 		mv.addObject("yourPrecinctName", precinctName);
