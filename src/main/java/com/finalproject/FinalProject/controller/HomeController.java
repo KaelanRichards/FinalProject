@@ -80,10 +80,10 @@ public class HomeController {
 		return "display"; // string methods in the controller class return the view
 	}
 
-	@PostMapping("/User")
-	public ModelAndView add(User User) {
-		loginRepo.save(User);
-		return new ModelAndView("redirect:/");
+	@PostMapping("/registered")
+	public ModelAndView add(User user) {
+		loginRepo.save(user);
+		return new ModelAndView("index");
 
 	}
 
