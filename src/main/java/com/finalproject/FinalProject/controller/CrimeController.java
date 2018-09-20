@@ -1,6 +1,7 @@
 package com.finalproject.FinalProject.controller;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.SortedSet;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -54,14 +55,18 @@ public class CrimeController {
 		for (GreenLightJson c : GLresult.getBody()) {
 			result3.add(c);
 		}
+		for (int i = 2; i < result3.size(); i++) {
+			System.out.println(result3.get(i));
+		}
 
 		ArrayList<GreenLightJson> glInRange = new ArrayList<GreenLightJson>();
 
 		for (int i = 2; i < result3.size(); i++) {
-			double distance = UtilityClass.distFrom(latitude, longitude,
-					Double.parseDouble(GLresult.getBody()[i].getLocation().getCoordinates().get(1)),
-					Double.parseDouble(GLresult.getBody()[i].getLocation().getCoordinates().get(0)));
-			if (distance < 1) {
+			double distance = UtilityClass.distFrom(latitude, longitude, 42.0,-83.0
+					/*Double.parseDouble(GLresult.getBody()[i].getLocation().getCoordinates().get(1)),
+					Double.parseDouble(GLresult.getBody()[i].getLocation().getCoordinates().get(0))*/);
+			System.out.println(distance);
+			if (distance > 1.0) {
 				glInRange.add(result3.get(i));
 
 			}
@@ -100,6 +105,8 @@ public class CrimeController {
 		mv.addObject("yourPrecinct", yourPrecinctDistance);
 		mv.addObject("yourPrecinctName", precinctName);
 		
+		//temporary fix for null pointer exceptions relating to API or lat/lng method call (currently line 64)
+		Collections.shuffle(glInRange);
 		// creating EL for 
 		mv.addObject("GLlist", glInRange);
 		

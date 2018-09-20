@@ -121,7 +121,7 @@ tr:nth-child(even) {
 			<th>Business</th>
 			<th>Address</th>
 		</tr>
-		<c:forEach var="g" items="${GLlist}">
+		<c:forEach var="g" items="${GLlist}" end="15">
 			<tr>
 				<td>${g.businessName}</td>
 				<td>${g.address}</td>
