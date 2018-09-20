@@ -24,12 +24,13 @@
 			</a></li>
 			<li class="nav-item"><a class="nav-link" href="/display">Register</a>
 			</li>
+			<li class="nav-item"><a class="nav-link" href="/favorites"> My Favorites</a>
+			</li>
 			<li class="nav-item"><a class="nav-link" href="/resources">Resources</a>
 			</li>
-			<li class="nav-item">
-				<a class="nav-link" href="/logout">Log Out</a>
-			</li>
+				
 		</ul>
+		<a class="nav-link" href="/logout"align = "right">Log Out</a>
 		 <img align = "right" src = "images/test1.jpg" width="40" height="40">
 	</div>
 </nav>
