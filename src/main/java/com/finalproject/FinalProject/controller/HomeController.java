@@ -104,7 +104,7 @@ public class HomeController {
 		User user = (User) session.getAttribute("user");
 		if (user == null) {
 			return new ModelAndView("search", "message",
-					"You're not logged in. How could you possibly add a favorite?");
+					"You're not logged in. How could you possibly have a favorites list?");
 		}
 		// need the "currentUser" to be passed in from previous page to populate our
 		// list
