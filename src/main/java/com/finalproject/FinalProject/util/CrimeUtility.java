@@ -210,7 +210,7 @@ public class CrimeUtility {
 	
 	public static String calculateSafetyPercentage(int allTotal, int localTotal) {
 		
-		 if (allTotal >= localTotal) {
+		 if (allTotal == localTotal) {
 			 return "Average";
 		 }
 		 
@@ -218,31 +218,31 @@ public class CrimeUtility {
 			int decrease = calculateAvgDecrease(allTotal, localTotal);
 			if (decrease >= 50) {
 				
-				return "very safe";
+				return "Very Safe";
 			} else if (decrease >= 15) {
-				return "moderately safe";
+				return "Moderately Safe";
 			} else if (decrease >= 1) {
 				
-				return "average";
+				return "Slightly Above Average";
 			}
 		}
 		// neighborhood gets less points for greater increase in crime
 		else if (allTotal <= localTotal) {
 			int increase = calculateAvgIncrease(allTotal, localTotal);
-			if (increase >= 50) {
+			if (increase >= 75) {
 				
-				return "very dangerous";
+				return "Well Below Average";
 			} else if (increase >= 15) {
 				
-				return "dangerous";
+				return "Below Average";
 			} else if (increase >= 1) {
 				
 				
 				
-				return "average";
+				return "Just a Touch Below Average";
 			}
 		}
-		return "HELLO WHIRLED";
+		return "Average";
 	}
 	
 
